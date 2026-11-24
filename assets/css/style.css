@@ -2127,26 +2127,3 @@ body.fullscreen-mode .device-screen {
 .input-field { border: none; border-bottom: 2px solid rgba(255,255,255,.6); border-radius: 0; background: transparent; padding: 10px 2px; }
 .input-field:focus { border-bottom-color: #fff; box-shadow: none; background: transparent; }
 .professor-mode-banner { background: #212121; }
-
-/* ==========================================================================
-   CELULAR DEMONSTRATIVO MAIS ALTO (só no desktop, fora do modo tela cheia)
-   Ajuste a altura em --device-height. Se a janela for menor, a página rola.
-   ========================================================================== */
-@media (min-width: 481px) and (min-height: 541px) {
-  body:not(.fullscreen-mode) {
-    height: auto;
-    min-height: 100dvh;
-    overflow-y: auto;
-  }
-  body:not(.fullscreen-mode) .device-container {
-    flex: none;
-    margin-bottom: 32px;
-  }
-  body:not(.fullscreen-mode) .device-frame {
-    --device-height: 900px;
-    width: 400px;
-    height: var(--device-height);
-    max-height: none;
-    min-height: 0;
-  }
-}
