@@ -1,19 +1,17 @@
-# App Inatel · Agendamento de Atendimentos com Monitores e Professores
+# ◞ ♡･ App Inatel Agendamento de Atendimentos com Monitores e Professores
 
-> Projeto desenvolvido para a disciplina de **Interface Homem-Máquina (Ergonomia e Usabilidade)**  
-> Curso de **Engenharia de Software** · Instituto Nacional de Telecomunicações (**Inatel**)  
-> **Aluna:** Ana Julia de Souza | **Matrícula:** 1048  
+> Projeto desenvolvido para a disciplina de **Interação Homem-Máquina (Ergonomia e Usabilidade)**  
+> Curso de **Engenharia de Software** · Instituto Nacional de Telecomunicações (**Inatel**)   
 > **Professor:** Prof. Raphael Pereira
 
 ---
 
-## 🔗 Link da Interface Publicada
-Acesse o protótipo funcional em execução no **GitHub Pages**:  
-👉 **[https://njjsouza.github.io/projeto-s05/](https://njjsouza.github.io/projeto-s05/)**
+##  𓆩🩵𓆪  Link da Interface Publicada
+Acesse o protótipo funcional em execução no **GitHub Pages**: **[https://njjsouza.github.io/projeto-s05/](https://njjsouza.github.io/projeto-s05/)**
 
 ---
 
-## 📱 Sobre o Projeto
+## 𓆩🩵𓆪 Sobre o Projeto
 
 O objetivo deste projeto é conceber, documentar e implementar uma nova funcionalidade para o aplicativo móvel oficial do **Inatel**: o **Agendamento de Atendimentos (Monitorias de Disciplina e Reuniões de Projetos/Iniciação Científica)**.
 
@@ -21,7 +19,7 @@ Hoje, informações sobre horários de monitoria e disponibilidade dos professor
 
 ---
 
-## 👤 Persona e User Story
+## 𓆩🩵𓆪 Persona e User Story
 
 ### Persona: Ana Julia (Matrícula: 1048)
 - **Perfil:** Estudante do 4º período noturno de Engenharia de Software no Inatel.
@@ -33,7 +31,7 @@ Hoje, informações sobre horários de monitoria e disponibilidade dos professor
 
 ---
 
-## 🧭 Análise da Tarefa (HTA - Hierarchical Task Analysis)
+## 𓆩🩵𓆪 Análise da Tarefa (HTA - Hierarchical Task Analysis)
 
 A atividade de agendamento foi decomposta em metas hierarquizadas:
 
@@ -55,7 +53,7 @@ A atividade de agendamento foi decomposta em metas hierarquizadas:
 
 ---
 
-## 🏗️ Fluxo de Informação (Diagrama de Classes UML)
+## 𓆩🩵𓆪 Fluxo de Informação (Diagrama de Classes UML)
 
 A modelagem de classes reflete fielmente o domínio do sistema:
 - `Usuario` *(classe abstrata)* generalizada por `Aluno`, `Professor`, `Monitor` e `Administrador`.
@@ -66,7 +64,7 @@ A modelagem de classes reflete fielmente o domínio do sistema:
 
 ---
 
-## 🎨 Identidade Visual e Ergonomia da Interface
+## 𓆩🩵𓆪 Identidade Visual e Ergonomia da Interface
 
 - **Paleta de Cores Inatel:** Predominância do Azul Inatel institucional (`#005696`, `#003E73`), tons suaves de superfície (`#F4F6F9`) e cores semânticas para estados de vaga (Verde para *Livre*, Âmbar para *Poucas vagas*, Vermelho para *Lotado*).
 - **Componentes Nativos Mobile:** Bottom navigation bar, abas deslizantes, feedback imediato com Toast e modal com backdrop blur.
@@ -77,7 +75,7 @@ A modelagem de classes reflete fielmente o domínio do sistema:
 
 ---
 
-## 📂 Estrutura de Arquivos
+## 𓆩🩵𓆪 Estrutura de Arquivos
 
 ```text
 projeto-s05/
@@ -94,7 +92,7 @@ projeto-s05/
 
 ---
 
-## 🚀 Como Executar Localmente
+## 𓆩🩵𓆪 Como Executar Localmente
 
 Não requer instalação de dependências ou build:
 1. Clone o repositório:
