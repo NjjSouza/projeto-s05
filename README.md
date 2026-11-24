@@ -1,7 +1,7 @@
 # ◞ ♡･ App Inatel Agendamento de Atendimentos com Monitores e Professores 🩵
 
 > Projeto desenvolvido para a disciplina de **Interação Homem-Máquina (Ergonomia e Usabilidade)**  
-> Curso de **Engenharia de Software** · Instituto Nacional de Telecomunicações (**Inatel**)   
+> Curso de **Engenharia de Software** - Instituto Nacional de Telecomunicações (**Inatel**)   
 > **Professor:** Prof. Raphael Pereira
 
 ---
@@ -70,7 +70,9 @@ A modelagem de classes reflete fielmente o domínio do sistema:
 - **Componentes Nativos Mobile:** Bottom navigation bar, abas deslizantes, feedback imediato com Toast e modal com backdrop blur.
 - **Responsividade Híbrida:** 
   - Em telas de desktop, exibe o aplicativo dentro de um mockup realista de smartphone (com opção de alternar para tela cheia).
-  - Em dispositivos móveis reais, adapta-se fluidamente a 100% da viewport como um app nativo.
+  - Em dispositivos móveis reais (em pé ou em paisagem), adapta-se fluidamente a 100% da viewport como um app nativo, usando `dvh` e áreas seguras (notch / home indicator).
+  - A moldura do celular acompanha a altura da janela (mín. 450px, máx. 820px), mantendo a navegação inferior sempre visível em notebooks.
+  - No celular, a troca para a **Visão do Professor** fica em *Perfil > Visão do Professor (demo)*, já que a barra de demonstração é ocultada.
 - **Visão do Professor (Diferencial):** Botão no topo que permite simular a visão do docente (Prof. Raphael) aceitando e recusando solicitações e configurando novos horários de atendimento.
 
 ---
@@ -79,15 +81,20 @@ A modelagem de classes reflete fielmente o domínio do sistema:
 
 ```text
 projeto-s05/
-├── index.html                           # Interface web responsiva e estruturada
-├── style.css                            # Folha de estilos e Design System Inatel
-├── app.js                               # Lógica interativa, dados mockados e reatividade
+├── index.html                           # Interface web responsiva (ponto de entrada)
 ├── README.md                            # Documentação técnica do projeto
 ├── .gitignore                           # Ignora arquivos temporários da IDE
-├── Exemplo de Formato de Entrega.pdf    # Modelo oficial de entrega da disciplina
-├── S05-User-Story-e-Analise-da-Tarefa.pdf # Documento de User Story e HTA
-├── UML.pdf                              # Diagrama de Classes UML e fluxo de informação
-└── wireframe_agendamento_professores.pdf # Wireframes de baixa/média fidelidade
+├── assets/
+│   ├── css/style.css                    # Folha de estilos e Design System Inatel
+│   ├── js/app.js                        # Lógica interativa, dados mockados e reatividade
+│   └── img/Inatel.png                   # Logotipo do Inatel
+└── docs/
+    ├── entrega.html                     # Slides da entrega final
+    ├── proposta.txt                     # Proposta/enunciado da atividade
+    ├── Exemplo de Formato de Entrega.pdf    # Modelo oficial de entrega da disciplina
+    ├── S05-User-Story-e-Analise-da-Tarefa.pdf # Documento de User Story e HTA
+    ├── UML.pdf                          # Diagrama de Classes UML e fluxo de informação
+    └── wireframe_agendamento_professores.pdf # Wireframes de baixa/média fidelidade
 ```
 
 ---

@@ -32,11 +32,11 @@ const AppState = {
     dataTexto: "Qui, 12/11/2026",
     horario: "14:30 – 15:00",
     horarioInicio: "14:30",
-    disciplina: "Interface Homem-Máquina",
+    disciplina: "Interação Homem-Máquina",
     assunto: "Ergonomia cognitiva e testes de usabilidade",
     observacao: "",
     lembreteMin: 30,
-    local: "Sala 204 · Prédio Central (ou Teams)",
+    local: "Sala 204 - Prédio Central (ou Teams)",
     vagas: 1
   },
 
@@ -51,12 +51,12 @@ const AppState = {
       depto: "Coordenação de Engenharia de Software",
       email: "raphael.pereira@inatel.br",
       iniciais: "RP",
-      disciplinas: ["Interface Homem-Máquina", "Engenharia de Software", "Ergonomia"],
+      disciplinas: ["Interação Homem-Máquina", "Engenharia de Software", "Ergonomia"],
       tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala 204 · Prédio Central (ou Teams)",
-      bio: "Docente das disciplinas de Interface Homem-Máquina, Ergonomia e Engenharia de Software no Inatel. Orientador de projetos de usabilidade, prototipagem e interação humano-computador.",
+      localPadrao: "Sala 204 - Prédio Central (ou Teams)",
+      bio: "Docente das disciplinas de Interação Homem-Máquina, Ergonomia e Engenharia de Software no Inatel. Orientador de projetos de usabilidade, prototipagem e interação humano-computador.",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -88,7 +88,7 @@ const AppState = {
       tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Lab de Software · CDG Hub / Bloco 2",
+      localPadrao: "Lab de Software - CDG Hub / Bloco 2",
       bio: "Mestre em Ciência e Tecnologia da Computação, professor titular de Engenharia de Software e coordenador de programas tecnológicos no Inatel.",
       horarios: {
         "2026-11-12": [
@@ -111,7 +111,7 @@ const AppState = {
       tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala 114 · Bloco 1 (ou remoto)",
+      localPadrao: "Sala 114 - Bloco 1 (ou remoto)",
       bio: "Docente especialista em Desenvolvimento Web, Algoritmos, Estruturas de Dados e Programação Orientada a Objetos. Orientador de maratona de programação.",
       horarios: {
         "2026-11-12": [
@@ -157,7 +157,7 @@ const AppState = {
       tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Lab de Telecomunicações · Bloco 3",
+      localPadrao: "Lab de Telecomunicações - Bloco 3",
       bio: "Doutor em Engenharia Elétrica, pesquisador e docente de redes de comunicação de dados, conectividade e sistemas distribuídos.",
       horarios: {
         "2026-11-12": [
@@ -179,7 +179,7 @@ const AppState = {
       tags: ["Projetos"],
       status: "lotado",
       statusTexto: "Lotado",
-      localPadrao: "Lab de Robótica · Bloco 2",
+      localPadrao: "Lab de Robótica - Bloco 2",
       bio: "Pesquisador em robótica móvel, sistemas embarcados e inteligência artificial aplicada. Atendimentos de projetos e orientação de TCC.",
       horarios: {
         "2026-11-12": [
@@ -198,7 +198,7 @@ const AppState = {
       tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala de Monitoria · Prédio Central",
+      localPadrao: "Sala de Monitoria - Prédio Central",
       bio: "Monitor oficial do Inatel para suporte acadêmico de Cálculo II e Álgebra Linear, resolução de listas de exercícios e preparação para provas.",
       horarios: {
         "2026-11-12": [
@@ -214,12 +214,12 @@ const AppState = {
   agendamentos: [
     {
       id: 101,
-      titulo: "Monitoria · Interface Homem-Máquina",
+      titulo: "Monitoria - Interação Homem-Máquina",
       tipo: "Monitoria",
       professor: "Prof. Raphael Pereira",
       data: "Qui, 12/11/2026",
       horario: "14:30 – 15:00",
-      local: "Sala 204 · Prédio Central",
+      local: "Sala 204 - Prédio Central",
       status: "CONFIRMADO", // 'CONFIRMADO', 'PENDENTE', 'CANCELADO'
       assunto: "Ergonomia cognitiva e testes de usabilidade",
       lembrete: "30 min antes",
@@ -228,12 +228,12 @@ const AppState = {
     },
     {
       id: 102,
-      titulo: "Orientação · Projeto de Software",
+      titulo: "Orientação - Projeto de Software",
       tipo: "Projeto",
       professor: "Prof. Guilherme Marcondes",
       data: "Sex, 13/11/2026",
       horario: "10:00 – 10:45",
-      local: "CDG Hub · Inatel Startups",
+      local: "CDG Hub - Inatel Startups",
       status: "PENDENTE",
       assunto: "Revisão do backlog ágil e entregáveis da sprint",
       lembrete: "1 hora antes",
@@ -242,12 +242,12 @@ const AppState = {
     },
     {
       id: 103,
-      titulo: "Monitoria · Programação Web",
+      titulo: "Monitoria - Programação Web",
       tipo: "Monitoria",
       professor: "Prof. Renzo Mesquita",
       data: "Ter, 17/11/2026",
       horario: "16:00 – 16:30",
-      local: "Sala 114 · Bloco 1",
+      local: "Sala 114 - Bloco 1",
       status: "CONFIRMADO",
       assunto: "Arquitetura REST e consumo de APIs",
       lembrete: "30 min antes",
@@ -256,7 +256,7 @@ const AppState = {
     },
     {
       id: 104,
-      titulo: "Monitoria · Cálculo II",
+      titulo: "Monitoria - Cálculo II",
       tipo: "Monitoria",
       professor: "Monitor Lucas Prado",
       data: "Qui, 22/10/2026",
@@ -381,8 +381,8 @@ function renderHomeNextBooking() {
       <div class="next-booking-card" onclick="viewAppointmentDetail(${proximo.id})">
         <div class="booking-card-main">
           <div class="booking-title">${proximo.titulo}</div>
-          <div class="booking-time">${proximo.data} · ${proximo.horario.split("–")[0]}</div>
-          <div class="booking-location">${proximo.local} · ${proximo.professor}</div>
+          <div class="booking-time">${proximo.data} - ${proximo.horario.split("–")[0]}</div>
+          <div class="booking-location">${proximo.local} - ${proximo.professor}</div>
         </div>
         <div class="status-badge ${proximo.status === 'CONFIRMADO' ? 'livre' : 'vagas'}">
           ${proximo.status}
@@ -570,8 +570,8 @@ function prepareConfirmationScreen() {
   if (!prof) return;
 
   document.getElementById("confirmProfNome").innerText = prof.nome;
-  document.getElementById("confirmTipoDisciplina").innerText = `${AppState.bookingDraft.tipo} · ${AppState.bookingDraft.disciplina}`;
-  document.getElementById("confirmDataHorario").innerText = `${AppState.bookingDraft.dataTexto} · ${AppState.bookingDraft.horario}`;
+  document.getElementById("confirmTipoDisciplina").innerText = `${AppState.bookingDraft.tipo} - ${AppState.bookingDraft.disciplina}`;
+  document.getElementById("confirmDataHorario").innerText = `${AppState.bookingDraft.dataTexto} - ${AppState.bookingDraft.horario}`;
   document.getElementById("confirmLocal").innerText = prof.localPadrao;
 
   // Atualizar select de tipo
@@ -598,12 +598,12 @@ function submitBooking() {
   // Criar novo Agendamento
   const novoAgendamento = {
     id: Date.now(),
-    titulo: `${AppState.bookingDraft.tipo} · ${AppState.bookingDraft.disciplina}`,
+    titulo: `${AppState.bookingDraft.tipo} - ${AppState.bookingDraft.disciplina}`,
     tipo: AppState.bookingDraft.tipo,
     professor: prof ? prof.nome : "Professor Inatel",
     data: AppState.bookingDraft.dataTexto,
     horario: AppState.bookingDraft.horario,
-    local: prof ? prof.localPadrao : "Sala 204 · Bloco 1",
+    local: prof ? prof.localPadrao : "Sala 204 - Bloco 1",
     status: "CONFIRMADO", // De acordo com a regra de negócio do app
     assunto: assunto,
     observacao: obs,
@@ -628,7 +628,7 @@ function submitBooking() {
 
   // Atualizar Tela 7 (Sucesso)
   document.getElementById("successDetailTitulo").innerText = novoAgendamento.titulo;
-  document.getElementById("successDetailData").innerText = `${novoAgendamento.data} · ${novoAgendamento.horario.split("–")[0]}`;
+  document.getElementById("successDetailData").innerText = `${novoAgendamento.data} - ${novoAgendamento.horario.split("–")[0]}`;
   document.getElementById("successDetailStatus").innerText = "CONFIRMADO";
 
   // Atualizar componentes
@@ -692,8 +692,8 @@ function renderAgendamentos(tab) {
         <div class="appointment-card" onclick="viewAppointmentDetail(${item.id})">
           <div class="appointment-card-info">
             <h4>${item.titulo}</h4>
-            <div class="app-datetime">${item.data} · ${item.horario}</div>
-            <div class="app-prof">${item.professor} · ${item.local}</div>
+            <div class="app-datetime">${item.data} - ${item.horario}</div>
+            <div class="app-prof">${item.professor} - ${item.local}</div>
           </div>
           <span class="status-badge ${statusClass}">${item.status}</span>
         </div>
@@ -754,7 +754,7 @@ function openCancelModal() {
   if (!item) return;
 
   document.getElementById("cancelModalTitulo").innerText = item.titulo;
-  document.getElementById("cancelModalData").innerText = `${item.data} · ${item.horario}`;
+  document.getElementById("cancelModalData").innerText = `${item.data} - ${item.horario}`;
   document.getElementById("modalCancelar").classList.add("active");
 }
 
@@ -869,7 +869,7 @@ function toggleUserRole() {
   if (AppState.currentUser.role === "aluno") {
     AppState.currentUser.role = "professor";
     const btnText = document.getElementById("btnToggleRoleText");
-    if (btnText) btnText.innerText = "Alternar para Aluna (Ana Julia)";
+    if (btnText) btnText.innerText = "Alternar para Aluna";
     const roleText = document.getElementById("roleIndicatorText");
     if (roleText) roleText.innerText = "Modo: Prof. Raphael Pereira";
     navigateTo("screen-professor-agenda");
@@ -879,7 +879,7 @@ function toggleUserRole() {
     const btnText = document.getElementById("btnToggleRoleText");
     if (btnText) btnText.innerText = "Alternar para Professor (Raphael)";
     const roleText = document.getElementById("roleIndicatorText");
-    if (roleText) roleText.innerText = "Modo: Aluna (Ana Julia)";
+    if (roleText) roleText.innerText = "Modo: Aluna";
     navigateTo("screen-home");
     showToast("Modo Aluna ativado.");
   }
