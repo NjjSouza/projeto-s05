@@ -350,7 +350,7 @@ function renderHomeNextBooking() {
           <div class="booking-title">Nenhum atendimento agendado</div>
           <div class="booking-location">Toque aqui para encontrar horários com professores</div>
         </div>
-        <span style="color: var(--inatel-blue-600); font-size: 20px;">+</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--inatel-blue-600)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
       </div>
     `;
   }
@@ -822,14 +822,18 @@ function markAllNotificationsRead() {
 function toggleUserRole() {
   if (AppState.currentUser.role === "aluno") {
     AppState.currentUser.role = "professor";
-    document.getElementById("btnToggleRole").innerText = "Alternar para Aluno (Ana Julia)";
-    document.getElementById("roleIndicator").innerText = "Modo: Prof. Raphael Pereira";
+    const btnText = document.getElementById("btnToggleRoleText");
+    if (btnText) btnText.innerText = "Alternar para Aluna (Ana Julia)";
+    const roleText = document.getElementById("roleIndicatorText");
+    if (roleText) roleText.innerText = "Modo: Prof. Raphael Pereira";
     navigateTo("screen-professor-agenda");
     showToast("Modo Professor ativado! Visualizando solicitações recebidas.");
   } else {
     AppState.currentUser.role = "aluno";
-    document.getElementById("btnToggleRole").innerText = "Alternar para Professor (Raphael)";
-    document.getElementById("roleIndicator").innerText = "Modo: Aluna (Ana Julia)";
+    const btnText = document.getElementById("btnToggleRoleText");
+    if (btnText) btnText.innerText = "Alternar para Professor (Raphael)";
+    const roleText = document.getElementById("roleIndicatorText");
+    if (roleText) roleText.innerText = "Modo: Aluna (Ana Julia)";
     navigateTo("screen-home");
     showToast("Modo Aluna ativado.");
   }
@@ -840,8 +844,9 @@ function acceptStudentRequest(button) {
   if (card) {
     card.style.background = "var(--status-livre-bg)";
     card.innerHTML = `
-      <div style="font-weight: 700; color: var(--status-livre-text); font-size: 13px; text-align: center; padding: 10px;">
-        ✓ Solicitação aceita! O aluno recebeu a notificação.
+      <div style="font-weight: 700; color: var(--status-livre-text); font-size: 13px; text-align: center; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>Solicitação aceita! O aluno recebeu a notificação.</span>
       </div>
     `;
   }
@@ -877,10 +882,16 @@ function showToast(message) {
 
 function toggleDeviceMode() {
   document.body.classList.toggle("fullscreen-mode");
-  const btn = document.getElementById("btnToggleDevice");
-  if (btn) {
-    const isFullscreen = document.body.classList.contains("fullscreen-mode");
-    btn.innerText = isFullscreen ? "📱 Ver na Moldura do Celular" : "🖥️ Ver em Tela Cheia";
+  const isFullscreen = document.body.classList.contains("fullscreen-mode");
+  const btnText = document.getElementById("btnToggleDeviceText");
+  const icon = document.getElementById("deviceIcon");
+
+  if (isFullscreen) {
+    if (btnText) btnText.innerText = "Ver na Moldura do Celular";
+    if (icon) icon.innerHTML = '<rect x="5" y="2" width="14" height="20" rx="3" ry="3"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line>';
+  } else {
+    if (btnText) btnText.innerText = "Ver em Tela Cheia";
+    if (icon) icon.innerHTML = '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line>';
   }
 }
 

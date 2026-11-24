@@ -29,16 +29,19 @@
     <div class="demo-actions">
       <span class="demo-badge-pill" id="roleIndicator">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        Modo: Aluna (Ana Julia)
+        <span id="roleIndicatorText">Modo: Aluna (Ana Julia)</span>
       </span>
       <button class="demo-btn" id="btnToggleRole" onclick="toggleUserRole()">
-        Alternar para Professor (Raphael)
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+        <span id="btnToggleRoleText">Alternar para Professor (Raphael)</span>
       </button>
       <button class="demo-btn" id="btnToggleDevice" onclick="toggleDeviceMode()">
-        🖥️ Ver em Tela Cheia
+        <svg id="deviceIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        <span id="btnToggleDeviceText">Ver em Tela Cheia</span>
       </button>
       <button class="demo-btn" onclick="resetDemo()" title="Reiniciar dados da demonstração">
-        🔄 Reiniciar Demo
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+        <span>Reiniciar Demo</span>
       </button>
     </div>
   </header>
@@ -376,7 +379,15 @@
               <!-- Mini Calendário Novembro 2026 -->
               <div class="calendar-section">
                 <div class="calendar-header">
-                  <span class="calendar-month-title">&lt; Novembro 2026 &gt;</span>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <button class="btn-icon-subtle" onclick="showToast('Visualizando semestre letivo atual')" aria-label="Mês anterior">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <span class="calendar-month-title">Novembro 2026</span>
+                    <button class="btn-icon-subtle" onclick="showToast('Visualizando semestre letivo atual')" aria-label="Próximo mês">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                  </div>
                   <span style="font-size: 11px; font-weight: 600; color: var(--inatel-blue-600);">Semana letiva</span>
                 </div>
                 <div class="calendar-grid">
@@ -602,7 +613,10 @@
                 </button>
                 <h3 class="app-header-title">Agenda</h3>
               </div>
-              <button class="app-header-action" onclick="navigateTo('screen-escolher-professor')">+ Novo</button>
+              <button class="app-header-action" onclick="navigateTo('screen-escolher-professor')" style="display: inline-flex; align-items: center; gap: 4px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Novo
+              </button>
             </div>
 
             <!-- Abas da Agenda -->
@@ -618,7 +632,8 @@
 
             <div style="padding: 16px; margin-top: auto;">
               <button class="btn-action-primary" onclick="navigateTo('screen-escolher-professor')">
-                + Novo agendamento
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Novo agendamento
               </button>
             </div>
           </section>
@@ -732,23 +747,23 @@
             <div class="profile-menu-list">
               <div class="profile-menu-item" onclick="showToast('Dados cadastrais acadêmicos completos.')">
                 <span>Meus dados</span>
-                <span>&gt;</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </div>
               <div class="profile-menu-item" onclick="navigateTo('screen-meus-agendamentos')">
                 <span>Meus agendamentos</span>
-                <span>&gt;</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </div>
               <div class="profile-menu-item" onclick="showToast('Notificações push e email ativadas.')">
                 <span>Preferências de notificação</span>
-                <span>&gt;</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </div>
               <div class="profile-menu-item" onclick="showToast('Central de Atendimento ao Aluno: (35) 3471-9200')">
                 <span>Ajuda e Suporte</span>
-                <span>&gt;</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </div>
               <div class="profile-menu-item logout" onclick="navigateTo('screen-login')">
                 <span>Sair da conta</span>
-                <span>&gt;</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
               </div>
             </div>
           </section>
@@ -766,7 +781,10 @@
               <div class="app-header-left">
                 <h3 class="app-header-title">Atendimentos</h3>
               </div>
-              <button class="app-header-action" onclick="navigateTo('screen-professor-disponibilidade')">+ Horário</button>
+              <button class="app-header-action" onclick="navigateTo('screen-professor-disponibilidade')" style="display: inline-flex; align-items: center; gap: 4px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Horário
+              </button>
             </div>
 
             <div class="filter-tabs">

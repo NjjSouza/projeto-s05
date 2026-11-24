@@ -452,6 +452,23 @@ body.fullscreen-mode .device-screen {
   background: var(--inatel-blue-50);
 }
 
+.btn-icon-subtle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--inatel-blue-700);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: var(--radius-full);
+  transition: var(--transition);
+}
+
+.btn-icon-subtle:hover {
+  background: var(--inatel-blue-100);
+}
+
 .app-header-title {
   font-size: 16px;
   font-weight: 700;
