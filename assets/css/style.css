@@ -1,20 +1,20 @@
 /* ==========================================================================
-   APP INATEL - AGENDAMENTO DE PROFESSORES E MONITORES
+   APP INATEL - AGENDAMENTO DE PROFESSORES
    Design System & Estilos Globais
    Identidade Visual: Instituto Nacional de Telecomunicações (Inatel)
    ========================================================================== */
 
 :root {
   /* Paleta Oficial e Exata do Inatel (Pantone 294 C / Azul Marinho Escuro Institucional) */
-  --inatel-blue-950: #001229; /* Azul Noite Profundo */
-  --inatel-blue-900: #001f42; /* Azul Marinho Escuro */
-  --inatel-blue-800: #002855; /* Azul Institucional Inatel Oficial (Escuro) */
-  --inatel-blue-700: #00366f; /* Azul Marinho Intermediário */
-  --inatel-blue-600: #00458a; /* Azul Principal de Interação */
-  --inatel-blue-500: #1e60ad; /* Azul Exato do Logotipo Inatel.png */
-  --inatel-blue-400: #2a75cb; /* Azul Realce */
-  --inatel-blue-100: #e2edfa; /* Fundo Suave */
-  --inatel-blue-50:  #f0f5fc; /* Superfície Clara */
+  --inatel-blue-950: #001229;
+  --inatel-blue-900: #001f42;
+  --inatel-blue-800: #002855;
+  --inatel-blue-700: #00366f;
+  --inatel-blue-600: #00458a;
+  --inatel-blue-500: #1e60ad;
+  --inatel-blue-400: #2a75cb;
+  --inatel-blue-100: #e2edfa;
+  --inatel-blue-50:  #f0f5fc;
 
   --accent-cyan:     #00a8e8;
   --accent-orange:   #f59e0b;
@@ -77,8 +77,8 @@ body {
   color: var(--text-body);
   min-height: 100vh;
   min-height: 100dvh;
-  height: 100vh;          /* fallback */
-  height: 100dvh;         /* ignora a barra de endereço do navegador mobile */
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -205,7 +205,6 @@ body {
   flex-direction: column;
 }
 
-/* Notch / Dynamic Island */
 .device-notch {
   position: absolute;
   top: 18px;
@@ -230,7 +229,6 @@ body {
   border: 1px solid #1e293b;
 }
 
-/* Tela interna do Smartphone */
 .device-screen {
   width: 100%;
   height: 100%;
@@ -242,50 +240,16 @@ body {
   position: relative;
 }
 
-/* Modo Tela Cheia / Responsivo Puro */
-body.fullscreen-mode .demo-topbar {
-  display: none;
-}
+body.fullscreen-mode .demo-topbar { display: none; }
+body.fullscreen-mode .device-container { margin: 0; width: 100%; height: 100%; }
+body.fullscreen-mode .device-frame { width: 100%; height: 100%; max-height: none; min-height: 0; border-radius: 0; padding: 0; box-shadow: none; border: none; }
+body.fullscreen-mode .device-notch { display: none; }
+body.fullscreen-mode .device-screen { border-radius: 0; }
 
-body.fullscreen-mode .device-container {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
-
-body.fullscreen-mode .device-frame {
-  width: 100%;
-  height: 100%;
-  max-height: none;
-  min-height: 0;
-  border-radius: 0;
-  padding: 0;
-  box-shadow: none;
-  border: none;
-}
-
-body.fullscreen-mode .device-notch {
-  display: none;
-}
-
-body.fullscreen-mode .device-screen {
-  border-radius: 0;
-}
-
-/* Responsividade nativa quando aberto em celular real
-   (em pé: largura <= 480px | paisagem: altura <= 540px) */
 @media (max-width: 480px), (max-height: 540px) {
-  body {
-    background: var(--bg-app);
-  }
-  .demo-topbar {
-    display: none;
-  }
-  .device-container {
-    margin: 0;
-    max-width: none;
-    height: 100%;
-  }
+  body { background: var(--bg-app); }
+  .demo-topbar { display: none; }
+  .device-container { margin: 0; max-width: none; height: 100%; }
   .device-frame {
     width: 100%;
     height: 100%;
@@ -293,64 +257,31 @@ body.fullscreen-mode .device-screen {
     min-height: 0;
     background: var(--bg-app);
     border-radius: 0;
-    /* respeita o notch em paisagem */
     padding: 0 env(safe-area-inset-right, 0px) 0 env(safe-area-inset-left, 0px);
     box-shadow: none;
     border: none;
   }
-  .device-notch {
-    display: none;
-  }
-  .device-screen {
-    border-radius: 0;
-  }
-  /* A barra de status falsa (9:41) some: o SO já mostra a real.
-     Fica só o espaço da área segura (notch). */
-  .device-screen .mobile-status-bar {
-    height: env(safe-area-inset-top, 0px);
-    padding: 0;
-  }
-  .device-screen .mobile-status-bar > * {
-    display: none;
-  }
-  .device-screen .toast-alert {
-    top: calc(env(safe-area-inset-top, 0px) + 12px);
-  }
-  /* >= 16px evita o zoom automático ao focar campos no iOS */
-  input:not([type="checkbox"]):not([type="radio"]),
-  select,
-  textarea {
-    font-size: 16px !important;
-  }
+  .device-notch { display: none; }
+  .device-screen { border-radius: 0; }
+  .device-screen .mobile-status-bar { height: env(safe-area-inset-top, 0px); padding: 0; }
+  .device-screen .mobile-status-bar > * { display: none; }
+  .device-screen .toast-alert { top: calc(env(safe-area-inset-top, 0px) + 12px); }
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea { font-size: 16px !important; }
 }
 
-/* Celular/tablet em paisagem: coluna de app centralizada, fundo institucional */
 @media (min-width: 481px) and (max-height: 540px) {
-  body {
-    background: linear-gradient(135deg, #001229 0%, #001f42 50%, #002855 100%);
-  }
-  .device-container {
-    max-width: 560px;
-  }
-  .device-screen .mobile-bottom-nav {
-    min-height: 52px;
-  }
+  body { background: linear-gradient(135deg, #001229 0%, #001f42 50%, #002855 100%); }
+  .device-container { max-width: 560px; }
+  .device-screen .mobile-bottom-nav { min-height: 52px; }
 }
 
-/* Telas de toque: alvos de toque confortáveis (~44px) */
 @media (pointer: coarse) {
-  .btn-back,
-  .btn-icon-subtle {
-    min-width: 44px;
-    min-height: 44px;
-  }
-  .time-slot-btn {
-    min-height: 44px;
-  }
+  .btn-back, .btn-icon-subtle { min-width: 44px; min-height: 44px; }
+  .time-slot-btn { min-height: 44px; }
 }
 
 /* ==========================================================================
-   STATUS BAR MOBILE (9:41, Bateria, Wifi)
+   STATUS BAR MOBILE
    ========================================================================== */
 .mobile-status-bar {
   height: 44px;
@@ -366,15 +297,8 @@ body.fullscreen-mode .device-screen {
   flex-shrink: 0;
 }
 
-.mobile-status-bar.on-dark {
-  color: #ffffff;
-}
-
-.status-bar-icons {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.mobile-status-bar.on-dark { color: #ffffff; }
+.status-bar-icons { display: flex; align-items: center; gap: 6px; }
 
 /* ==========================================================================
    APP CONTAINER E NAVEGAÇÃO DE TELAS
@@ -388,13 +312,8 @@ body.fullscreen-mode .device-screen {
   flex-direction: column;
 }
 
-.app-viewport::-webkit-scrollbar {
-  width: 4px;
-}
-.app-viewport::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-}
+.app-viewport::-webkit-scrollbar { width: 4px; }
+.app-viewport::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 4px; }
 
 .screen {
   display: none;
@@ -404,77 +323,11 @@ body.fullscreen-mode .device-screen {
   animation: fadeIn 0.22s ease-out;
 }
 
-.screen.active {
-  display: flex;
-}
+.screen.active { display: flex; }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ==========================================================================
-   BOTTOM NAVIGATION BAR (Abas inferiores do App Inatel)
-   ========================================================================== */
-.mobile-bottom-nav {
-  min-height: 64px;
-  background: #ffffff;
-  border-top: 1px solid var(--border-light);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 10px env(safe-area-inset-bottom, 0px);
-  flex-shrink: 0;
-  z-index: 40;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  color: var(--text-muted);
-  font-size: 11px;
-  font-weight: 500;
-  text-decoration: none;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  transition: var(--transition);
-  position: relative;
-}
-
-.nav-item svg {
-  width: 22px;
-  height: 22px;
-  stroke: currentColor;
-  stroke-width: 2;
-  fill: none;
-}
-
-.nav-item.active {
-  color: var(--inatel-blue-600);
-  font-weight: 700;
-}
-
-.nav-badge {
-  position: absolute;
-  top: 4px;
-  right: 14px;
-  background: var(--accent-red);
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 700;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
 }
 
 /* ==========================================================================
@@ -512,9 +365,7 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.btn-back:hover {
-  background: var(--inatel-blue-50);
-}
+.btn-back:hover { background: var(--inatel-blue-50); }
 
 .btn-icon-subtle {
   background: transparent;
@@ -529,13 +380,8 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.btn-icon-subtle:hover {
-  background: var(--inatel-blue-100);
-}
+.btn-icon-subtle:hover { background: var(--inatel-blue-100); }
 
-/* ==========================================================================
-   COMPONENTES E PADRONIZAÇÃO TIPOGRÁFICA (SEPARADOR PADRONIZADO " - ")
-   ========================================================================== */
 .badge-type-pill {
   font-size: 10px;
   font-weight: 700;
@@ -625,39 +471,11 @@ body.fullscreen-mode .device-screen {
   filter: brightness(0) invert(1);
 }
 
-.login-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 6px;
-  text-align: center;
-}
-
-.login-subtitle {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 28px;
-  text-align: center;
-}
-
-.login-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  text-align: left;
-}
-
-.input-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-}
+.login-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; text-align: center; }
+.login-subtitle { font-size: 13px; color: rgba(255, 255, 255, 0.75); margin-bottom: 28px; text-align: center; }
+.login-form { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+.input-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+.input-label { font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, 0.9); }
 
 .input-field {
   width: 100%;
@@ -671,23 +489,9 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.input-field::placeholder {
-  color: rgba(255, 255, 255, 0.45);
-}
-
-.input-field:focus {
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
-}
-
-.login-forgot {
-  text-align: right;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.75);
-  text-decoration: none;
-  margin-top: -4px;
-}
+.input-field::placeholder { color: rgba(255, 255, 255, 0.45); }
+.input-field:focus { border-color: #ffffff; background: rgba(255, 255, 255, 0.18); box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15); }
+.login-forgot { text-align: right; font-size: 12px; color: rgba(255, 255, 255, 0.75); text-decoration: none; margin-top: -4px; }
 
 .btn-primary {
   width: 100%;
@@ -703,10 +507,7 @@ body.fullscreen-mode .device-screen {
   box-shadow: var(--shadow-md);
 }
 
-.btn-primary:hover {
-  background: #f8fafc;
-  transform: translateY(-1px);
-}
+.btn-primary:hover { background: #f8fafc; transform: translateY(-1px); }
 
 .btn-secondary-white {
   width: 100%;
@@ -721,41 +522,11 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.btn-secondary-white:hover {
-  background: rgba(255, 255, 255, 0.22);
-}
+.btn-secondary-white:hover { background: rgba(255, 255, 255, 0.22); }
 
 /* ==========================================================================
    TELA 2: INÍCIO (HOME)
    ========================================================================== */
-.home-hero {
-  background: linear-gradient(135deg, var(--inatel-blue-900) 0%, var(--inatel-blue-800) 60%, var(--inatel-blue-700) 100%);
-  color: #ffffff;
-  padding: 16px 20px 24px 20px;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
-}
-
-.home-brand-corner {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.16);
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-}
-
-.inatel-corner-logo {
-  height: 18px;
-  width: auto;
-  object-fit: contain;
-}
-
-.inatel-corner-logo.on-dark {
-  filter: brightness(0) invert(1);
-}
-
 .inatel-header-badge-img {
   height: 18px;
   width: auto;
@@ -763,96 +534,22 @@ body.fullscreen-mode .device-screen {
   opacity: 0.9;
 }
 
-.home-user-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.home-user-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.user-avatar-sm {
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-full);
-  background: #ffffff;
-  color: var(--inatel-blue-800);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-}
-
-.home-user-text h2 {
-  font-size: 16px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.home-user-text p {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.home-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-icon-header {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.15);
-  border: none;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-  transition: var(--transition);
-}
-
-.btn-icon-header:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.btn-icon-header .badge-dot {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ef4444;
-  border: 2px solid var(--inatel-blue-800);
-}
-
-/* Barra de Pesquisa */
-.search-bar-wrap {
-  position: relative;
-  width: 100%;
-}
+.search-bar-wrap { position: relative; width: 100%; }
 
 .search-input {
   width: 100%;
   padding: 10px 14px 10px 38px;
   border-radius: var(--radius-full);
-  border: none;
-  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-medium);
+  background: #ffffff;
   font-size: 13px;
   color: var(--text-title);
   box-shadow: var(--shadow-sm);
   outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--inatel-blue-600);
 }
 
 .search-icon {
@@ -865,42 +562,12 @@ body.fullscreen-mode .device-screen {
   color: var(--text-muted);
 }
 
-/* Conteúdo da Home */
-.home-content {
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+.home-content { padding: 18px; display: flex; flex-direction: column; gap: 20px; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.section-title { font-size: 14px; font-weight: 700; color: var(--text-title); letter-spacing: -0.2px; }
+.section-link { font-size: 12px; font-weight: 600; color: var(--inatel-blue-600); text-decoration: none; cursor: pointer; }
 
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.section-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-title);
-  letter-spacing: -0.2px;
-}
-
-.section-link {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--inatel-blue-600);
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* Grade de Serviços */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
 .service-card {
   background: var(--bg-card);
@@ -916,11 +583,7 @@ body.fullscreen-mode .device-screen {
   text-align: left;
 }
 
-.service-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--inatel-blue-400);
-}
+.service-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--inatel-blue-400); }
 
 .service-icon-wrap {
   width: 36px;
@@ -933,23 +596,15 @@ body.fullscreen-mode .device-screen {
   justify-content: center;
 }
 
-.service-card-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-title);
-}
+.service-card-title { font-size: 13px; font-weight: 600; color: var(--text-title); }
 
-/* Card Especial da Nova Funcionalidade */
 .service-card.highlight-feature {
   background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
   border: 2px solid var(--inatel-blue-600);
   box-shadow: 0 4px 12px rgba(0, 86, 150, 0.12);
 }
 
-.service-card.highlight-feature .service-icon-wrap {
-  background: var(--inatel-blue-600);
-  color: #ffffff;
-}
+.service-card.highlight-feature .service-icon-wrap { background: var(--inatel-blue-600); color: #ffffff; }
 
 .feature-tag-novo {
   position: absolute;
@@ -965,7 +620,6 @@ body.fullscreen-mode .device-screen {
   letter-spacing: 0.5px;
 }
 
-/* Card Próximo Agendamento na Home */
 .next-booking-card {
   background: #ffffff;
   border-radius: var(--radius-md);
@@ -979,35 +633,14 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.next-booking-card:hover {
-  box-shadow: var(--shadow-md);
-}
-
-.booking-card-main {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.booking-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-title);
-}
-
-.booking-time {
-  font-size: 12px;
-  color: var(--inatel-blue-600);
-  font-weight: 600;
-}
-
-.booking-location {
-  font-size: 11px;
-  color: var(--text-muted);
-}
+.next-booking-card:hover { box-shadow: var(--shadow-md); }
+.booking-card-main { display: flex; flex-direction: column; gap: 3px; }
+.booking-title { font-size: 14px; font-weight: 700; color: var(--text-title); }
+.booking-time { font-size: 12px; color: var(--inatel-blue-600); font-weight: 600; }
+.booking-location { font-size: 11px; color: var(--text-muted); }
 
 /* ==========================================================================
-   TELA 3: ESCOLHER PROFESSOR / MONITOR
+   TELA 3: ESCOLHER PROFESSOR
    ========================================================================== */
 .filter-tabs {
   display: flex;
@@ -1032,18 +665,9 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.filter-chip.active {
-  background: var(--inatel-blue-600);
-  border-color: var(--inatel-blue-600);
-  color: #ffffff;
-}
+.filter-chip.active { background: var(--inatel-blue-600); border-color: var(--inatel-blue-600); color: #ffffff; }
 
-.professor-list {
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.professor-list { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
 
 .professor-card {
   background: #ffffff;
@@ -1053,21 +677,13 @@ body.fullscreen-mode .device-screen {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   cursor: pointer;
   transition: var(--transition);
 }
 
-.professor-card:hover {
-  border-color: var(--inatel-blue-400);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
-}
-
-.professor-card-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.professor-card:hover { border-color: var(--inatel-blue-400); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.professor-card-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
 
 .professor-avatar {
   width: 44px;
@@ -1083,24 +699,9 @@ body.fullscreen-mode .device-screen {
   flex-shrink: 0;
 }
 
-.professor-info h4 {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-title);
-  margin-bottom: 2px;
-}
-
-.professor-info .depto {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.disciplinas-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
+.professor-info h4 { font-size: 14px; font-weight: 700; color: var(--text-title); margin-bottom: 2px; }
+.professor-info .depto { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.disciplinas-tags { display: flex; flex-wrap: wrap; gap: 4px; }
 
 .disc-tag {
   background: var(--bg-subtle);
@@ -1121,20 +722,9 @@ body.fullscreen-mode .device-screen {
   white-space: nowrap;
 }
 
-.status-badge.livre {
-  background: var(--status-livre-bg);
-  color: var(--status-livre-text);
-}
-
-.status-badge.vagas {
-  background: var(--status-vagas-bg);
-  color: var(--status-vagas-text);
-}
-
-.status-badge.lotado {
-  background: var(--status-lotado-bg);
-  color: var(--status-lotado-text);
-}
+.status-badge.livre { background: var(--status-livre-bg); color: var(--status-livre-text); }
+.status-badge.vagas { background: var(--status-vagas-bg); color: var(--status-vagas-text); }
+.status-badge.lotado { background: var(--status-lotado-bg); color: var(--status-lotado-text); }
 
 /* ==========================================================================
    TELA 4: PERFIL DO PROFESSOR
@@ -1164,31 +754,11 @@ body.fullscreen-mode .device-screen {
   box-shadow: var(--shadow-md);
 }
 
-.profile-hero h3 {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--text-title);
-  margin-bottom: 4px;
-}
+.profile-hero h3 { font-size: 17px; font-weight: 700; color: var(--text-title); margin-bottom: 4px; }
+.profile-hero .profile-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.profile-hero .profile-email { font-size: 12px; color: var(--inatel-blue-600); font-weight: 500; }
 
-.profile-hero .profile-sub {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-
-.profile-hero .profile-email {
-  font-size: 12px;
-  color: var(--inatel-blue-600);
-  font-weight: 500;
-}
-
-.profile-body {
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
+.profile-body { padding: 18px; display: flex; flex-direction: column; gap: 18px; }
 
 .profile-card-block {
   background: #ffffff;
@@ -1218,14 +788,8 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.service-option-radio:last-child {
-  margin-bottom: 0;
-}
-
-.service-option-radio.selected {
-  border-color: var(--inatel-blue-600);
-  background: var(--inatel-blue-50);
-}
+.service-option-radio:last-child { margin-bottom: 0; }
+.service-option-radio.selected { border-color: var(--inatel-blue-600); background: var(--inatel-blue-50); }
 
 .radio-circle {
   width: 18px;
@@ -1237,10 +801,7 @@ body.fullscreen-mode .device-screen {
   flex-shrink: 0;
 }
 
-.service-option-radio.selected .radio-circle {
-  border-color: var(--inatel-blue-600);
-}
-
+.service-option-radio.selected .radio-circle { border-color: var(--inatel-blue-600); }
 .service-option-radio.selected .radio-circle::after {
   content: "";
   position: absolute;
@@ -1252,16 +813,8 @@ body.fullscreen-mode .device-screen {
   background: var(--inatel-blue-600);
 }
 
-.service-option-info h6 {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-title);
-}
-
-.service-option-info p {
-  font-size: 11px;
-  color: var(--text-muted);
-}
+.service-option-info h6 { font-size: 13px; font-weight: 700; color: var(--text-title); }
+.service-option-info p { font-size: 11px; color: var(--text-muted); }
 
 /* ==========================================================================
    TELA 5: ESCOLHER DATA E HORÁRIO
@@ -1273,32 +826,10 @@ body.fullscreen-mode .device-screen {
   border: 1px solid var(--border-light);
 }
 
-.calendar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.calendar-month-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-title);
-}
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
-  text-align: center;
-}
-
-.cal-day-header {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-muted);
-  padding-bottom: 4px;
-}
+.calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.calendar-month-title { font-size: 14px; font-weight: 700; color: var(--text-title); }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+.cal-day-header { font-size: 11px; font-weight: 700; color: var(--text-muted); padding-bottom: 4px; }
 
 .cal-day {
   aspect-ratio: 1;
@@ -1313,39 +844,13 @@ body.fullscreen-mode .device-screen {
   color: var(--text-body);
 }
 
-.cal-day:hover:not(.disabled) {
-  background: var(--inatel-blue-100);
-  color: var(--inatel-blue-800);
-}
+.cal-day:hover:not(.disabled) { background: var(--inatel-blue-100); color: var(--inatel-blue-800); }
+.cal-day.disabled { color: #cbd5e1; cursor: not-allowed; }
+.cal-day.selected { background: var(--inatel-blue-600) !important; color: #ffffff !important; font-weight: 700; box-shadow: 0 2px 4px rgba(0, 86, 150, 0.3); }
+.cal-day.today { border: 1px solid var(--inatel-blue-400); }
 
-.cal-day.disabled {
-  color: #cbd5e1;
-  cursor: not-allowed;
-}
-
-.cal-day.selected {
-  background: var(--inatel-blue-600) !important;
-  color: #ffffff !important;
-  font-weight: 700;
-  box-shadow: 0 2px 4px rgba(0, 86, 150, 0.3);
-}
-
-.cal-day.today {
-  border: 1px solid var(--inatel-blue-400);
-}
-
-/* Grade de Horários */
-.time-slots-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.time-slots-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
+.time-slots-section { display: flex; flex-direction: column; gap: 10px; }
+.time-slots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
 .time-slot-btn {
   padding: 10px;
@@ -1360,36 +865,9 @@ body.fullscreen-mode .device-screen {
   text-align: center;
 }
 
-.time-slot-btn:hover:not(.disabled) {
-  border-color: var(--inatel-blue-400);
-  background: var(--inatel-blue-50);
-}
-
-.time-slot-btn.selected {
-  background: var(--inatel-blue-600);
-  border-color: var(--inatel-blue-600);
-  color: #ffffff;
-}
-
-.time-slot-btn.disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  text-decoration: line-through;
-  background: #f1f5f9;
-}
-
-.academic-grade-alert {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  color: #166534;
-  font-weight: 600;
-}
+.time-slot-btn:hover:not(.disabled) { border-color: var(--inatel-blue-400); background: var(--inatel-blue-50); }
+.time-slot-btn.selected { background: var(--inatel-blue-600); border-color: var(--inatel-blue-600); color: #ffffff; }
+.time-slot-btn.disabled { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; background: #f1f5f9; }
 
 /* ==========================================================================
    TELA 6: CONFIRMAR AGENDAMENTO
@@ -1402,42 +880,13 @@ body.fullscreen-mode .device-screen {
   margin-bottom: 16px;
 }
 
-.summary-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+.summary-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+.summary-row:last-child { margin-bottom: 0; }
+.summary-row-icon { color: var(--inatel-blue-600); margin-top: 1px; }
+.summary-row-content h6 { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+.summary-row-content p { font-size: 13px; font-weight: 700; color: var(--text-title); }
 
-.summary-row:last-child {
-  margin-bottom: 0;
-}
-
-.summary-row-icon {
-  color: var(--inatel-blue-600);
-  margin-top: 1px;
-}
-
-.summary-row-content h6 {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-}
-
-.summary-row-content p {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-title);
-}
-
-.form-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-title);
-  margin-bottom: 4px;
-  display: block;
-}
+.form-label { font-size: 12px; font-weight: 700; color: var(--text-title); margin-bottom: 4px; display: block; }
 
 .form-select, .form-input, .form-textarea {
   width: 100%;
@@ -1457,17 +906,8 @@ body.fullscreen-mode .device-screen {
   box-shadow: 0 0 0 3px rgba(0, 86, 150, 0.12);
 }
 
-.form-textarea {
-  min-height: 70px;
-  resize: vertical;
-}
-
-.quick-topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 6px;
-}
+.form-textarea { min-height: 70px; resize: vertical; }
+.quick-topics { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 
 .quick-topic-chip {
   font-size: 11px;
@@ -1480,21 +920,7 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.quick-topic-chip:hover {
-  border-color: var(--inatel-blue-400);
-  color: var(--inatel-blue-700);
-}
-
-.checkbox-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--text-title);
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 4px;
-}
+.quick-topic-chip:hover { border-color: var(--inatel-blue-400); color: var(--inatel-blue-700); }
 
 /* ==========================================================================
    TELA 7: SUCESSO / CONFIRMAÇÃO
@@ -1526,28 +952,13 @@ body.fullscreen-mode .device-screen {
   to   { transform: scale(1); opacity: 1; }
 }
 
-.success-title {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--text-title);
-  margin-bottom: 8px;
-}
-
-.success-desc {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-  line-height: 1.4;
-}
+.success-title { font-size: 20px; font-weight: 800; color: var(--text-title); margin-bottom: 8px; }
+.success-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.4; }
 
 /* ==========================================================================
    TELA 8: MEUS AGENDAMENTOS
    ========================================================================== */
-.appointments-tabs {
-  display: flex;
-  border-bottom: 1px solid var(--border-light);
-  background: #ffffff;
-}
+.appointments-tabs { display: flex; border-bottom: 1px solid var(--border-light); background: #ffffff; }
 
 .app-tab {
   flex: 1;
@@ -1565,26 +976,10 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.app-tab.active {
-  color: var(--inatel-blue-600);
-  border-bottom-color: var(--inatel-blue-600);
-  font-weight: 700;
-}
+.app-tab.active { color: var(--inatel-blue-600); border-bottom-color: var(--inatel-blue-600); font-weight: 700; }
 
-.appointments-list {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.app-group-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+.appointments-list { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.app-group-title { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
 .appointment-card {
   background: #ffffff;
@@ -1594,50 +989,21 @@ body.fullscreen-mode .device-screen {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   cursor: pointer;
   transition: var(--transition);
 }
 
-.appointment-card:hover {
-  box-shadow: var(--shadow-md);
-  border-color: var(--inatel-blue-400);
-}
-
-.appointment-card-info h4 {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-title);
-  margin-bottom: 3px;
-}
-
-.appointment-card-info .app-datetime {
-  font-size: 12px;
-  color: var(--inatel-blue-700);
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-
-.appointment-card-info .app-prof {
-  font-size: 11px;
-  color: var(--text-muted);
-}
+.appointment-card:hover { box-shadow: var(--shadow-md); border-color: var(--inatel-blue-400); }
+.appointment-card-info h4 { font-size: 14px; font-weight: 700; color: var(--text-title); margin-bottom: 3px; }
+.appointment-card-info .app-datetime { font-size: 12px; color: var(--inatel-blue-700); font-weight: 600; margin-bottom: 2px; }
+.appointment-card-info .app-prof { font-size: 11px; color: var(--text-muted); }
 
 /* ==========================================================================
    TELA 9: DETALHE DO AGENDAMENTO
    ========================================================================== */
-.detail-content {
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.detail-header-card {
-  background: #ffffff;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-light);
-  padding: 16px;
-}
+.detail-content { padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+.detail-header-card { background: #ffffff; border-radius: var(--radius-md); border: 1px solid var(--border-light); padding: 16px; }
 
 .detail-status-pill {
   display: inline-block;
@@ -1649,42 +1015,14 @@ body.fullscreen-mode .device-screen {
   margin-bottom: 8px;
 }
 
-.detail-table {
-  width: 100%;
-  margin-top: 10px;
-  border-collapse: collapse;
-}
+.detail-table { width: 100%; margin-top: 10px; border-collapse: collapse; }
+.detail-table tr { border-bottom: 1px solid var(--border-light); }
+.detail-table tr:last-child { border-bottom: none; }
+.detail-table td { padding: 8px 0; font-size: 12px; }
+.detail-table td.label { color: var(--text-muted); width: 90px; font-weight: 600; }
+.detail-table td.value { color: var(--text-title); font-weight: 700; }
 
-.detail-table tr {
-  border-bottom: 1px solid var(--border-light);
-}
-
-.detail-table tr:last-child {
-  border-bottom: none;
-}
-
-.detail-table td {
-  padding: 8px 0;
-  font-size: 12px;
-}
-
-.detail-table td.label {
-  color: var(--text-muted);
-  width: 90px;
-  font-weight: 600;
-}
-
-.detail-table td.value {
-  color: var(--text-title);
-  font-weight: 700;
-}
-
-.map-schematic-card {
-  background: #ffffff;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
+.map-schematic-card { background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); overflow: hidden; }
 
 .map-schematic-view {
   height: 110px;
@@ -1713,12 +1051,7 @@ body.fullscreen-mode .device-screen {
 /* ==========================================================================
    TELA 11: AVISOS E NOTIFICAÇÕES
    ========================================================================== */
-.notifications-list {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.notifications-list { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 
 .notif-card {
   background: #ffffff;
@@ -1731,10 +1064,7 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.notif-card.unread {
-  background: #f8fafc;
-  border-left: 3px solid var(--inatel-blue-600);
-}
+.notif-card.unread { background: #f8fafc; border-left: 3px solid var(--inatel-blue-600); }
 
 .notif-icon-circle {
   width: 34px;
@@ -1751,33 +1081,14 @@ body.fullscreen-mode .device-screen {
 .notif-icon-circle.cancel { background: var(--status-lotado-bg); color: var(--status-lotado-text); }
 .notif-icon-circle.aviso { background: #fef3c7; color: #92400e; }
 
-.notif-content h5 {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-title);
-  margin-bottom: 2px;
-}
-
-.notif-content p {
-  font-size: 12px;
-  color: var(--text-body);
-  margin-bottom: 4px;
-}
-
-.notif-time {
-  font-size: 10px;
-  color: var(--text-light);
-}
+.notif-content h5 { font-size: 13px; font-weight: 700; color: var(--text-title); margin-bottom: 2px; }
+.notif-content p { font-size: 12px; color: var(--text-body); margin-bottom: 4px; }
+.notif-time { font-size: 10px; color: var(--text-light); }
 
 /* ==========================================================================
    TELA 12: PERFIL DO USUÁRIO
    ========================================================================== */
-.profile-menu-list {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.profile-menu-list { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
 
 .profile-menu-item {
   background: #ffffff;
@@ -1794,15 +1105,8 @@ body.fullscreen-mode .device-screen {
   transition: var(--transition);
 }
 
-.profile-menu-item:hover {
-  background: var(--bg-subtle);
-  border-color: var(--inatel-blue-400);
-}
-
-.profile-menu-item.logout {
-  color: var(--accent-red);
-  margin-top: 10px;
-}
+.profile-menu-item:hover { background: var(--bg-subtle); border-color: var(--inatel-blue-400); }
+.profile-menu-item.logout { color: var(--accent-red); margin-top: 10px; }
 
 /* ==========================================================================
    VISÃO DO PROFESSOR (TELAS 13 E 14)
@@ -1828,11 +1132,7 @@ body.fullscreen-mode .device-screen {
   gap: 10px;
 }
 
-.request-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.request-actions { display: flex; align-items: center; gap: 8px; }
 
 .btn-accept {
   flex: 1;
@@ -1877,9 +1177,7 @@ body.fullscreen-mode .device-screen {
   animation: fadeIn 0.2s ease;
 }
 
-.modal-overlay.active {
-  display: flex;
-}
+.modal-overlay.active { display: flex; }
 
 .modal-card {
   background: #ffffff;
@@ -1894,24 +1192,9 @@ body.fullscreen-mode .device-screen {
   animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.modal-card h4 {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--text-title);
-  text-align: center;
-}
-
-.modal-card p {
-  font-size: 12px;
-  color: var(--text-muted);
-  text-align: center;
-  line-height: 1.4;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 10px;
-}
+.modal-card h4 { font-size: 16px; font-weight: 800; color: var(--text-title); text-align: center; }
+.modal-card p { font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.4; }
+.modal-actions { display: flex; gap: 10px; }
 
 .btn-danger {
   flex: 1;
@@ -1960,16 +1243,8 @@ body.fullscreen-mode .device-screen {
   pointer-events: none;
 }
 
-.toast-alert.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.toast-icon {
-  width: 18px;
-  height: 18px;
-  color: var(--accent-cyan);
-}
+.toast-alert.show { transform: translateY(0); opacity: 1; }
+.toast-icon { width: 18px; height: 18px; color: var(--accent-cyan); }
 
 /* Utilitários */
 .btn-action-primary {
@@ -1990,10 +1265,7 @@ body.fullscreen-mode .device-screen {
   gap: 8px;
 }
 
-.btn-action-primary:hover {
-  background: var(--inatel-blue-700);
-  transform: translateY(-1px);
-}
+.btn-action-primary:hover { background: var(--inatel-blue-700); transform: translateY(-1px); }
 
 .btn-action-secondary {
   width: 100%;
@@ -2009,21 +1281,17 @@ body.fullscreen-mode .device-screen {
   text-align: center;
 }
 
-.btn-action-secondary:hover {
-  background: #e2e8f0;
-}
+.btn-action-secondary:hover { background: #e2e8f0; }
 
 /* ==========================================================================
    TEMA "APP INATEL REAL" (Android / Material)
-   Barra azul com menu hambúrguer, menu lateral, cards planos com borda cinza,
-   títulos em azul e tabelas com primeira coluna azul-clara.
    ========================================================================== */
 :root {
-  --inatel-blue-600: #0066c1;   /* azul da barra de título do app */
+  --inatel-blue-600: #0066c1;
   --inatel-blue-700: #00539f;
-  --app-status: #303f9f;        /* barra de status índigo */
+  --app-status: #303f9f;
   --app-row: #eeeeee;
-  --app-col: #e8f2fb;           /* 1ª coluna das tabelas */
+  --app-col: #e8f2fb;
   --app-line: #dddddd;
   --bg-app: #eeeeee;
   --font-family: Roboto, "Segoe UI", -apple-system, Helvetica, Arial, sans-serif;
@@ -2031,17 +1299,14 @@ body.fullscreen-mode .device-screen {
   --shadow-md: 0 1px 3px rgba(0,0,0,.2);
 }
 
-/* Moldura estilo Android (câmera "punch-hole") */
 .device-frame { border-radius: 36px; padding: 10px; }
 .device-screen { border-radius: 28px; }
 .device-notch { width: 12px; height: 12px; top: 19px; padding: 0; border-radius: 50%; background: #0b0b0b; border: 1px solid #1e293b; }
 .device-camera { display: none; }
 
-/* Barra de status */
 .mobile-status-bar { height: 28px; padding: 0 14px; font-size: 12px; font-weight: 500; background: var(--app-status); color: #fff; position: relative; z-index: 90; }
 .status-bar-icons { gap: 5px; }
 
-/* Barra de título (toolbar) */
 .app-header { background: var(--inatel-blue-600); color: #fff; height: 56px; padding: 0 12px 0 4px; border-bottom: none; box-shadow: 0 2px 4px rgba(0,0,0,.28); }
 .app-header-left { flex: 1; min-width: 0; gap: 4px; }
 .app-header-title { color: #fff; font-size: 20px; font-weight: 500; letter-spacing: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -2087,7 +1352,6 @@ body.fullscreen-mode .device-screen {
 .service-card.highlight-feature .service-card-title { font-size: 14px; font-weight: 700; color: var(--inatel-blue-600); }
 .feature-tag-novo { top: 50%; transform: translateY(-50%); border-radius: 10px; }
 
-/* Cards e listas: planos, borda cinza */
 .next-booking-card, .professor-card, .appointment-card, .profile-card-block, .summary-card, .calendar-section,
 .detail-header-card, .notif-card, .request-card, .profile-menu-item, .map-schematic-card { border-radius: 2px; border: 1px solid var(--app-line); box-shadow: none; background: #fff; }
 .professor-card:hover, .appointment-card:hover, .next-booking-card:hover, .profile-menu-item:hover { transform: none; border-color: var(--inatel-blue-600); box-shadow: none; }
@@ -2099,13 +1363,11 @@ body.fullscreen-mode .device-screen {
 .status-badge, .detail-status-pill { border-radius: 2px; font-size: 10px; text-transform: uppercase; letter-spacing: .3px; }
 .professor-avatar { background: var(--app-col); }
 
-/* Tabela de detalhes: 1ª coluna azul-clara, como a tela de Frequência */
 .detail-table { border: 1px solid var(--app-line); margin-top: 12px; }
 .detail-table td { border: 1px solid var(--app-line); padding: 10px; }
 .detail-table td.label { background: var(--app-col); text-align: center; color: var(--text-title); font-weight: 500; }
 .detail-table td.value { background: #fff; font-weight: 500; }
 
-/* Abas e filtros */
 .appointments-tabs { background: var(--inatel-blue-600); border: none; }
 .app-tab { color: rgba(255,255,255,.7); text-transform: uppercase; font-weight: 500; font-size: 13px; }
 .app-tab.active { color: #fff; border-bottom: 2px solid #fff; }
@@ -2113,13 +1375,11 @@ body.fullscreen-mode .device-screen {
 .filter-chip.active { background: var(--inatel-blue-600); border-color: var(--inatel-blue-600); }
 .cal-day { border-radius: 50%; }
 
-/* Botões (Material) */
 .btn-action-primary, .btn-primary { border-radius: 2px; text-transform: uppercase; letter-spacing: .5px; font-size: 14px; font-weight: 500; box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12); }
 .btn-action-secondary, .btn-secondary, .btn-secondary-white, .btn-danger, .btn-accept, .btn-refuse { border-radius: 2px; text-transform: uppercase; letter-spacing: .4px; font-weight: 500; }
 .btn-action-secondary, .btn-secondary { background: #fff; color: var(--inatel-blue-600); }
 .modal-card { border-radius: 4px; }
 
-/* Perfil e Login */
 #screen-perfil .profile-hero { background: linear-gradient(135deg, #0a2f66 0%, #0066c1 100%); border: none; }
 #screen-perfil .profile-hero h3, #screen-perfil .profile-hero .profile-sub, #screen-perfil .profile-hero .profile-email { color: #fff; }
 #screen-perfil .profile-avatar-lg { background: #fff !important; color: #0a2f66; }

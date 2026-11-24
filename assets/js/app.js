@@ -1,13 +1,12 @@
 /**
- * APP INATEL - AGENDAMENTO DE ATENDIMENTOS COM PROFESSORES (MONITORIA E PROJETOS)
+ * APP INATEL - AGENDAMENTO DE ATENDIMENTOS COM PROFESSORES
  * Lógica da Interface Interativa - Protótipo Funcional
  * Aluna: Ana Julia de Souza | Matrícula: 1048
  * Engenharia de Software - Inatel (Disciplina S05 - Interação Homem-Máquina)
  */
 
-const STORAGE_KEY = "inatel_s05_state_v2";
+const STORAGE_KEY = "inatel_s05_state_v3";
 
-// Dados base oficiais (Docentes do Inatel correlacionados à Grade de Engenharia de Software - Currículo 3)
 const DEFAULT_DATA = {
   currentUser: {
     id: 1048,
@@ -17,7 +16,7 @@ const DEFAULT_DATA = {
     periodo: 4,
     turno: "noturno",
     email: "ana.aj@ges.inatel.br",
-    role: "aluno" // 'aluno' ou 'professor'
+    role: "aluno"
   },
 
   professores: [
@@ -35,8 +34,7 @@ const DEFAULT_DATA = {
       tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala 204 - Prédio Central (ou Teams)",
-      bio: "Docente titular de Interação Homem-Máquina (S05) e Ergonomia no Inatel. Orientador de projetos de usabilidade, prototipagem e IHC.",
+      localPadrao: "Sala 204 - Prédio Central",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -73,17 +71,12 @@ const DEFAULT_DATA = {
       tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-16 - Prédio I (ou Teams)",
-      bio: "Docente do núcleo específico de Engenharia de Software, responsável pelas disciplinas de POO com Java, Engenharia de Produto, Qualidade e Evolução de Software.",
+      localPadrao: "Sala I-16 - Prédio I",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
           { hora: "15:00", status: "livre" },
           { hora: "16:00", status: "livre" }
-        ],
-        "2026-11-13": [
-          { hora: "09:00", status: "livre" },
-          { hora: "10:00", status: "livre" }
         ]
       }
     },
@@ -101,17 +94,12 @@ const DEFAULT_DATA = {
       tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-15 - Prédio I (ou Teams)",
-      bio: "Coordenador dos cursos de Engenharia de Software e Computação no Inatel. Docente de Ciência de Dados com Python e orientador de programação competitiva.",
+      localPadrao: "Sala I-15 - Prédio I",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
           { hora: "14:30", status: "livre" },
           { hora: "16:00", status: "livre" }
-        ],
-        "2026-11-13": [
-          { hora: "15:00", status: "livre" },
-          { hora: "15:30", status: "livre" }
         ]
       }
     },
@@ -132,15 +120,11 @@ const DEFAULT_DATA = {
       tags: ["Monitoria", "Projetos"],
       status: "vagas",
       statusTexto: "Poucas vagas",
-      localPadrao: "Sala I-20 - Prédio I (ou Teams)",
-      bio: "Docente das áreas de Bancos de Dados Relacionais e NoSQL, Arquiteturas de Software, Sistemas Operacionais, Matemática Discreta e Estruturas de Dados Avançadas.",
+      localPadrao: "Sala I-20 - Prédio I",
       horarios: {
         "2026-11-12": [
           { hora: "15:30", status: "lotado" },
           { hora: "16:00", status: "livre" }
-        ],
-        "2026-11-13": [
-          { hora: "14:00", status: "livre" }
         ]
       }
     },
@@ -158,16 +142,11 @@ const DEFAULT_DATA = {
       tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Lab de Software - CDG Hub / Bloco 2",
-      bio: "Mestre em Ciência e Tecnologia da Computação, docente de práticas laboratoriais de Engenharia de Software, Qualidade e Inteligência Artificial.",
+      localPadrao: "Lab de Software - CDG Hub",
       horarios: {
         "2026-11-12": [
           { hora: "15:00", status: "livre" },
           { hora: "16:00", status: "livre" }
-        ],
-        "2026-11-13": [
-          { hora: "09:00", status: "livre" },
-          { hora: "10:00", status: "livre" }
         ]
       }
     },
@@ -187,7 +166,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-15 - Prédio I",
-      bio: "Docente de Paradigmas de Programação, Computação Gráfica e Multimídia, Algoritmos I e Introdução à Engenharia.",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -209,14 +187,10 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-15 - Prédio I",
-      bio: "Doutor em Engenharia Elétrica, pesquisador e docente de Algoritmos e Estruturas de Dados I e II no Inatel.",
       horarios: {
         "2026-11-12": [
           { hora: "10:00", status: "livre" },
           { hora: "11:00", status: "livre" }
-        ],
-        "2026-11-17": [
-          { hora: "14:00", status: "livre" }
         ]
       }
     },
@@ -235,7 +209,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-17 - Prédio I",
-      bio: "Docente de Linguagens de Programação e Compiladores, Algoritmos I e Sistemas Microcontrolados.",
       horarios: {
         "2026-11-12": [
           { hora: "14:30", status: "livre" },
@@ -259,7 +232,6 @@ const DEFAULT_DATA = {
       status: "vagas",
       statusTexto: "Poucas vagas",
       localPadrao: "Sala I-20 / Lab II-2",
-      bio: "Docente responsável pelas disciplinas de Redes de Dados I e II, Algoritmos e Álgebra e Geometria Analítica.",
       horarios: {
         "2026-11-12": [
           { hora: "16:00", status: "livre" }
@@ -277,7 +249,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-18 - Prédio I",
-      bio: "Pesquisador em IoT, computação em nuvem e redes definidas por software. Docente de Redes de Dados II.",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -296,7 +267,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-19 / WAI Lab",
-      bio: "Doutor em Engenharia, pesquisador do WAI Lab e docente titular de Inteligência Artificial (C24).",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -315,7 +285,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-16 - Prédio I",
-      bio: "Pesquisadora e docente na área de Inteligência Artificial e processamento de sinais.",
       horarios: {
         "2026-11-12": [
           { hora: "15:00", status: "livre" },
@@ -334,7 +303,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-15 - Prédio I",
-      bio: "Docente responsável por Fundamentos de Gestão de Projetos (G04) e orientação de planejamento ágil.",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -353,14 +321,9 @@ const DEFAULT_DATA = {
       status: "vagas",
       statusTexto: "Poucas vagas",
       localPadrao: "Inatel Startups / CDG Hub",
-      bio: "Doutor em Engenharia pelo Inatel, especialista em gestão ágil de projetos, inovação tecnológica e mentoria de projetos integradores e IC.",
       horarios: {
         "2026-11-12": [
           { hora: "16:30", status: "livre" }
-        ],
-        "2026-11-13": [
-          { hora: "14:00", status: "lotado" },
-          { hora: "14:30", status: "livre" }
         ]
       }
     },
@@ -378,7 +341,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Lab III-4 / Prédio III",
-      bio: "Docente de Eletrônica Digital Básica (E07) e Eletrônica Digital Aplicada (E08).",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -397,7 +359,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Lab III-7 / Sala I-15",
-      bio: "Docente de Sistemas Microcontrolados e Microprocessados (E09) e arquitetura de hardware.",
       horarios: {
         "2026-11-12": [
           { hora: "14:30", status: "livre" },
@@ -416,7 +377,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-22 - Prédio I",
-      bio: "Docente de Sistemas Microcontrolados e Microprocessados (E09).",
       horarios: {
         "2026-11-12": [
           { hora: "16:00", status: "livre" }
@@ -434,7 +394,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-6 - Prédio I",
-      bio: "Docente titular de Circuitos Elétricos em Corrente Contínua (E01).",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -457,12 +416,10 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-2 - Prédio I",
-      bio: "Docente do núcleo básico de Matemática e Cálculo Diferencial e Integral (M01, M03, M05).",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
-          { hora: "14:30", status: "livre" },
-          { hora: "15:00", status: "livre" }
+          { hora: "14:30", status: "livre" }
         ]
       }
     },
@@ -482,7 +439,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-6 - Prédio I",
-      bio: "Docente das disciplinas de Álgebra Linear, Cálculo II/III (M05) e Física Clássica e Eletromagnetismo.",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -501,7 +457,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-12 - Prédio I",
-      bio: "Docente responsável por Cálculo Aplicado a Engenharia II (M04 - funções de várias variáveis e integrais múltiplas).",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -524,7 +479,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-9 - Prédio I",
-      bio: "Docente de Probabilidade e Processos Estocásticos (M11), Cálculo I e Matemática Aplicada.",
       horarios: {
         "2026-11-12": [
           { hora: "14:30", status: "livre" },
@@ -546,7 +500,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-17 - Prédio I",
-      bio: "Docente titular de Cálculo Numérico e Estatística (M06) e Física Newtoniana Clássica (F01).",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -569,7 +522,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-15 - Prédio I",
-      bio: "Docente de Cálculo Aplicado I, Matemática Aplicada e Física Newtoniana Clássica.",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" }
@@ -590,7 +542,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Sala I-8 - Prédio I",
-      bio: "Docente de Física Ondulatória, Óptica e Termodinâmica (F02) e Eletromagnetismo (F03).",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -612,7 +563,6 @@ const DEFAULT_DATA = {
       status: "livre",
       statusTexto: "Livre",
       localPadrao: "Prédio VI (Sala 1.3) / Lab I-29",
-      bio: "Docentes das disciplinas de Desenho (E10) e Química e Ciências dos Materiais (Q01).",
       horarios: {
         "2026-11-12": [
           { hora: "15:00", status: "livre" }
@@ -640,16 +590,16 @@ const DEFAULT_DATA = {
     },
     {
       id: 102,
-      professorId: 14,
-      titulo: "Orientação - Projetos Integradores e Fetin",
+      professorId: 1,
+      titulo: "Projeto - S05 Interação Homem-Máquina",
       tipo: "Projeto",
-      disciplina: "Projetos Integradores e Fetin",
-      professor: "Prof. Guilherme Augusto Barucke Marcondes",
+      disciplina: "S05 - Interação Homem-Máquina",
+      professor: "Prof. Raphael Cardoso Mota Pereira",
       data: "Sex, 13/11/2026",
       horario: "10:00 – 10:45",
-      local: "CDG Hub - Inatel Startups",
+      local: "Sala 204 - Prédio Central",
       status: "PENDENTE",
-      assunto: "Revisão do backlog ágil e entregáveis da sprint",
+      assunto: "Validação do protótipo funcional e avaliação heurística",
       lembrete: "1 hora antes",
       periodoGrupo: "Esta semana",
       ehFuturo: true
@@ -712,33 +662,25 @@ const DEFAULT_DATA = {
       tempo: "há 1 dia",
       tipo: "aviso",
       lida: true
-    },
-    {
-      id: 4,
-      titulo: "Agendamento cancelado",
-      mensagem: "O atendimento de Cálculo I do dia 28/10 foi cancelado.",
-      tempo: "há 3 dias",
-      tipo: "cancel",
-      lida: true
     }
   ],
 
   listaEspera: []
 };
 
-// Carregar estado persistido ou usar padrão
 function loadInitialState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
       return {
-        currentUser: parsed.currentUser || DEFAULT_DATA.currentUser,
+        currentUser: JSON.parse(JSON.stringify(DEFAULT_DATA.currentUser)),
         currentScreen: "screen-home",
         previousScreen: null,
         activeFilter: "todos",
         searchQuery: "",
         rescheduleId: null,
+        profTab: "pedidos",
         bookingDraft: {
           professorId: 1,
           tipo: "Monitoria",
@@ -748,21 +690,19 @@ function loadInitialState() {
           horario: "14:30 – 15:00",
           horarioInicio: "14:30",
           disciplina: "S05 - Interação Homem-Máquina",
-          assunto: "Ergonomia cognitiva e testes de usabilidade",
-          observacao: "",
+          assunto: "",
           lembreteMin: 30,
-          local: "Sala 204 - Prédio Central (ou Teams)",
-          vagas: 1
+          local: "Sala 204 - Prédio Central"
         },
         selectedAppointment: null,
-        professores: parsed.professores || DEFAULT_DATA.professores,
-        agendamentos: parsed.agendamentos || DEFAULT_DATA.agendamentos,
-        notificacoes: parsed.notificacoes || DEFAULT_DATA.notificacoes,
+        professores: parsed.professores || JSON.parse(JSON.stringify(DEFAULT_DATA.professores)),
+        agendamentos: parsed.agendamentos || JSON.parse(JSON.stringify(DEFAULT_DATA.agendamentos)),
+        notificacoes: parsed.notificacoes || JSON.parse(JSON.stringify(DEFAULT_DATA.notificacoes)),
         listaEspera: parsed.listaEspera || []
       };
     }
   } catch (e) {
-    console.warn("Não foi possível ler o localStorage:", e);
+    console.warn("Erro ao carregar estado:", e);
   }
 
   return {
@@ -772,6 +712,7 @@ function loadInitialState() {
     activeFilter: "todos",
     searchQuery: "",
     rescheduleId: null,
+    profTab: "pedidos",
     bookingDraft: {
       professorId: 1,
       tipo: "Monitoria",
@@ -781,11 +722,9 @@ function loadInitialState() {
       horario: "14:30 – 15:00",
       horarioInicio: "14:30",
       disciplina: "S05 - Interação Homem-Máquina",
-      assunto: "Ergonomia cognitiva e testes de usabilidade",
-      observacao: "",
+      assunto: "",
       lembreteMin: 30,
-      local: "Sala 204 - Prédio Central (ou Teams)",
-      vagas: 1
+      local: "Sala 204 - Prédio Central"
     },
     selectedAppointment: null,
     professores: JSON.parse(JSON.stringify(DEFAULT_DATA.professores)),
@@ -814,100 +753,37 @@ function persistState() {
 }
 
 // ==========================================================================
-// INICIALIZAÇÃO DA INTERFACE
+// INICIALIZAÇÃO
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
-  enhanceUXControls();
+  ensureGradeBanner();
   renderHomeNextBooking();
   renderProfessores();
   renderAgendamentos("proximos");
   renderNotificacoes("todas");
-  renderProfessorRequests();
+  renderProfessorView();
   setupEventListeners();
   updateTimeSlotSelection("14:30");
+  updateBottomNav("screen-home");
 });
 
-/**
- * Injeta controles extras de regra de negócio diretamente nas telas existentes
- * sem exigir alteração estrutural no HTML:
- * 1) Placeholder enriquecido na busca por sigla/disciplina
- * 2) Badge de compatibilidade com a grade noturna (HTA 2.2) + legenda de lista de espera (HTA 2.3)
- * 3) Seletor dinâmico da Disciplina e Modalidade na tela de Confirmação (HTA 3.1 / 3.2)
- * 4) Botão Reagendar funcional na tela de Detalhes (HTA 5)
- */
-function enhanceUXControls() {
-  // 1. Melhorar placeholder da busca
-  const searchInput = document.querySelector("#screen-escolher-professor input[type='text']");
-  if (searchInput) {
-    searchInput.placeholder = "Buscar professor, matéria ou sigla (ex: S05, C06, Cálculo)...";
-  }
-
-  // 2. Banner de compatibilidade com grade horária na tela de Horários (HTA 2.2)
+function ensureGradeBanner() {
   const slotsGrid = document.getElementById("timeSlotsGrid");
   if (slotsGrid && !document.getElementById("gradeCompatBanner")) {
     const banner = document.createElement("div");
     banner.id = "gradeCompatBanner";
     banner.style.cssText =
-        "margin-top: 12px; padding: 10px 12px; border-radius: 10px; font-size: 12px; line-height: 1.4; background: var(--status-livre-bg, #E8F5E9); color: var(--status-livre-text, #1B5E20); border: 1px solid rgba(27,94,32,0.15);";
-    banner.innerHTML =
-        "<strong>✓ Compatível com sua grade (4º período noturno):</strong> Horário livre antes das aulas (19h30). <em>Dica: toque em horários lotados para entrar na lista de espera.</em>";
+        "margin-top: 12px; padding: 10px 12px; border-radius: 6px; font-size: 12px; line-height: 1.4; background: var(--status-livre-bg); color: var(--status-livre-text); border: 1px solid rgba(27,94,32,0.15);";
     slotsGrid.parentNode.insertBefore(banner, slotsGrid.nextSibling);
-  }
-
-  // 3. Seletor de Disciplina e Modalidade na tela de Confirmação (HTA 3.1 / 3.2)
-  const assuntoInput = document.getElementById("confirmInputAssunto");
-  if (assuntoInput && !document.getElementById("confirmInputDisciplina")) {
-    const wrapper = document.createElement("div");
-    wrapper.style.cssText = "margin-bottom: 12px;";
-    wrapper.innerHTML = `
-      <label for="confirmInputDisciplina" style="display:block; font-size:12px; font-weight:600; color:var(--text-secondary, #475569); margin-bottom:6px;">
-        Disciplina / Projeto do Docente
-      </label>
-      <select id="confirmInputDisciplina" onchange="handleConfirmDisciplinaChange(this.value)"
-        style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid #CBD5E1; background:#fff; font-size:13px; color:#1E293B; margin-bottom:10px;">
-      </select>
-      <label for="confirmInputModalidade" style="display:block; font-size:12px; font-weight:600; color:var(--text-secondary, #475569); margin-bottom:6px;">
-        Modalidade de Atendimento
-      </label>
-      <select id="confirmInputModalidade" onchange="handleConfirmModalidadeChange(this.value)"
-        style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid #CBD5E1; background:#fff; font-size:13px; color:#1E293B;">
-        <option value="Presencial">Presencial (Sala / Laboratório no Campus)</option>
-        <option value="Remoto">Remoto (Microsoft Teams)</option>
-      </select>
-    `;
-    const parentGroup = assuntoInput.closest(".form-group") || assuntoInput.parentNode;
-    parentGroup.parentNode.insertBefore(wrapper, parentGroup);
-  }
-
-  // 4. Ligar botão Reagendar na tela de Detalhes (HTA 5)
-  const detailScreen = document.getElementById("screen-detalhe-agendamento");
-  if (detailScreen) {
-    detailScreen.querySelectorAll("button").forEach(btn => {
-      if (btn.textContent.trim().toLowerCase() === "reagendar") {
-        btn.id = "btnRescheduleAppointment";
-        btn.onclick = startRescheduleAppointment;
-      }
-    });
-  }
-
-  // 5. Ligar formulário "Novo horário" na visão do professor (Tela 14 do Wireframe)
-  const profNewSlotScreen = document.getElementById("screen-professor-novo-horario");
-  if (profNewSlotScreen) {
-    profNewSlotScreen.querySelectorAll("button").forEach(btn => {
-      if (btn.textContent.trim().toLowerCase().includes("salvar")) {
-        btn.onclick = handleProfessorSaveSlot;
-      }
-    });
   }
 }
 
 // ==========================================================================
-// ROTEAMENTO DE TELAS
+// ROTEAMENTO
 // ==========================================================================
 function navigateTo(screenId, recordHistory = true) {
   const current = document.querySelector(".screen.active");
   const target = document.getElementById(screenId);
-
   if (!target) return;
 
   if (recordHistory && current) {
@@ -923,23 +799,15 @@ function navigateTo(screenId, recordHistory = true) {
   if (screenId === "screen-escolher-horarios") {
     renderTimeSlotsForSelectedDay();
   } else if (screenId === "screen-professor-agenda") {
-    renderProfessorRequests();
+    renderProfessorView();
   }
 
   const viewport = document.getElementById("appViewport");
   if (viewport) viewport.scrollTop = 0;
 }
 
-function goBack() {
-  if (AppState.previousScreen) {
-    navigateTo(AppState.previousScreen, false);
-  } else {
-    navigateTo("screen-home", false);
-  }
-}
-
 // ==========================================================================
-// TELA 2: INÍCIO (HOME)
+// TELA 2: HOME
 // ==========================================================================
 function renderHomeNextBooking() {
   const container = document.getElementById("homeNextBookingContainer");
@@ -955,7 +823,7 @@ function renderHomeNextBooking() {
           <div class="booking-time">${proximo.data} - ${proximo.horario.split("–")[0].trim()}</div>
           <div class="booking-location">${proximo.local} - ${proximo.professor}</div>
         </div>
-        <div class="status-badge ${proximo.status === 'CONFIRMADO' ? 'livre' : 'vagas'}">
+        <div class="status-badge ${proximo.status === "CONFIRMADO" ? "livre" : "vagas"}">
           ${proximo.status}
         </div>
       </div>
@@ -974,11 +842,11 @@ function renderHomeNextBooking() {
 }
 
 // ==========================================================================
-// TELA 3: ESCOLHER PROFESSOR (LISTA E BUSCA)
+// TELA 3: ESCOLHER PROFESSOR
 // ==========================================================================
 function filterProfessores(tipo, chipElement) {
   AppState.activeFilter = tipo;
-  document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+  document.querySelectorAll("#screen-escolher-professor .filter-chip").forEach(c => c.classList.remove("active"));
   if (chipElement) chipElement.classList.add("active");
   renderProfessores();
 }
@@ -1002,7 +870,6 @@ function renderProfessores() {
       const matchDisc = prof.disciplinas.some(d => d.toLowerCase().includes(AppState.searchQuery));
       return matchNome || matchDepto || matchDisc;
     }
-
     return true;
   });
 
@@ -1036,7 +903,7 @@ function renderProfessores() {
 }
 
 // ==========================================================================
-// TELA 4: PERFIL DO PROFESSOR SELECIONADO
+// TELA 4: PERFIL DO PROFESSOR
 // ==========================================================================
 function selectProfessor(id) {
   const prof = AppState.professores.find(p => p.id === id);
@@ -1052,6 +919,7 @@ function selectProfessor(id) {
   document.getElementById("profDetailNome").innerText = prof.nome;
   document.getElementById("profDetailDepto").innerText = prof.depto;
   document.getElementById("profDetailEmail").innerText = prof.email;
+  document.getElementById("profDetailLocal").innerText = prof.localPadrao;
 
   const discTags = document.getElementById("profDetailDisciplinas");
   if (discTags) {
@@ -1059,8 +927,6 @@ function selectProfessor(id) {
         .map(d => `<span class="disc-tag" style="font-size: 12px; padding: 4px 10px;">${d}</span>`)
         .join("");
   }
-
-  document.getElementById("profDetailLocal").innerText = prof.localPadrao;
 
   navigateTo("screen-perfil-professor");
 }
@@ -1073,7 +939,7 @@ function selectServiceType(tipo, element) {
 }
 
 // ==========================================================================
-// TELA 5: ESCOLHA DE DATA, HORÁRIO, COMPATIBILIDADE E LISTA DE ESPERA
+// TELA 5: DATA E HORÁRIOS
 // ==========================================================================
 function selectCalendarDay(dayNumber, dayElement) {
   document.querySelectorAll(".cal-day").forEach(d => d.classList.remove("selected"));
@@ -1098,6 +964,8 @@ function renderTimeSlotsForSelectedDay() {
   const slotsGrid = document.getElementById("timeSlotsGrid");
   if (!slotsGrid || !prof) return;
 
+  ensureGradeBanner();
+
   const dia = AppState.bookingDraft.data;
   const horarios = (prof.horarios && prof.horarios[dia]) || [
     { hora: "14:00", status: "livre" },
@@ -1107,7 +975,6 @@ function renderTimeSlotsForSelectedDay() {
     { hora: "16:00", status: "livre" }
   ];
 
-  // Garantir que haja um horário selecionado válido no dia
   const primeiroLivre = horarios.find(s => s.status === "livre");
   if (primeiroLivre && !horarios.some(s => s.hora === AppState.bookingDraft.horarioInicio && s.status === "livre")) {
     updateTimeSlotSelection(primeiroLivre.hora);
@@ -1160,7 +1027,6 @@ function updateTimeSlotSelection(hora, btnElement) {
   updateGradeCompatibilityBanner(hora);
 }
 
-// Regra de negócio HTA 2.2: Verifica conflito com turno noturno da aluna (19:30 - 22:20)
 function updateGradeCompatibilityBanner(hora) {
   const banner = document.getElementById("gradeCompatBanner");
   if (!banner || !hora) return;
@@ -1170,17 +1036,16 @@ function updateGradeCompatibilityBanner(hora) {
   const conflitaNoturno = minutos >= 19 * 60 + 15 && minutos <= 22 * 60 + 20;
 
   if (conflitaNoturno) {
-    banner.style.background = "var(--status-vagas-bg, #FFF8E1)";
-    banner.style.color = "var(--status-vagas-text, #92400E)";
+    banner.style.background = "var(--status-vagas-bg)";
+    banner.style.color = "var(--status-vagas-text)";
     banner.innerHTML = `<strong>⚠ Atenção à grade horária:</strong> O horário <strong>${hora}</strong> coincide com o turno das suas aulas do 4º período noturno (19h30–22h20).`;
   } else {
-    banner.style.background = "var(--status-livre-bg, #E8F5E9)";
-    banner.style.color = "var(--status-livre-text, #1B5E20)";
+    banner.style.background = "var(--status-livre-bg)";
+    banner.style.color = "var(--status-livre-text)";
     banner.innerHTML = `<strong>✓ Compatível com sua grade (4º período noturno):</strong> Horário livre antes das aulas (19h30). <em>Toque em horários lotados para lista de espera.</em>`;
   }
 }
 
-// Regra de negócio HTA 2.3 / UML haVagas(): Entrar na lista de espera quando lotado
 function joinWaitlist(hora) {
   const prof = AppState.professores.find(p => p.id === AppState.bookingDraft.professorId);
   if (!prof) return;
@@ -1203,23 +1068,19 @@ function joinWaitlist(hora) {
 
   persistState();
   renderNotificacoes("todas");
-  showToast(`Adicionada à lista de espera (${hora})! Avisaremos se liberar vaga.`);
+  showToast(`Adicionada à lista de espera (${hora})!`);
 }
 
 // ==========================================================================
-// TELA 6: CONFIRMAR AGENDAMENTO (REVISÃO & INPUTS)
+// TELA 6: CONFIRMAR AGENDAMENTO
 // ==========================================================================
 function prepareConfirmationScreen() {
   const prof = AppState.professores.find(p => p.id === AppState.bookingDraft.professorId);
   if (!prof) return;
 
-  enhanceUXControls();
-
   const discSelect = document.getElementById("confirmInputDisciplina");
   if (discSelect) {
-    discSelect.innerHTML = prof.disciplinas
-        .map(d => `<option value="${d}">${d}</option>`)
-        .join("");
+    discSelect.innerHTML = prof.disciplinas.map(d => `<option value="${d}">${d}</option>`).join("");
     if (prof.disciplinas.includes(AppState.bookingDraft.disciplina)) {
       discSelect.value = AppState.bookingDraft.disciplina;
     } else {
@@ -1229,20 +1090,18 @@ function prepareConfirmationScreen() {
   }
 
   const modSelect = document.getElementById("confirmInputModalidade");
-  if (modSelect) {
-    modSelect.value = AppState.bookingDraft.modalidade || "Presencial";
-  }
+  if (modSelect) modSelect.value = AppState.bookingDraft.modalidade || "Presencial";
+
+  const tipoSelect = document.getElementById("confirmInputTipo");
+  if (tipoSelect) tipoSelect.value = AppState.bookingDraft.tipo;
 
   document.getElementById("confirmProfNome").innerText = prof.nome;
   document.getElementById("confirmTipoDisciplina").innerText = `${AppState.bookingDraft.tipo} - ${AppState.bookingDraft.disciplina}`;
   document.getElementById("confirmDataHorario").innerText = `${AppState.bookingDraft.dataTexto} - ${AppState.bookingDraft.horario}`;
   document.getElementById("confirmLocal").innerText =
       AppState.bookingDraft.modalidade === "Remoto"
-          ? "Remoto (Microsoft Teams - link institucional)"
+          ? "Remoto (Microsoft Teams)"
           : prof.localPadrao;
-
-  const tipoSelect = document.getElementById("confirmInputTipo");
-  if (tipoSelect) tipoSelect.value = AppState.bookingDraft.tipo;
 
   navigateTo("screen-confirmar-agendamento");
 }
@@ -1260,7 +1119,7 @@ function handleConfirmModalidadeChange(novaModalidade) {
   if (el) {
     el.innerText =
         novaModalidade === "Remoto"
-            ? "Remoto (Microsoft Teams - link institucional)"
+            ? "Remoto (Microsoft Teams)"
             : prof
                 ? prof.localPadrao
                 : "Sala 204 - Prédio Central";
@@ -1280,8 +1139,7 @@ function submitBooking() {
   const tipoInput = document.getElementById("confirmInputTipo")?.value || AppState.bookingDraft.tipo;
   const discInput = document.getElementById("confirmInputDisciplina")?.value || AppState.bookingDraft.disciplina;
   const modInput = document.getElementById("confirmInputModalidade")?.value || AppState.bookingDraft.modalidade;
-  const assunto = document.getElementById("confirmInputAssunto")?.value || "Dúvidas gerais da disciplina";
-  const obs = document.getElementById("confirmInputObs")?.value || "";
+  const assunto = document.getElementById("confirmInputAssunto")?.value.trim() || "Dúvidas gerais da disciplina";
   const lembreteMin = document.getElementById("confirmInputLembrete")?.value || "30";
 
   const localFinal =
@@ -1291,7 +1149,6 @@ function submitBooking() {
               ? prof.localPadrao
               : "Sala 204 - Prédio Central";
 
-  // Marcar slot como reservado na agenda do professor (UML: reservarVaga())
   if (prof && prof.horarios && prof.horarios[AppState.bookingDraft.data]) {
     const slotObj = prof.horarios[AppState.bookingDraft.data].find(
         s => s.hora === AppState.bookingDraft.horarioInicio
@@ -1299,7 +1156,6 @@ function submitBooking() {
     if (slotObj) slotObj.status = "lotado";
   }
 
-  // Se for reagendamento, atualiza o registro anterior
   if (AppState.rescheduleId) {
     const antigo = AppState.agendamentos.find(a => a.id === AppState.rescheduleId);
     if (antigo) {
@@ -1310,7 +1166,6 @@ function submitBooking() {
       antigo.horario = AppState.bookingDraft.horario;
       antigo.local = localFinal;
       antigo.assunto = assunto;
-      antigo.observacao = obs;
       antigo.lembrete = `${lembreteMin} min antes`;
       antigo.status = "PENDENTE";
     }
@@ -1329,7 +1184,7 @@ function submitBooking() {
     renderHomeNextBooking();
     renderAgendamentos("proximos");
     renderNotificacoes("todas");
-    renderProfessorRequests();
+    renderProfessorView();
 
     document.getElementById("successDetailTitulo").innerText = `${tipoInput} - ${discInput}`;
     document.getElementById("successDetailData").innerText = `${AppState.bookingDraft.dataTexto} - ${AppState.bookingDraft.horario.split("–")[0].trim()}`;
@@ -1340,7 +1195,6 @@ function submitBooking() {
     return;
   }
 
-  // Criar novo Agendamento (nasce PENDENTE para o professor confirmar na Visão do Professor)
   const novoAgendamento = {
     id: Date.now(),
     professorId: prof ? prof.id : 1,
@@ -1353,7 +1207,6 @@ function submitBooking() {
     local: localFinal,
     status: "PENDENTE",
     assunto: assunto,
-    observacao: obs,
     lembrete: `${lembreteMin} min antes`,
     periodoGrupo: "Esta semana",
     ehFuturo: true
@@ -1364,7 +1217,7 @@ function submitBooking() {
   AppState.notificacoes.unshift({
     id: Date.now(),
     titulo: "Solicitação enviada!",
-    mensagem: `${novoAgendamento.titulo} solicitado para ${novoAgendamento.data} às ${novoAgendamento.horario.split("–")[0].trim()}. Lembrete ativado (${lembreteMin} min antes).`,
+    mensagem: `${novoAgendamento.titulo} solicitado para ${novoAgendamento.data} às ${novoAgendamento.horario.split("–")[0].trim()}.`,
     tempo: "Agora mesmo",
     tipo: "confirm",
     lida: false
@@ -1378,9 +1231,9 @@ function submitBooking() {
   renderHomeNextBooking();
   renderAgendamentos("proximos");
   renderNotificacoes("todas");
-  renderProfessorRequests();
+  renderProfessorView();
 
-  showToast("Agendamento solicitado e adicionado à sua agenda!");
+  showToast("Agendamento solicitado!");
   navigateTo("screen-agendamento-sucesso");
 }
 
@@ -1450,7 +1303,7 @@ function renderAgendamentos(tab) {
 }
 
 // ==========================================================================
-// TELA 9: DETALHE DO AGENDAMENTO, REAGENDAMENTO & CANCELAMENTO
+// TELA 9 E 10: DETALHE, REAGENDAMENTO E CANCELAMENTO
 // ==========================================================================
 function viewAppointmentDetail(id) {
   const item = AppState.agendamentos.find(a => a.id === id);
@@ -1480,6 +1333,8 @@ function viewAppointmentDetail(id) {
   document.getElementById("detailItemLocal").innerText = item.local;
   document.getElementById("detailItemAssunto").innerText = item.assunto || "Dúvidas de disciplina";
   document.getElementById("detailItemLembrete").innerText = item.lembrete || "30 min antes";
+  const mapLocal = document.getElementById("detailMapLocal");
+  if (mapLocal) mapLocal.innerText = item.local;
 
   const btnCancelar = document.getElementById("btnOpenCancelModal");
   const btnReagendar = document.getElementById("btnRescheduleAppointment");
@@ -1530,7 +1385,6 @@ function confirmCancellation() {
   item.status = "CANCELADO";
   item.periodoGrupo = "Cancelados";
 
-  // Liberar vaga no horário do docente (UML: liberarVaga())
   const prof = AppState.professores.find(p => p.id === item.professorId || p.nome === item.professor);
   const horaInicio = item.horario.split("–")[0].trim();
   if (prof && prof.horarios) {
@@ -1551,17 +1405,17 @@ function confirmCancellation() {
 
   closeCancelModal();
   persistState();
-  showToast("Agendamento cancelado com sucesso. Vaga liberada!");
+  showToast("Agendamento cancelado. Vaga liberada!");
 
   renderHomeNextBooking();
   renderAgendamentos("cancelados");
   renderNotificacoes("todas");
-  renderProfessorRequests();
+  renderProfessorView();
   navigateTo("screen-meus-agendamentos");
 }
 
 // ==========================================================================
-// TELA 11: AVISOS E NOTIFICAÇÕES
+// TELA 11: NOTIFICAÇÕES
 // ==========================================================================
 function filterNotificacoes(tipo, chipElement) {
   document.querySelectorAll(".notif-chip").forEach(c => c.classList.remove("active"));
@@ -1635,7 +1489,7 @@ function markAllNotificationsRead() {
 }
 
 // ==========================================================================
-// VISÃO DO PROFESSOR (TELAS 13 E 14 - SINCRONIZADAS COM A VISÃO DO ALUNO)
+// VISÃO DO PROFESSOR (TELAS 13 E 14 - 100% LIMPA E SINCRONIZADA)
 // ==========================================================================
 function toggleUserRole() {
   if (AppState.currentUser.role === "aluno") {
@@ -1644,9 +1498,10 @@ function toggleUserRole() {
     if (btnText) btnText.innerText = "Alternar para Aluna";
     const roleText = document.getElementById("roleIndicatorText");
     if (roleText) roleText.innerText = "Modo: Prof. Raphael Pereira";
-    renderProfessorRequests();
+    AppState.profTab = "pedidos";
+    renderProfessorView();
     navigateTo("screen-professor-agenda");
-    showToast("Modo Professor ativado! Visualizando solicitações recebidas.");
+    showToast("Modo Professor ativado!");
   } else {
     AppState.currentUser.role = "aluno";
     const btnText = document.getElementById("btnToggleRoleText");
@@ -1660,129 +1515,191 @@ function toggleUserRole() {
   }
 }
 
-function renderProfessorRequests() {
-  const profScreen = document.getElementById("screen-professor-agenda");
-  if (!profScreen) return;
+function switchProfessorTab(tab, chipEl) {
+  AppState.profTab = tab;
+  document.querySelectorAll(".prof-tab").forEach(c => c.classList.remove("active"));
+  if (chipEl) chipEl.classList.add("active");
+  renderProfessorView();
+}
 
-  // Sincronizar solicitações pendentes criadas no modo Aluna
-  const pendentes = AppState.agendamentos.filter(a => a.status === "PENDENTE" && a.ehFuturo);
+function renderProfessorView() {
+  const container = document.getElementById("professorAgendaContainer");
+  if (!container) return;
 
-  // Atualizar contador na aba Pedidos (X)
-  profScreen.querySelectorAll("button, .tab, .chip").forEach(el => {
-    if (el.textContent && el.textContent.trim().startsWith("Pedidos")) {
-      el.textContent = `Pedidos (${pendentes.length})`;
+  // Filtra apenas agendamentos destinados ao Prof. Raphael (professorId === 1)
+  const meusAtendimentos = AppState.agendamentos.filter(
+      a => a.professorId === 1 && a.ehFuturo && a.status !== "CANCELADO"
+  );
+  const pendentes = meusAtendimentos.filter(a => a.status === "PENDENTE");
+  const aceitos = meusAtendimentos.filter(a => a.status === "CONFIRMADO");
+
+  const tabPedidos = document.getElementById("profTabPedidos");
+  if (tabPedidos) tabPedidos.innerText = `Pedidos (${pendentes.length})`;
+
+  // Garantir estado visual da aba ativa
+  document.querySelectorAll(".prof-tab").forEach(t => t.classList.remove("active"));
+  const activeTabEl =
+      AppState.profTab === "aceitos"
+          ? document.getElementById("profTabAceitos")
+          : AppState.profTab === "horarios"
+              ? document.getElementById("profTabHorarios")
+              : document.getElementById("profTabPedidos");
+  if (activeTabEl) activeTabEl.classList.add("active");
+
+  if (AppState.profTab === "pedidos") {
+    if (pendentes.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center; padding: 36px 16px; color: var(--text-muted);">
+          <p style="font-weight:700; margin-bottom:4px;">Nenhuma solicitação pendente</p>
+          <p style="font-size:12px;">Novos pedidos de agendamento dos alunos aparecerão aqui.</p>
+        </div>
+      `;
+      return;
     }
-  });
 
-  // Injetar bloco dinâmico de solicitações recentes da Ana Julia se houver pendentes
-  let dynamicBox = document.getElementById("dynamicProfessorRequests");
-  if (!dynamicBox) {
-    const firstCard = profScreen.querySelector(".request-card");
-    if (firstCard && firstCard.parentNode) {
-      dynamicBox = document.createElement("div");
-      dynamicBox.id = "dynamicProfessorRequests";
-      firstCard.parentNode.insertBefore(dynamicBox, firstCard);
-    }
-  }
-
-  if (dynamicBox) {
-    dynamicBox.innerHTML = pendentes
-        .map(
-            req => `
-        <div class="request-card" data-appointment-id="${req.id}">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+    container.innerHTML =
+        `<span class="section-title">Pendentes de resposta</span>` +
+        pendentes
+            .map(
+                req => `
+          <div class="request-card">
             <div>
-              <strong style="font-size:13px; color:var(--text-primary, #0F172A);">Ana Julia (Mat. 1048) · ${req.tipo}</strong>
-              <div style="font-size:12px; color:var(--text-secondary, #475569);">${req.data} · ${req.horario} · ${req.disciplina || req.titulo}</div>
-              <div style="font-size:11px; color:var(--text-muted, #64748B); margin-top:2px;">Assunto: ${req.assunto}</div>
+              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-title);">Ana Julia de Souza (Mat. 1048) · ${req.tipo}</h4>
+              <div style="font-size: 12px; color: var(--inatel-blue-700); font-weight: 600;">${req.data} - ${req.horario} · ${req.disciplina}</div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Local: ${req.local} · Assunto: ${req.assunto}</div>
+            </div>
+            <div class="request-actions">
+              <button type="button" class="btn-refuse" onclick="refuseStudentRequest(${req.id})">Recusar</button>
+              <button type="button" class="btn-accept" onclick="acceptStudentRequest(${req.id})">Aceitar</button>
             </div>
           </div>
-          <div style="display:flex; gap:8px; margin-top:8px;">
-            <button type="button" class="btn-outline" style="flex:1; padding:7px; font-size:12px;" onclick="refuseStudentRequest(this, ${req.id})">Recusar</button>
-            <button type="button" class="btn-primary" style="flex:1; padding:7px; font-size:12px;" onclick="acceptStudentRequest(this, ${req.id})">Aceitar</button>
-          </div>
+        `
+            )
+            .join("");
+  } else if (AppState.profTab === "aceitos") {
+    if (aceitos.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center; padding: 36px 16px; color: var(--text-muted);">
+          <p style="font-weight:700;">Nenhum atendimento confirmado</p>
         </div>
-      `
-        )
-        .join("");
+      `;
+      return;
+    }
+
+    container.innerHTML =
+        `<span class="section-title">Atendimentos confirmados</span>` +
+        aceitos
+            .map(
+                item => `
+          <div class="appointment-card" style="cursor: default;">
+            <div class="appointment-card-info">
+              <h4>${item.titulo}</h4>
+              <div class="app-datetime">${item.data} - ${item.horario}</div>
+              <div class="app-prof">Aluna: Ana Julia de Souza · ${item.local}</div>
+            </div>
+            <span class="status-badge livre">CONFIRMADO</span>
+          </div>
+        `
+            )
+            .join("");
+  } else if (AppState.profTab === "horarios") {
+    const prof = AppState.professores.find(p => p.id === 1);
+    const dias = prof && prof.horarios ? Object.entries(prof.horarios) : [];
+
+    container.innerHTML =
+        `<span class="section-title">Grade de disponibilidade publicada</span>` +
+        dias
+            .map(
+                ([dataKey, slots]) => `
+          <div class="profile-card-block">
+            <h5>Data: ${dataKey.split("-").reverse().join("/")}</h5>
+            <div class="disciplinas-tags">
+              ${slots
+                    .map(
+                        s =>
+                            `<span class="status-badge ${s.status === "livre" ? "livre" : "lotado"}">${s.hora} (${s.status})</span>`
+                    )
+                    .join("")}
+            </div>
+          </div>
+        `
+            )
+            .join("") +
+        `<button class="btn-action-primary" onclick="navigateTo('screen-professor-disponibilidade')">+ Abrir novo horário</button>`;
   }
 }
 
-function acceptStudentRequest(button, appointmentId) {
-  if (appointmentId) {
-    const ag = AppState.agendamentos.find(a => a.id === appointmentId);
-    if (ag) {
-      ag.status = "CONFIRMADO";
-      AppState.notificacoes.unshift({
-        id: Date.now(),
-        titulo: "Agendamento confirmado pelo docente!",
-        mensagem: `${ag.professor} aceitou seu atendimento (${ag.titulo}) para ${ag.data} às ${ag.horario.split("–")[0].trim()}.`,
-        tempo: "Agora mesmo",
-        tipo: "confirm",
-        lida: false
-      });
-      persistState();
-      renderHomeNextBooking();
-      renderNotificacoes("todas");
-    }
-  }
-
-  const card = button.closest(".request-card");
-  if (card) {
-    card.style.background = "var(--status-livre-bg)";
-    card.innerHTML = `
-      <div style="font-weight: 700; color: var(--status-livre-text); font-size: 13px; text-align: center; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 6px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        <span>Solicitação aceita! A aluna recebeu a notificação.</span>
-      </div>
-    `;
+function acceptStudentRequest(appointmentId) {
+  const ag = AppState.agendamentos.find(a => a.id === appointmentId);
+  if (ag) {
+    ag.status = "CONFIRMADO";
+    AppState.notificacoes.unshift({
+      id: Date.now(),
+      titulo: "Agendamento confirmado pelo docente!",
+      mensagem: `${ag.professor} aceitou seu atendimento (${ag.titulo}) para ${ag.data} às ${ag.horario.split("–")[0].trim()}.`,
+      tempo: "Agora mesmo",
+      tipo: "confirm",
+      lida: false
+    });
+    persistState();
+    renderHomeNextBooking();
+    renderNotificacoes("todas");
+    renderProfessorView();
+    showToast("Solicitação aceita! A aluna foi notificada.");
   }
 }
 
-function refuseStudentRequest(button, appointmentId) {
-  if (appointmentId) {
-    const ag = AppState.agendamentos.find(a => a.id === appointmentId);
-    if (ag) {
-      ag.status = "CANCELADO";
-      ag.periodoGrupo = "Cancelados";
-      AppState.notificacoes.unshift({
-        id: Date.now(),
-        titulo: "Solicitação recusada pelo docente",
-        mensagem: `${ag.professor} não pôde atender no horário ${ag.data} (${ag.horario}). Escolha outro horário disponível.`,
-        tempo: "Agora mesmo",
-        tipo: "cancel",
-        lida: false
-      });
-      persistState();
-      renderHomeNextBooking();
-      renderNotificacoes("todas");
-    }
-  }
+function refuseStudentRequest(appointmentId) {
+  const ag = AppState.agendamentos.find(a => a.id === appointmentId);
+  if (ag) {
+    ag.status = "CANCELADO";
+    ag.periodoGrupo = "Cancelados";
 
-  const card = button.closest(".request-card");
-  if (card) {
-    card.style.opacity = "0.6";
-    card.innerHTML = `
-      <div style="font-weight: 600; color: var(--text-muted); font-size: 12px; text-align: center; padding: 10px;">
-        Solicitação recusada. Vaga mantida livre.
-      </div>
-    `;
+    // Liberar slot novamente
+    const prof = AppState.professores.find(p => p.id === ag.professorId);
+    const horaInicio = ag.horario.split("–")[0].trim();
+    if (prof && prof.horarios) {
+      Object.values(prof.horarios).forEach(listaSlots => {
+        const slot = listaSlots.find(s => s.hora === horaInicio);
+        if (slot) slot.status = "livre";
+      });
+    }
+
+    AppState.notificacoes.unshift({
+      id: Date.now(),
+      titulo: "Solicitação recusada pelo docente",
+      mensagem: `${ag.professor} não pôde atender no horário ${ag.data} (${ag.horario}). Escolha outro horário disponível.`,
+      tempo: "Agora mesmo",
+      tipo: "cancel",
+      lida: false
+    });
+    persistState();
+    renderHomeNextBooking();
+    renderNotificacoes("todas");
+    renderProfessorView();
+    showToast("Solicitação recusada. Vaga liberada.");
   }
 }
 
 function handleProfessorSaveSlot() {
-  const prof = AppState.professores[0]; // Prof. Raphael
-  if (prof && prof.horarios && prof.horarios["2026-11-12"]) {
-    const existe = prof.horarios["2026-11-12"].some(s => s.hora === "17:00");
+  const prof = AppState.professores.find(p => p.id === 1);
+  const dataVal = document.getElementById("profNewData")?.value || "2026-11-12";
+  const horaVal = document.getElementById("profNewHora")?.value || "17:00";
+  const discVal = document.getElementById("profNewDisciplina")?.value || "S05 - Interação Homem-Máquina";
+
+  if (prof) {
+    if (!prof.horarios[dataVal]) prof.horarios[dataVal] = [];
+    const existe = prof.horarios[dataVal].some(s => s.hora === horaVal);
     if (!existe) {
-      prof.horarios["2026-11-12"].push({ hora: "17:00", status: "livre" });
+      prof.horarios[dataVal].push({ hora: horaVal, status: "livre" });
+      prof.horarios[dataVal].sort((a, b) => a.hora.localeCompare(b.hora));
     }
   }
 
   AppState.notificacoes.unshift({
     id: Date.now(),
     titulo: "Novo horário aberto pelo docente",
-    mensagem: "Prof. Raphael Cardoso Mota Pereira disponibilizou novo horário (17:00) para S05 - Interação Homem-Máquina.",
+    mensagem: `Prof. Raphael disponibilizou o horário ${horaVal} (${dataVal.split("-").reverse().join("/")}) para ${discVal}.`,
     tempo: "Agora mesmo",
     tipo: "aviso",
     lida: false
@@ -1790,12 +1707,14 @@ function handleProfessorSaveSlot() {
 
   persistState();
   renderNotificacoes("todas");
-  showToast("Novo horário publicado na agenda dos alunos!");
+  AppState.profTab = "horarios";
+  renderProfessorView();
+  showToast(`Horário ${horaVal} publicado para os alunos!`);
   navigateTo("screen-professor-agenda");
 }
 
 // ==========================================================================
-// UTILITÁRIOS: TOAST, MODAL E FULLSCREEN
+// UTILITÁRIOS E MENU LATERAL
 // ==========================================================================
 function showToast(message) {
   const toast = document.getElementById("toastAlert");
@@ -1846,26 +1765,12 @@ function setupEventListeners() {
   });
 }
 
-// ==========================================================================
-// MENU LATERAL (estilo App Inatel) E RELÓGIO DA BARRA DE STATUS
-// ==========================================================================
 function toggleDrawer(open) {
   document.querySelector(".device-screen")?.classList.toggle("drawer-open", open);
 }
 
 function updateBottomNav(screenId) {
   toggleDrawer(false);
-
-  document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
-  if (screenId === "screen-home") {
-    document.getElementById("nav-home")?.classList.add("active");
-  } else if (screenId === "screen-meus-agendamentos" || screenId === "screen-detalhe-agendamento") {
-    document.getElementById("nav-agenda")?.classList.add("active");
-  } else if (screenId === "screen-notificacoes") {
-    document.getElementById("nav-avisos")?.classList.add("active");
-  } else if (screenId === "screen-perfil") {
-    document.getElementById("nav-perfil")?.classList.add("active");
-  }
 
   const map = {
     "screen-home": "dr-home",
@@ -1889,4 +1794,3 @@ function tickClock() {
 }
 tickClock();
 setInterval(tickClock, 15000);
-document.addEventListener("DOMContentLoaded", () => updateBottomNav("screen-home"));
