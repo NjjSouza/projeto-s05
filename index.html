@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#303F9F">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
   <title>App Inatel — Agendamento com Professores e Monitores</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23002855'/><text x='50' y='65' font-family='sans-serif' font-size='48' font-weight='bold' fill='white' text-anchor='middle'>i</text></svg>">
@@ -65,7 +68,7 @@
 
         <!-- Barra de Status Mobile (9:41, WiFi, Bateria) -->
         <div class="mobile-status-bar" id="mobileStatusBar">
-          <span class="status-time">9:41</span>
+          <span class="status-time" id="statusTime">13:45</span>
           <div class="status-bar-icons">
             <!-- Sinal de celular -->
             <svg width="15" height="12" viewBox="0 0 17 12" fill="currentColor">
@@ -124,41 +127,13 @@
                TELA 2: INÍCIO / HOME (Wireframe 2)
                --------------------------------------------------------------- -->
           <section class="screen active" id="screen-home">
-            <!-- Hero Superior -->
-            <div class="home-hero">
-              <div class="home-user-header">
-                <div class="home-user-info" onclick="navigateTo('screen-perfil')">
-                  <div class="user-avatar-sm">AJ</div>
-                  <div class="home-user-text">
-                    <h2>Olá, Ana Julia</h2>
-                    <p>Engenharia de Software <span class="text-subtle-block">4º período noturno</span></p>
-                  </div>
-                </div>
-                <div class="home-header-actions">
-                  <div class="home-brand-corner">
-                    <img src="assets/img/Inatel.png" alt="Inatel" class="inatel-corner-logo on-dark">
-                  </div>
-                  <button class="btn-icon-header" onclick="navigateTo('screen-notificacoes')" aria-label="Notificações">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                    </svg>
-                    <span class="badge-dot"></span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Busca rápida -->
-              <div class="search-bar-wrap">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <input type="text" class="search-input" placeholder="Buscar professores, disciplinas, notas..." onclick="navigateTo('screen-escolher-professor')">
-              </div>
-            </div>
+            <div class="app-header">
+<div class="app-header-left"><button class="btn-back btn-menu" onclick="toggleDrawer(true)" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button><h3 class="app-header-title">Início</h3></div>
+<div class="toolbar-right"><button class="btn-back" onclick="navigateTo('screen-escolher-professor')" aria-label="Buscar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button><img src="assets/img/Inatel.png" alt="Inatel" class="inatel-header-badge-img"></div>
+</div>
 
             <div class="home-content">
+              <div class="home-hello">Olá, <b>Ana Julia</b> - Engenharia de Software, 4º período noturno</div>
               <!-- Próximo Agendamento -->
               <div>
                 <div class="section-header">
@@ -253,383 +228,7 @@
           <section class="screen" id="screen-escolher-professor">
             <div class="app-header">
               <div class="app-header-left">
-                <button class="btn-back" onclick="navigateTo('screen-home')" aria-label="Voltar">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <h3 class="app-header-title">Agendar com professor</h3>
-              </div>
-              <img src="assets/img/Inatel.png" alt="Inatel" class="inatel-header-badge-img">
-            </div>
-
-            <!-- Barra de Busca -->
-            <div style="padding: 12px 18px; background: #ffffff;">
-              <div class="search-bar-wrap">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" class="search-input" id="searchProfInput" placeholder="Buscar professor ou disciplina" oninput="handleSearch(this.value)">
-              </div>
-            </div>
-
-            <!-- Abas de Filtro -->
-            <div class="filter-tabs">
-              <button class="filter-chip active" onclick="filterProfessores('todos', this)">Todos</button>
-              <button class="filter-chip" onclick="filterProfessores('monitoria', this)">Monitoria</button>
-              <button class="filter-chip" onclick="filterProfessores('projetos', this)">Projetos</button>
-            </div>
-
-            <div style="padding: 12px 18px 4px 18px;">
-              <span class="section-title">Professores e Monitores disponíveis</span>
-            </div>
-
-            <div class="professor-list" id="professorListContainer">
-              <!-- Renderizado via app.js -->
-            </div>
-          </section>
-
-          <!-- ---------------------------------------------------------------
-               TELA 4: PERFIL DO PROFESSOR (Wireframe 4)
-               --------------------------------------------------------------- -->
-          <section class="screen" id="screen-perfil-professor">
-            <div class="app-header">
-              <div class="app-header-left">
-                <button class="btn-back" onclick="navigateTo('screen-escolher-professor')" aria-label="Voltar">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <h3 class="app-header-title">Professor</h3>
-              </div>
-              <img src="assets/img/Inatel.png" alt="Inatel" class="inatel-header-badge-img">
-            </div>
-
-            <div class="profile-hero">
-              <div class="profile-avatar-lg" id="profDetailAvatar">RP</div>
-              <h3 id="profDetailNome">Prof. Raphael Pereira</h3>
-              <p class="profile-sub" id="profDetailDepto">Depto. de Computação</p>
-              <p class="profile-email" id="profDetailEmail">raphael.pereira@inatel.br</p>
-            </div>
-
-            <div class="profile-body">
-              <!-- Disciplinas -->
-              <div class="profile-card-block">
-                <h5>Disciplinas que ministra</h5>
-                <div class="disciplinas-tags" id="profDetailDisciplinas">
-                  <span class="disc-tag" style="font-size: 12px; padding: 4px 10px;">Cálculo II</span>
-                  <span class="disc-tag" style="font-size: 12px; padding: 4px 10px;">Prog. II</span>
-                  <span class="disc-tag" style="font-size: 12px; padding: 4px 10px;">Estruturas</span>
-                </div>
-              </div>
-
-              <!-- Atendimento Oferecido -->
-              <div class="profile-card-block">
-                <h5>Atendimento Oferecido</h5>
-
-                <div class="service-option-radio selected" onclick="selectServiceType('Monitoria', this)">
-                  <div class="radio-circle"></div>
-                  <div class="service-option-info">
-                    <h6>Monitoria & Dúvidas de Disciplina</h6>
-                    <p>Atendimento individual de 30 min para dúvidas conceituais e exercícios.</p>
-                  </div>
-                </div>
-
-                <div class="service-option-radio" onclick="selectServiceType('Projeto', this)">
-                  <div class="radio-circle"></div>
-                  <div class="service-option-info">
-                    <h6>Orientação de Projetos e IC</h6>
-                    <p>Reunião de 45 min para alinhamento de pesquisa, TCC e projetos.</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Local -->
-              <div class="profile-card-block">
-                <h5>Local do Atendimento</h5>
-                <p id="profDetailLocal" style="font-size: 13px; font-weight: 600; color: var(--text-title);">
-                  Sala 204 <span class="room-location-sub" id="profDetailLocalSub">Prédio Central (ou Teams)</span>
-                </p>
-              </div>
-
-              <button class="btn-action-primary" onclick="navigateTo('screen-escolher-horarios')">
-                Ver horários disponíveis
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-            </div>
-          </section>
-
-          <!-- ---------------------------------------------------------------
-               TELA 5: ESCOLHER DATA E HORÁRIO (Wireframe 5)
-               --------------------------------------------------------------- -->
-          <section class="screen" id="screen-escolher-horarios">
-            <div class="app-header">
-              <div class="app-header-left">
-                <button class="btn-back" onclick="navigateTo('screen-perfil-professor')" aria-label="Voltar">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <h3 class="app-header-title">Horários</h3>
-              </div>
-              <img src="assets/img/Inatel.png" alt="Inatel" class="inatel-header-badge-img">
-            </div>
-
-            <div style="padding: 16px; display: flex; flex-direction: column; gap: 16px;">
-              <!-- Seletor Rápido de Modalidade -->
-              <div class="filter-tabs" style="padding: 0; background: transparent; border: none;">
-                <button class="filter-chip active" id="chipTabMonitoria" onclick="AppState.bookingDraft.tipo='Monitoria'; this.classList.add('active'); document.getElementById('chipTabProjeto').classList.remove('active');">Monitoria (30 min)</button>
-                <button class="filter-chip" id="chipTabProjeto" onclick="AppState.bookingDraft.tipo='Projeto'; this.classList.add('active'); document.getElementById('chipTabMonitoria').classList.remove('active');">Projeto (45 min)</button>
-              </div>
-
-              <!-- Mini Calendário Novembro 2026 -->
-              <div class="calendar-section">
-                <div class="calendar-header">
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <button class="btn-icon-subtle" onclick="showToast('Visualizando semestre letivo atual')" aria-label="Mês anterior">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                    </button>
-                    <span class="calendar-month-title">Novembro 2026</span>
-                    <button class="btn-icon-subtle" onclick="showToast('Visualizando semestre letivo atual')" aria-label="Próximo mês">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </button>
-                  </div>
-                  <span style="font-size: 11px; font-weight: 600; color: var(--inatel-blue-600);">Semana letiva</span>
-                </div>
-                <div class="calendar-grid">
-                  <span class="cal-day-header">D</span>
-                  <span class="cal-day-header">S</span>
-                  <span class="cal-day-header">T</span>
-                  <span class="cal-day-header">Q</span>
-                  <span class="cal-day-header">Q</span>
-                  <span class="cal-day-header">S</span>
-                  <span class="cal-day-header">S</span>
-
-                  <span class="cal-day disabled">1</span>
-                  <span class="cal-day disabled">2</span>
-                  <span class="cal-day disabled">3</span>
-                  <span class="cal-day disabled">4</span>
-                  <span class="cal-day disabled">5</span>
-                  <span class="cal-day disabled">6</span>
-                  <span class="cal-day disabled">7</span>
-
-                  <span class="cal-day disabled">8</span>
-                  <span class="cal-day disabled">9</span>
-                  <span class="cal-day disabled">10</span>
-                  <span class="cal-day disabled">11</span>
-                  <span class="cal-day selected" onclick="selectCalendarDay(12, this)">12</span>
-                  <span class="cal-day" onclick="selectCalendarDay(13, this)">13</span>
-                  <span class="cal-day disabled">14</span>
-
-                  <span class="cal-day disabled">15</span>
-                  <span class="cal-day disabled">16</span>
-                  <span class="cal-day" onclick="selectCalendarDay(17, this)">17</span>
-                  <span class="cal-day disabled">18</span>
-                  <span class="cal-day disabled">19</span>
-                  <span class="cal-day disabled">20</span>
-                  <span class="cal-day disabled">21</span>
-
-                  <span class="cal-day disabled">22</span>
-                  <span class="cal-day disabled">23</span>
-                  <span class="cal-day disabled">24</span>
-                  <span class="cal-day disabled">25</span>
-                  <span class="cal-day disabled">26</span>
-                  <span class="cal-day disabled">27</span>
-                  <span class="cal-day disabled">28</span>
-                  <span class="cal-day disabled">29</span>
-                  <span class="cal-day disabled">30</span>
-                </div>
-              </div>
-
-              <!-- Alerta inteligente de compatibilidade com a grade do aluno -->
-              <div class="academic-grade-alert">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Horários livres compatíveis com sua grade noturna (Eng. Software)</span>
-              </div>
-
-              <!-- Seção de Horários da Data Selecionada -->
-              <div class="time-slots-section">
-                <span class="section-title" id="selectedDateLabel">Quinta, 12/11</span>
-                <div class="time-slots-grid" id="timeSlotsGrid">
-                  <button class="time-slot-btn" onclick="updateTimeSlotSelection('14:00', this)">14:00</button>
-                  <button class="time-slot-btn selected" onclick="updateTimeSlotSelection('14:30', this)">14:30</button>
-                  <button class="time-slot-btn disabled" disabled title="Horário lotado">15:00</button>
-                  <button class="time-slot-btn" onclick="updateTimeSlotSelection('15:30', this)">15:30</button>
-                  <button class="time-slot-btn" onclick="updateTimeSlotSelection('16:00', this)">16:00</button>
-                  <button class="time-slot-btn" onclick="updateTimeSlotSelection('16:30', this)">16:30</button>
-                </div>
-              </div>
-
-              <button class="btn-action-primary" style="margin-top: 10px;" onclick="prepareConfirmationScreen()">
-                Continuar
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-            </div>
-          </section>
-
-          <!-- ---------------------------------------------------------------
-               TELA 6: CONFIRMAR AGENDAMENTO (Wireframe 6)
-               --------------------------------------------------------------- -->
-          <section class="screen" id="screen-confirmar-agendamento">
-            <div class="app-header">
-              <div class="app-header-left">
-                <button class="btn-back" onclick="navigateTo('screen-escolher-horarios')" aria-label="Voltar">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <h3 class="app-header-title">Confirmar</h3>
-              </div>
-              <img src="assets/img/Inatel.png" alt="Inatel" class="inatel-header-badge-img">
-            </div>
-
-            <div style="padding: 18px; display: flex; flex-direction: column; gap: 16px;">
-              <!-- Resumo do Agendamento -->
-              <div class="summary-card">
-                <div class="summary-row">
-                  <div class="summary-row-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                  </div>
-                  <div class="summary-row-content">
-                    <h6>Professor Responsável</h6>
-                    <p id="confirmProfNome">Prof. Raphael Pereira</p>
-                  </div>
-                </div>
-
-                <div class="summary-row">
-                  <div class="summary-row-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                  </div>
-                  <div class="summary-row-content">
-                    <h6>Atendimento</h6>
-                    <p id="confirmTipoDisciplina"><span class="badge-type-pill">Monitoria</span> Interação Homem-Máquina</p>
-                  </div>
-                </div>
-
-                <div class="summary-row">
-                  <div class="summary-row-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  </div>
-                  <div class="summary-row-content">
-                    <h6>Data & Horário</h6>
-                    <p id="confirmDataHorario"><span>Qui, 12/11/2026</span> <span class="text-time-highlight">14:30 – 15:00</span></p>
-                  </div>
-                </div>
-
-                <div class="summary-row">
-                  <div class="summary-row-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  </div>
-                  <div class="summary-row-content">
-                    <h6>Local</h6>
-                    <p id="confirmLocal"><span>Sala 204</span> <span class="room-location-sub">Prédio Central (ou Teams)</span></p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Formulário de Inputs do Usuário -->
-              <div>
-                <label class="form-label">Tipo de Atendimento</label>
-                <select class="form-select" id="confirmInputTipo" onchange="AppState.bookingDraft.tipo = this.value">
-                  <option value="Monitoria">Monitoria de Disciplina (30 min)</option>
-                  <option value="Projeto">Orientação de Projeto / IC (45 min)</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="form-label">Assunto da Dúvida</label>
-                <input type="text" class="form-input" id="confirmInputAssunto" value="Integrais duplas e equações diferenciais" placeholder="Ex: Exercícios da lista 3, Integrais duplas">
-                <div class="quick-topics">
-                  <span class="quick-topic-chip" onclick="setQuickTopic('Integrais duplas')">Integrais duplas</span>
-                  <span class="quick-topic-chip" onclick="setQuickTopic('Revisão para P2')">Revisão para P2</span>
-                  <span class="quick-topic-chip" onclick="setQuickTopic('Projeto Final')">Projeto Final</span>
-                </div>
-              </div>
-
-              <div>
-                <label class="form-label">Observação (opcional)</label>
-                <textarea class="form-textarea" id="confirmInputObs" placeholder="Ex: Levarei o notebook com o código da questão..."></textarea>
-              </div>
-
-              <div>
-                <label class="checkbox-wrap">
-                  <input type="checkbox" id="chkLembrete" checked style="accent-color: var(--inatel-blue-600); width: 16px; height: 16px;">
-                  <span>Receber lembrete por notificação</span>
-                </label>
-                <div style="margin-top: 8px; margin-left: 24px;">
-                  <select class="form-select" id="confirmInputLembrete" style="padding: 6px 10px; font-size: 12px; width: auto;">
-                    <option value="15">15 minutos antes</option>
-                    <option value="30" selected>30 minutos antes</option>
-                    <option value="60">1 hora antes</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- Atendimento Recorrente (Recursividade de Agendamento Semanal) -->
-              <div style="background: var(--bg-subtle); padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
-                <label class="checkbox-wrap">
-                  <input type="checkbox" id="chkRecorrente" onchange="toggleRecurrenceSelector(this.checked)" style="accent-color: var(--inatel-blue-600); width: 16px; height: 16px;">
-                  <span>Atendimento recorrente (repetir semanalmente)</span>
-                </label>
-                <div id="recurrencePeriodWrap" style="display: none; margin-top: 8px; margin-left: 24px;">
-                  <label class="form-label" style="font-size: 11px; margin-bottom: 2px;">Frequência de repetição</label>
-                  <select class="form-select" id="confirmInputRecorrencia" style="padding: 6px 10px; font-size: 12px; width: 100%;">
-                    <option value="4">Repetir semanalmente por 4 semanas</option>
-                    <option value="8">Repetir semanalmente por 8 semanas</option>
-                    <option value="semestre">Repetir até o final do semestre letivo</option>
-                  </select>
-                </div>
-              </div>
-
-              <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
-                <button class="btn-action-primary" onclick="submitBooking()">
-                  Confirmar agendamento
-                </button>
-                <button class="btn-action-secondary" onclick="goBack()">
-                  Voltar
-                </button>
-              </div>
-            </div>
-          </section>
-
-          <!-- ---------------------------------------------------------------
-               TELA 7: SUCESSO / CONFIRMAÇÃO (Wireframe 7)
-               --------------------------------------------------------------- -->
-          <section class="screen" id="screen-agendamento-sucesso">
-            <div class="success-screen-body">
-              <div class="success-icon-animated">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <h3 class="success-title">Agendamento Realizado!</h3>
-              <p class="success-desc">
-                Seu atendimento foi agendado com sucesso.<br>
-                Um lembrete foi programado para antes do início.
-              </p>
-
-              <div class="summary-card" style="width: 100%; text-align: left; margin-bottom: 24px;">
-                <div style="font-size: 14px; font-weight: 700; color: var(--text-title);" id="successDetailTitulo">
-                  <span class="badge-type-pill">Monitoria</span> Interação Homem-Máquina
-                </div>
-                <div style="font-size: 12px; color: var(--inatel-blue-700); font-weight: 600; margin-top: 4px;" id="successDetailData">
-                  <span>Qui, 12/11</span> <span class="text-time-highlight">14:30</span>
-                </div>
-                <div style="margin-top: 8px;">
-                  <span class="status-badge livre" id="successDetailStatus">CONFIRMADO</span>
-                </div>
-              </div>
-
-              <div style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
-                <button class="btn-action-primary" onclick="navigateTo('screen-meus-agendamentos')">
-                  Ver meus agendamentos
-                </button>
-                <button class="btn-action-secondary" onclick="navigateTo('screen-home')">
-                  Voltar ao início
-                </button>
-              </div>
-            </div>
-          </section>
-
-          <!-- ---------------------------------------------------------------
-               TELA 8: MEUS AGENDAMENTOS (Wireframe 8)
-               --------------------------------------------------------------- -->
-          <section class="screen" id="screen-meus-agendamentos">
-            <div class="app-header">
-              <div class="app-header-left">
-                <button class="btn-back" onclick="navigateTo('screen-home')" aria-label="Voltar">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
+                <button class="btn-back btn-menu" onclick="toggleDrawer(true)" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
                 <h3 class="app-header-title">Agenda</h3>
               </div>
               <button class="app-header-action" onclick="navigateTo('screen-escolher-professor')" style="display: inline-flex; align-items: center; gap: 4px;">
@@ -664,7 +263,7 @@
             <div class="app-header">
               <div class="app-header-left">
                 <button class="btn-back" onclick="navigateTo('screen-meus-agendamentos')" aria-label="Voltar">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
                 </button>
                 <h3 class="app-header-title">Detalhes</h3>
               </div>
@@ -732,7 +331,7 @@
           <section class="screen" id="screen-notificacoes">
             <div class="app-header">
               <div class="app-header-left">
-                <h3 class="app-header-title">Avisos</h3>
+                <button class="btn-back btn-menu" onclick="toggleDrawer(true)" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button><h3 class="app-header-title">Avisos</h3>
               </div>
               <button class="app-header-action" onclick="markAllNotificationsRead()">Ler todas</button>
             </div>
@@ -753,7 +352,7 @@
           <section class="screen" id="screen-perfil">
             <div class="app-header">
               <div class="app-header-left">
-                <h3 class="app-header-title">Perfil</h3>
+                <button class="btn-back btn-menu" onclick="toggleDrawer(true)" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button><h3 class="app-header-title">Perfil</h3>
               </div>
               <button class="app-header-action" onclick="showToast('Edição de perfil desabilitada na demo.')">Editar</button>
             </div>
@@ -762,7 +361,7 @@
               <div class="profile-avatar-lg" style="background: var(--inatel-blue-700);">AJ</div>
               <h3>Ana Julia de Souza</h3>
               <p class="profile-sub">Matrícula 1048 - Eng. de Software - 4º período</p>
-              <p class="profile-email">anajulia.souza@gec.inatel.br</p>
+              <p class="profile-email">ana.aj@ges.inatel.br</p>
             </div>
 
             <div class="profile-menu-list">
@@ -865,7 +464,7 @@
             <div class="app-header">
               <div class="app-header-left">
                 <button class="btn-back" onclick="navigateTo('screen-professor-agenda')" aria-label="Voltar">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
                 </button>
                 <h3 class="app-header-title">Novo horário</h3>
               </div>
@@ -969,30 +568,18 @@
         <!-- -----------------------------------------------------------------
              BOTTOM NAVIGATION BAR MOBILE
              ----------------------------------------------------------------- -->
-        <nav class="mobile-bottom-nav">
-          <button class="nav-item active" id="nav-home" onclick="navigateTo('screen-home')">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            <span>Início</span>
-          </button>
 
-          <button class="nav-item" id="nav-agenda" onclick="navigateTo('screen-meus-agendamentos')">
-            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            <span>Agenda</span>
-          </button>
-
-          <button class="nav-item" id="nav-avisos" onclick="navigateTo('screen-notificacoes')">
-            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-            <span class="nav-badge" id="navNotifBadge">2</span>
-            <span>Avisos</span>
-          </button>
-
-          <button class="nav-item" id="nav-perfil" onclick="navigateTo('screen-perfil')">
-            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span>Perfil</span>
-          </button>
-        </nav>
-
-      </div> <!-- Fim device-screen -->
+      <div class="nav-scrim" onclick="toggleDrawer(false)"></div>
+        <aside class="nav-drawer" aria-label="Menu principal">
+          <div class="drawer-header" onclick="navigateTo('screen-perfil')">
+            <img src="assets/img/Inatel.png" alt="Inatel" class="drawer-logo inatel-header-badge-img">
+            <div class="drawer-avatar"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.5 3.8-7 8.5-7s8.5 2.5 8.5 7z"/></svg></div>
+            <div class="drawer-name">Ana Julia de Souza</div>
+            <div class="drawer-email">ana.aj@ges.inatel.br</div>
+          </div>
+          <div class="drawer-list"><button class="drawer-item" id="dr-home" onclick="navigateTo('screen-home')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Início</span></button><div class="drawer-section">Mensagens Acadêmicas</div><button class="drawer-item" id="dr-avisos" onclick="navigateTo('screen-notificacoes')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg><span>Avisos</span><span class="drawer-badge" id="navNotifBadge">2</span></button><div class="drawer-section">Atendimento</div><button class="drawer-item" id="dr-novo" onclick="navigateTo('screen-escolher-professor')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Agendar com professor</span><span class="tag-novo">Novo</span></button><button class="drawer-item" id="dr-agenda" onclick="navigateTo('screen-meus-agendamentos')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Meus agendamentos</span></button><div class="drawer-section">Aproveitamento Escolar</div><button class="drawer-item"  onclick="showToast('Notas: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="11"/><line x1="12" y1="20" x2="12" y2="5"/><line x1="18" y1="20" x2="18" y2="14"/></svg><span>Notas</span></button><button class="drawer-item"  onclick="showToast('Frequência: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Frequência</span></button><button class="drawer-item"  onclick="showToast('Material Didático: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Material Didático</span></button><button class="drawer-item"  onclick="showToast('Plano de Ensino: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Plano de Ensino</span></button><button class="drawer-item"  onclick="showToast('Histórico: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg><span>Histórico</span></button><button class="drawer-item"  onclick="showToast('Coeficientes: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="18" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/></svg><span>Coeficientes</span></button><div class="drawer-section">Atividades Complementares</div><button class="drawer-item"  onclick="showToast('Avaliações: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="11"/><line x1="12" y1="20" x2="12" y2="5"/><line x1="18" y1="20" x2="18" y2="14"/></svg><span>Avaliações</span></button><button class="drawer-item"  onclick="showToast('Frequência: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Frequência</span></button><button class="drawer-item"  onclick="showToast('Eletivas: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Eletivas</span></button><button class="drawer-item"  onclick="showToast('Obrigatórias: disponível no app oficial')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="18" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/></svg><span>Obrigatórias</span></button><div class="drawer-section">Conta</div><button class="drawer-item" id="dr-perfil" onclick="navigateTo('screen-perfil')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></button><button class="drawer-item"  onclick="navigateTo('screen-login')"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>Sair</span></button></div>
+        </aside>
+        </div> <!-- Fim device-screen -->
     </div> <!-- Fim device-frame -->
   </main>
 
