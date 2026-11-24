@@ -5,15 +5,16 @@
    ========================================================================== */
 
 :root {
-  /* Paleta Oficial Inatel */
-  --inatel-blue-900: #002e5b;
-  --inatel-blue-800: #003e73;
-  --inatel-blue-700: #004d8c;
-  --inatel-blue-600: #005696; /* Azul Principal Inatel */
-  --inatel-blue-500: #026bb8;
-  --inatel-blue-400: #0284c7;
-  --inatel-blue-100: #e0f2fe;
-  --inatel-blue-50:  #f0f9ff;
+  /* Paleta Oficial e Exata do Inatel (Pantone 294 C / Azul Marinho Escuro Institucional) */
+  --inatel-blue-950: #001229; /* Azul Noite Profundo */
+  --inatel-blue-900: #001f42; /* Azul Marinho Escuro */
+  --inatel-blue-800: #002855; /* Azul Institucional Inatel Oficial (Escuro) */
+  --inatel-blue-700: #00366f; /* Azul Marinho Intermediário */
+  --inatel-blue-600: #00458a; /* Azul Principal de Interação */
+  --inatel-blue-500: #1e60ad; /* Azul Exato do Logotipo Inatel.png */
+  --inatel-blue-400: #2a75cb; /* Azul Realce */
+  --inatel-blue-100: #e2edfa; /* Fundo Suave */
+  --inatel-blue-50:  #f0f5fc; /* Superfície Clara */
 
   --accent-cyan:     #00a8e8;
   --accent-orange:   #f59e0b;
@@ -72,7 +73,7 @@
 
 body {
   font-family: var(--font-family);
-  background: linear-gradient(135deg, #0f172a 0%, #002e5b 50%, #004d8c 100%);
+  background: linear-gradient(135deg, #001229 0%, #001f42 50%, #002855 100%);
   color: var(--text-body);
   min-height: 100vh;
   display: flex;
@@ -104,9 +105,11 @@ body {
   gap: 12px;
 }
 
-.demo-brand-logo {
+.demo-brand-logo-img {
   height: 28px;
   width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .demo-title-group h1 {
@@ -489,7 +492,7 @@ body.fullscreen-mode .device-screen {
    TELA 1: LOGIN
    ========================================================================== */
 #screen-login {
-  background: linear-gradient(180deg, var(--inatel-blue-700) 0%, var(--inatel-blue-900) 100%);
+  background: linear-gradient(180deg, var(--inatel-blue-800) 0%, var(--inatel-blue-950) 100%);
   color: #ffffff;
   padding: 24px 20px;
   justify-content: center;
@@ -505,8 +508,17 @@ body.fullscreen-mode .device-screen {
 }
 
 .login-brand-logo {
-  width: 150px;
-  margin-bottom: 24px;
+  width: 190px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.inatel-login-logo-img {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .login-title {
@@ -613,11 +625,38 @@ body.fullscreen-mode .device-screen {
    TELA 2: INÍCIO (HOME)
    ========================================================================== */
 .home-hero {
-  background: linear-gradient(135deg, var(--inatel-blue-700) 0%, var(--inatel-blue-800) 100%);
+  background: linear-gradient(135deg, var(--inatel-blue-900) 0%, var(--inatel-blue-800) 60%, var(--inatel-blue-700) 100%);
   color: #ffffff;
   padding: 16px 20px 24px 20px;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
+}
+
+.home-brand-corner {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.16);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.inatel-corner-logo {
+  height: 18px;
+  width: auto;
+  object-fit: contain;
+}
+
+.inatel-corner-logo.on-dark {
+  filter: brightness(0) invert(1);
+}
+
+.inatel-header-badge-img {
+  height: 18px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
 }
 
 .home-user-header {

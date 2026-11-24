@@ -32,31 +32,31 @@ const AppState = {
     dataTexto: "Qui, 12/11/2026",
     horario: "14:30 – 15:00",
     horarioInicio: "14:30",
-    disciplina: "Cálculo II",
-    assunto: "Integrais duplas e aplicações",
+    disciplina: "Interface Homem-Máquina",
+    assunto: "Ergonomia cognitiva e testes de usabilidade",
     observacao: "",
     lembreteMin: 30,
-    local: "Sala 204 · Bloco 1",
+    local: "Sala 204 · Prédio Central (ou Teams)",
     vagas: 1
   },
 
   // Agendamento selecionado para ver detalhes ou cancelar
   selectedAppointment: null,
 
-  // Lista de Professores & Monitores cadastrados no sistema
+  // Lista de Professores & Monitores cadastrados no sistema (Dados Oficiais Inatel)
   professores: [
     {
       id: 1,
       nome: "Prof. Raphael Pereira",
-      depto: "Depto. de Computação",
+      depto: "Coordenação de Engenharia de Software",
       email: "raphael.pereira@inatel.br",
       iniciais: "RP",
-      disciplinas: ["Cálculo II", "Prog. II", "Estruturas"],
+      disciplinas: ["Interface Homem-Máquina", "Engenharia de Software", "Ergonomia"],
       tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala 204 · Bloco 1 (ou remoto)",
-      bio: "Coordenador de projetos e professor adjunto no Inatel. Atendimentos focados em suporte de Cálculo, Algoritmos e TCC.",
+      localPadrao: "Sala 204 · Prédio Central (ou Teams)",
+      bio: "Docente das disciplinas de Interface Homem-Máquina, Ergonomia e Engenharia de Software no Inatel. Orientador de projetos de usabilidade, prototipagem e interação humano-computador.",
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -80,16 +80,16 @@ const AppState = {
     },
     {
       id: 2,
-      nome: "Prof. Carlos Alberto",
-      depto: "Depto. de Engenharia",
-      email: "carlos.alberto@inatel.br",
-      iniciais: "CA",
-      disciplinas: ["Projeto Integrador", "IoT", "Sistemas"],
-      tags: ["Projetos"],
+      nome: "Prof. Marcelo Cysneiros Aragão",
+      depto: "Coordenação de Engenharia de Software e Computação",
+      email: "marcelo.cysneiros@inatel.br",
+      iniciais: "MC",
+      disciplinas: ["Engenharia de Software", "Arquitetura de Software", "Inteligência Artificial"],
+      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Lab de Inovação · Bloco 2",
-      bio: "Orientador de projetos multidisciplinares e prototipagem rápida de hardware/software.",
+      localPadrao: "Lab de Software · CDG Hub / Bloco 2",
+      bio: "Mestre em Ciência e Tecnologia da Computação, professor titular de Engenharia de Software e coordenador de programas tecnológicos no Inatel.",
       horarios: {
         "2026-11-12": [
           { hora: "15:00", status: "livre" },
@@ -103,16 +103,40 @@ const AppState = {
     },
     {
       id: 3,
-      nome: "Profª. Mariana Silva",
-      depto: "Depto. de Telecomunicações",
-      email: "mariana.silva@inatel.br",
-      iniciais: "MS",
-      disciplinas: ["Redes de Computadores", "Sinais"],
+      nome: "Prof. Renzo Paranaiba Mesquita",
+      depto: "Coordenação de Engenharia de Software e Computação",
+      email: "renzo@inatel.br",
+      iniciais: "RM",
+      disciplinas: ["Algoritmos e Estruturas", "Programação Web", "Bancos de Dados"],
       tags: ["Monitoria", "Projetos"],
+      status: "livre",
+      statusTexto: "Livre",
+      localPadrao: "Sala 114 · Bloco 1 (ou remoto)",
+      bio: "Docente especialista em Desenvolvimento Web, Algoritmos, Estruturas de Dados e Programação Orientada a Objetos. Orientador de maratona de programação.",
+      horarios: {
+        "2026-11-12": [
+          { hora: "14:00", status: "livre" },
+          { hora: "14:30", status: "livre" },
+          { hora: "16:00", status: "livre" }
+        ],
+        "2026-11-13": [
+          { hora: "15:00", status: "livre" },
+          { hora: "15:30", status: "livre" }
+        ]
+      }
+    },
+    {
+      id: 4,
+      nome: "Prof. Guilherme Augusto Barucke Marcondes",
+      depto: "Coordenação de Projetos e P&D",
+      email: "marcondes@inatel.br",
+      iniciais: "GM",
+      disciplinas: ["Gestão de Projetos de Software", "Metodologias Ágeis", "Inovação"],
+      tags: ["Projetos"],
       status: "vagas",
       statusTexto: "Poucas vagas",
-      localPadrao: "Sala 118 · Bloco 3",
-      bio: "Pesquisadora em telecomunicações e infraestrutura 5G.",
+      localPadrao: "Inatel Startups / CDG Hub",
+      bio: "Doutor em Engenharia pelo Inatel, especialista em gestão ágil de projetos, inovação tecnológica e mentoria de projetos integradores e IC.",
       horarios: {
         "2026-11-12": [
           { hora: "16:30", status: "livre" }
@@ -124,41 +148,63 @@ const AppState = {
       }
     },
     {
-      id: 4,
+      id: 5,
+      nome: "Prof. Carlos Alberto Ynoguti",
+      depto: "Coordenação de Engenharia de Telecomunicações",
+      email: "ynoguti@inatel.br",
+      iniciais: "CY",
+      disciplinas: ["Redes de Computadores", "Comunicações Digitais", "IoT"],
+      tags: ["Monitoria", "Projetos"],
+      status: "livre",
+      statusTexto: "Livre",
+      localPadrao: "Lab de Telecomunicações · Bloco 3",
+      bio: "Doutor em Engenharia Elétrica, pesquisador e docente de redes de comunicação de dados, conectividade e sistemas distribuídos.",
+      horarios: {
+        "2026-11-12": [
+          { hora: "10:00", status: "livre" },
+          { hora: "11:00", status: "livre" }
+        ],
+        "2026-11-17": [
+          { hora: "14:00", status: "livre" }
+        ]
+      }
+    },
+    {
+      id: 6,
+      nome: "Prof. Alexandre Baratella Lugli",
+      depto: "Coordenação de Automação e Sistemas Computacionais",
+      email: "baratella@inatel.br",
+      iniciais: "AB",
+      disciplinas: ["Sistemas Inteligentes", "Automação", "Robótica"],
+      tags: ["Projetos"],
+      status: "lotado",
+      statusTexto: "Lotado",
+      localPadrao: "Lab de Robótica · Bloco 2",
+      bio: "Pesquisador em robótica móvel, sistemas embarcados e inteligência artificial aplicada. Atendimentos de projetos e orientação de TCC.",
+      horarios: {
+        "2026-11-12": [
+          { hora: "14:00", status: "lotado" },
+          { hora: "14:30", status: "lotado" }
+        ]
+      }
+    },
+    {
+      id: 7,
       nome: "Monitor Lucas Prado",
-      depto: "Depto. de Computação",
-      email: "lucas.prado@monitor.inatel.br",
+      depto: "Programa de Monitoria Acadêmica - Inatel",
+      email: "monitoria.software@inatel.br",
       iniciais: "LP",
       disciplinas: ["Cálculo II", "Álgebra Linear"],
       tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala de Monitoria · Bloco 1",
-      bio: "Monitor oficial de Cálculo II e Álgebra. Ajudo em listas de exercícios e preparação para provas.",
+      localPadrao: "Sala de Monitoria · Prédio Central",
+      bio: "Monitor oficial do Inatel para suporte acadêmico de Cálculo II e Álgebra Linear, resolução de listas de exercícios e preparação para provas.",
       horarios: {
         "2026-11-12": [
           { hora: "13:30", status: "livre" },
           { hora: "14:00", status: "livre" },
           { hora: "14:30", status: "livre" }
-        ]
-      }
-    },
-    {
-      id: 5,
-      nome: "Prof. Roberto Santos",
-      depto: "Depto. de Matemática",
-      email: "roberto.santos@inatel.br",
-      iniciais: "RS",
-      disciplinas: ["Álgebra Linear", "Cálculo Numérico"],
-      tags: ["Monitoria"],
-      status: "lotado",
-      statusTexto: "Lotado",
-      localPadrao: "Sala 201 · Bloco 1",
-      bio: "Plantões de dúvida de Cálculo Numérico e Álgebra Linear.",
-      horarios: {
-        "2026-11-12": [
-          { hora: "14:00", status: "lotado" },
-          { hora: "14:30", status: "lotado" }
         ]
       }
     }
@@ -168,56 +214,56 @@ const AppState = {
   agendamentos: [
     {
       id: 101,
-      titulo: "Monitoria · Cálculo II",
+      titulo: "Monitoria · Interface Homem-Máquina",
       tipo: "Monitoria",
       professor: "Prof. Raphael Pereira",
       data: "Qui, 12/11/2026",
       horario: "14:30 – 15:00",
-      local: "Sala 204 · Bloco 1",
+      local: "Sala 204 · Prédio Central",
       status: "CONFIRMADO", // 'CONFIRMADO', 'PENDENTE', 'CANCELADO'
-      assunto: "Integrais duplas e cálculo de volume",
+      assunto: "Ergonomia cognitiva e testes de usabilidade",
       lembrete: "30 min antes",
       periodoGrupo: "Esta semana",
       ehFuturo: true
     },
     {
       id: 102,
-      titulo: "Orientação · Projeto IC",
+      titulo: "Orientação · Projeto de Software",
       tipo: "Projeto",
-      professor: "Prof. Carlos Alberto",
+      professor: "Prof. Guilherme Marcondes",
       data: "Sex, 13/11/2026",
       horario: "10:00 – 10:45",
-      local: "Lab Inovação · Bloco 2 / Remoto",
+      local: "CDG Hub · Inatel Startups",
       status: "PENDENTE",
-      assunto: "Alinhamento dos requisitos de software e cronograma",
+      assunto: "Revisão do backlog ágil e entregáveis da sprint",
       lembrete: "1 hora antes",
       periodoGrupo: "Esta semana",
       ehFuturo: true
     },
     {
       id: 103,
-      titulo: "Monitoria · Prog. II",
+      titulo: "Monitoria · Programação Web",
       tipo: "Monitoria",
-      professor: "Prof. Raphael Pereira",
+      professor: "Prof. Renzo Mesquita",
       data: "Ter, 17/11/2026",
       horario: "16:00 – 16:30",
-      local: "Sala 112 · Bloco 1",
+      local: "Sala 114 · Bloco 1",
       status: "CONFIRMADO",
-      assunto: "Ponteiros e manipulação de memória dinâmica",
+      assunto: "Arquitetura REST e consumo de APIs",
       lembrete: "30 min antes",
       periodoGrupo: "Próxima semana",
       ehFuturo: true
     },
     {
       id: 104,
-      titulo: "Monitoria · Cálculo I",
+      titulo: "Monitoria · Cálculo II",
       tipo: "Monitoria",
       professor: "Monitor Lucas Prado",
       data: "Qui, 22/10/2026",
       horario: "15:00 – 15:30",
       local: "Sala de Monitoria",
       status: "REALIZADO",
-      assunto: "Regra da Cadeia e Derivadas Parciais",
+      assunto: "Integrais duplas e equações diferenciais",
       lembrete: "Sem lembrete",
       periodoGrupo: "Anteriores",
       ehFuturo: false
