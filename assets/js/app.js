@@ -13,7 +13,7 @@ const AppState = {
     matricula: "1048",
     curso: "Engenharia de Software",
     periodo: 4,
-    email: "anajulia.souza@gec.inatel.br",
+    email: "ana.aj@ges.inatel.br",
     role: "aluno" // 'aluno' ou 'professor'
   },
   
@@ -954,3 +954,33 @@ function setupEventListeners() {
     }
   });
 }
+
+
+// ==========================================================================
+// MENU LATERAL (estilo App Inatel) E RELÓGIO DA BARRA DE STATUS
+// ==========================================================================
+function toggleDrawer(open) {
+  document.querySelector(".device-screen")?.classList.toggle("drawer-open", open);
+}
+
+function updateBottomNav(screenId) {
+  toggleDrawer(false);
+  const map = {
+    "screen-home": "dr-home", "screen-notificacoes": "dr-avisos",
+    "screen-escolher-professor": "dr-novo", "screen-perfil-professor": "dr-novo",
+    "screen-escolher-horarios": "dr-novo", "screen-confirmar-agendamento": "dr-novo",
+    "screen-meus-agendamentos": "dr-agenda", "screen-detalhe-agendamento": "dr-agenda",
+    "screen-agendamento-sucesso": "dr-agenda", "screen-perfil": "dr-perfil"
+  };
+  document.querySelectorAll(".drawer-item").forEach(i => i.classList.remove("active"));
+  document.getElementById(map[screenId])?.classList.add("active");
+}
+
+function tickClock() {
+  const el = document.getElementById("statusTime");
+  if (el) el.innerText = new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+}
+tickClock();
+setInterval(tickClock, 15000);
+document.addEventListener("DOMContentLoaded", () => updateBottomNav("screen-home"));
+document.addEventListener("keydown", e => { if (e.key === "Escape") toggleDrawer(false); });

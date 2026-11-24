@@ -2012,3 +2012,141 @@ body.fullscreen-mode .device-screen {
 .btn-action-secondary:hover {
   background: #e2e8f0;
 }
+
+/* ==========================================================================
+   TEMA "APP INATEL REAL" (Android / Material)
+   Barra azul com menu hambúrguer, menu lateral, cards planos com borda cinza,
+   títulos em azul e tabelas com primeira coluna azul-clara.
+   ========================================================================== */
+:root {
+  --inatel-blue-600: #0066c1;   /* azul da barra de título do app */
+  --inatel-blue-700: #00539f;
+  --app-status: #303f9f;        /* barra de status índigo */
+  --app-row: #eeeeee;
+  --app-col: #e8f2fb;           /* 1ª coluna das tabelas */
+  --app-line: #dddddd;
+  --bg-app: #eeeeee;
+  --font-family: Roboto, "Segoe UI", -apple-system, Helvetica, Arial, sans-serif;
+  --radius-xs: 2px; --radius-sm: 2px; --radius-md: 2px; --radius-lg: 4px;
+  --shadow-md: 0 1px 3px rgba(0,0,0,.2);
+}
+
+/* Moldura estilo Android (câmera "punch-hole") */
+.device-frame { border-radius: 36px; padding: 10px; }
+.device-screen { border-radius: 28px; }
+.device-notch { width: 12px; height: 12px; top: 19px; padding: 0; border-radius: 50%; background: #0b0b0b; border: 1px solid #1e293b; }
+.device-camera { display: none; }
+
+/* Barra de status */
+.mobile-status-bar { height: 28px; padding: 0 14px; font-size: 12px; font-weight: 500; background: var(--app-status); color: #fff; position: relative; z-index: 90; }
+.status-bar-icons { gap: 5px; }
+
+/* Barra de título (toolbar) */
+.app-header { background: var(--inatel-blue-600); color: #fff; height: 56px; padding: 0 12px 0 4px; border-bottom: none; box-shadow: 0 2px 4px rgba(0,0,0,.28); }
+.app-header-left { flex: 1; min-width: 0; gap: 4px; }
+.app-header-title { color: #fff; font-size: 20px; font-weight: 500; letter-spacing: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.btn-back { color: #fff; margin: 0; min-width: 40px; min-height: 40px; }
+.btn-back:hover { background: rgba(255,255,255,.15); }
+.toolbar-right { display: flex; align-items: center; gap: 4px; }
+.app-header-action { color: #fff; text-transform: uppercase; font-size: 13px; font-weight: 500; }
+.inatel-header-badge-img { height: 16px; opacity: 1; margin-left: 8px; filter: brightness(0) invert(1); }
+
+/* Menu lateral */
+.nav-scrim { position: absolute; inset: 0; background: rgba(0,0,0,.5); opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 70; }
+.nav-drawer { position: absolute; top: 0; left: 0; bottom: 0; width: 78%; max-width: 300px; background: #fafafa; z-index: 80; transform: translateX(-105%); transition: transform .25s ease; display: flex; flex-direction: column; box-shadow: 2px 0 12px rgba(0,0,0,.35); }
+.drawer-open .nav-scrim { opacity: 1; pointer-events: auto; }
+.drawer-open .nav-drawer { transform: none; }
+.drawer-open .mobile-status-bar { background: rgba(0,0,0,.25); }
+.drawer-header { position: relative; background: linear-gradient(135deg, #0a2f66 0%, #0066c1 100%); padding: 40px 16px 14px; color: #fff; cursor: pointer; flex-shrink: 0; }
+.drawer-avatar { width: 52px; height: 52px; border-radius: 50%; background: #fff; color: #0a2f66; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.drawer-name { font-size: 15px; font-weight: 700; color: #e8edf3; }
+.drawer-email { font-size: 13px; color: rgba(255,255,255,.75); margin-top: 2px; }
+.drawer-logo { position: absolute; right: 14px; top: 38px; margin: 0; }
+.drawer-list { overflow-y: auto; flex: 1; padding-bottom: 12px; }
+.drawer-section { padding: 14px 16px 6px; font-size: 13px; color: #757575; border-top: 1px solid var(--app-line); margin-top: 6px; }
+.drawer-section:first-child { border-top: none; }
+.drawer-item { display: flex; align-items: center; gap: 22px; width: 100%; height: 44px; padding: 0 16px; background: none; border: none; text-align: left; font: 500 14px var(--font-family); color: #212121; cursor: pointer; }
+.drawer-item svg { width: 22px; height: 22px; stroke: #616161; fill: none; stroke-width: 2; flex-shrink: 0; }
+.drawer-item:hover { background: #f0f0f0; }
+.drawer-item.active { background: var(--app-col); color: var(--inatel-blue-600); }
+.drawer-item.active svg { stroke: var(--inatel-blue-600); }
+.tag-novo, .drawer-badge { margin-left: auto; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; text-transform: uppercase; }
+.tag-novo { background: var(--accent-orange); }
+.drawer-badge { background: var(--accent-red); min-width: 18px; text-align: center; }
+
+/* Início */
+.home-content { padding: 12px; gap: 14px; }
+.home-hello { font-size: 13px; color: var(--text-body); padding: 2px 2px 0; }
+.section-title { color: var(--inatel-blue-600); font-size: 15px; font-weight: 700; letter-spacing: 0; }
+.section-link { color: var(--inatel-blue-600); }
+.services-grid { gap: 8px; }
+.service-card { border-radius: 2px; border: 1px solid var(--app-line); box-shadow: none; padding: 12px; }
+.service-card:hover { transform: none; box-shadow: var(--shadow-md); border-color: var(--app-line); }
+.service-icon-wrap { background: var(--app-col); border-radius: 2px; }
+.service-card.highlight-feature { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 12px; border: 1px solid var(--inatel-blue-600); border-left-width: 4px; background: #fff; box-shadow: var(--shadow-md); }
+.service-card.highlight-feature .service-card-title { font-size: 14px; font-weight: 700; color: var(--inatel-blue-600); }
+.feature-tag-novo { top: 50%; transform: translateY(-50%); border-radius: 10px; }
+
+/* Cards e listas: planos, borda cinza */
+.next-booking-card, .professor-card, .appointment-card, .profile-card-block, .summary-card, .calendar-section,
+.detail-header-card, .notif-card, .request-card, .profile-menu-item, .map-schematic-card { border-radius: 2px; border: 1px solid var(--app-line); box-shadow: none; background: #fff; }
+.professor-card:hover, .appointment-card:hover, .next-booking-card:hover, .profile-menu-item:hover { transform: none; border-color: var(--inatel-blue-600); box-shadow: none; }
+.next-booking-card { border-left: 4px solid var(--inatel-blue-600); }
+.notif-card.unread { background: var(--app-col); }
+.profile-card-block h5, .summary-row-content h6 { color: #757575; }
+.app-group-title { color: var(--inatel-blue-600); font-size: 13px; }
+.booking-title, .appointment-card-info h4, .professor-info h4 { color: var(--inatel-blue-600); }
+.status-badge, .detail-status-pill { border-radius: 2px; font-size: 10px; text-transform: uppercase; letter-spacing: .3px; }
+.professor-avatar { background: var(--app-col); }
+
+/* Tabela de detalhes: 1ª coluna azul-clara, como a tela de Frequência */
+.detail-table { border: 1px solid var(--app-line); margin-top: 12px; }
+.detail-table td { border: 1px solid var(--app-line); padding: 10px; }
+.detail-table td.label { background: var(--app-col); text-align: center; color: var(--text-title); font-weight: 500; }
+.detail-table td.value { background: #fff; font-weight: 500; }
+
+/* Abas e filtros */
+.appointments-tabs { background: var(--inatel-blue-600); border: none; }
+.app-tab { color: rgba(255,255,255,.7); text-transform: uppercase; font-weight: 500; font-size: 13px; }
+.app-tab.active { color: #fff; border-bottom: 2px solid #fff; }
+.filter-tabs { background: var(--app-row); border-bottom: 1px solid var(--app-line); }
+.filter-chip.active { background: var(--inatel-blue-600); border-color: var(--inatel-blue-600); }
+.cal-day { border-radius: 50%; }
+
+/* Botões (Material) */
+.btn-action-primary, .btn-primary { border-radius: 2px; text-transform: uppercase; letter-spacing: .5px; font-size: 14px; font-weight: 500; box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12); }
+.btn-action-secondary, .btn-secondary, .btn-secondary-white, .btn-danger, .btn-accept, .btn-refuse { border-radius: 2px; text-transform: uppercase; letter-spacing: .4px; font-weight: 500; }
+.btn-action-secondary, .btn-secondary { background: #fff; color: var(--inatel-blue-600); }
+.modal-card { border-radius: 4px; }
+
+/* Perfil e Login */
+#screen-perfil .profile-hero { background: linear-gradient(135deg, #0a2f66 0%, #0066c1 100%); border: none; }
+#screen-perfil .profile-hero h3, #screen-perfil .profile-hero .profile-sub, #screen-perfil .profile-hero .profile-email { color: #fff; }
+#screen-perfil .profile-avatar-lg { background: #fff !important; color: #0a2f66; }
+#screen-login { background: linear-gradient(180deg, var(--inatel-blue-600) 0%, #004a8f 100%); }
+.input-field { border: none; border-bottom: 2px solid rgba(255,255,255,.6); border-radius: 0; background: transparent; padding: 10px 2px; }
+.input-field:focus { border-bottom-color: #fff; box-shadow: none; background: transparent; }
+.professor-mode-banner { background: #212121; }
+
+/* ==========================================================================
+   CELULAR DEMONSTRATIVO MAIS ALTO (só no desktop, fora do modo tela cheia)
+   Ajuste a altura em --device-height. Se a janela for menor, a página rola.
+   ========================================================================== */
+@media (min-width: 481px) and (min-height: 541px) {
+  body:not(.fullscreen-mode) {
+    height: auto;
+    min-height: 100dvh;
+    overflow-y: auto;
+  }
+  body:not(.fullscreen-mode) .device-container {
+    flex: none;
+    margin-bottom: 32px;
+  }
+  body:not(.fullscreen-mode) .device-frame {
+    --device-height: 900px;
+    width: 400px;
+    height: var(--device-height);
+    max-height: none;
+    min-height: 0;
+  }
+}
