@@ -1,0 +1,1854 @@
+/* ==========================================================================
+   APP INATEL - AGENDAMENTO DE PROFESSORES E MONITORES
+   Design System & Estilos Globais
+   Identidade Visual: Instituto Nacional de Telecomunicações (Inatel)
+   ========================================================================== */
+
+:root {
+  /* Paleta Oficial Inatel */
+  --inatel-blue-900: #002e5b;
+  --inatel-blue-800: #003e73;
+  --inatel-blue-700: #004d8c;
+  --inatel-blue-600: #005696; /* Azul Principal Inatel */
+  --inatel-blue-500: #026bb8;
+  --inatel-blue-400: #0284c7;
+  --inatel-blue-100: #e0f2fe;
+  --inatel-blue-50:  #f0f9ff;
+
+  --accent-cyan:     #00a8e8;
+  --accent-orange:   #f59e0b;
+  --accent-green:    #10b981;
+  --accent-red:      #ef4444;
+
+  /* Cores Neutras / Superfícies */
+  --bg-app:          #f4f6f9;
+  --bg-card:         #ffffff;
+  --bg-subtle:       #f8fafc;
+  --border-light:    #e2e8f0;
+  --border-medium:   #cbd5e1;
+
+  --text-title:      #0f172a;
+  --text-body:       #334155;
+  --text-muted:      #64748b;
+  --text-light:      #94a3b8;
+  --text-inverse:    #ffffff;
+
+  /* Status Tokens */
+  --status-livre-bg:       #dcfce7;
+  --status-livre-text:     #166534;
+  --status-vagas-bg:       #fef3c7;
+  --status-vagas-text:     #92400e;
+  --status-lotado-bg:      #fee2e2;
+  --status-lotado-text:    #991b1b;
+  --status-confirm-bg:     #d1fae5;
+  --status-confirm-text:   #065f46;
+  --status-pendente-bg:    #fef3c7;
+  --status-pendente-text:  #b45309;
+
+  /* Tipografia & Formas */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-device: 0 25px 50px -12px rgba(0, 46, 91, 0.35);
+
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset Básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, #0f172a 0%, #002e5b 50%, #004d8c 100%);
+  color: var(--text-body);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR DE APRESENTAÇÃO (Desktop Controls)
+   ========================================================================== */
+.demo-topbar {
+  width: 100%;
+  max-width: 1200px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: #ffffff;
+  z-index: 100;
+}
+
+.demo-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.demo-brand-logo {
+  height: 28px;
+  width: auto;
+}
+
+.demo-title-group h1 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #ffffff;
+}
+
+.demo-title-group p {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.demo-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.demo-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e0f2fe;
+}
+
+.demo-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.demo-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.demo-btn.active {
+  background: #ffffff;
+  color: var(--inatel-blue-900);
+  border-color: #ffffff;
+}
+
+/* ==========================================================================
+   DEVICE WRAPPER (Moldura de Smartphone Mobile no Desktop)
+   ========================================================================== */
+.device-container {
+  margin: 10px auto 40px auto;
+  position: relative;
+  transition: var(--transition);
+}
+
+.device-frame {
+  width: 390px;
+  height: 820px;
+  background: #000000;
+  border-radius: 50px;
+  padding: 12px;
+  box-shadow: var(--shadow-device), 0 0 0 2px #334155, 0 0 0 4px #0f172a;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Notch / Dynamic Island */
+.device-notch {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 28px;
+  background: #000000;
+  border-radius: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 14px;
+}
+
+.device-camera {
+  width: 10px;
+  height: 10px;
+  background: #111827;
+  border-radius: 50%;
+  border: 1px solid #1e293b;
+}
+
+/* Tela interna do Smartphone */
+.device-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-app);
+  border-radius: 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Modo Tela Cheia / Responsivo Puro */
+body.fullscreen-mode .demo-topbar {
+  display: none;
+}
+
+body.fullscreen-mode .device-container {
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+body.fullscreen-mode .device-frame {
+  width: 100%;
+  height: 100vh;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+}
+
+body.fullscreen-mode .device-notch {
+  display: none;
+}
+
+body.fullscreen-mode .device-screen {
+  border-radius: 0;
+}
+
+/* Responsividade nativa quando aberto em celular real */
+@media (max-width: 480px) {
+  body {
+    background: var(--bg-app);
+  }
+  .demo-topbar {
+    display: none;
+  }
+  .device-container {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+  }
+  .device-frame {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+  }
+  .device-notch {
+    display: none;
+  }
+  .device-screen {
+    border-radius: 0;
+  }
+}
+
+/* ==========================================================================
+   STATUS BAR MOBILE (9:41, Bateria, Wifi)
+   ========================================================================== */
+.mobile-status-bar {
+  height: 44px;
+  padding: 12px 24px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-title);
+  background: transparent;
+  z-index: 50;
+  flex-shrink: 0;
+}
+
+.mobile-status-bar.on-dark {
+  color: #ffffff;
+}
+
+.status-bar-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   APP CONTAINER E NAVEGAÇÃO DE TELAS
+   ========================================================================== */
+.app-viewport {
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-viewport::-webkit-scrollbar {
+  width: 4px;
+}
+.app-viewport::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.screen {
+  display: none;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+  animation: fadeIn 0.22s ease-out;
+}
+
+.screen.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   BOTTOM NAVIGATION BAR (Abas inferiores do App Inatel)
+   ========================================================================== */
+.mobile-bottom-nav {
+  height: 64px;
+  background: #ffffff;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 10px;
+  flex-shrink: 0;
+  z-index: 40;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-item svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.nav-item.active {
+  color: var(--inatel-blue-600);
+  font-weight: 700;
+}
+
+.nav-badge {
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  background: var(--accent-red);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* ==========================================================================
+   HEADERS DO APP
+   ========================================================================== */
+.app-header {
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-back {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--inatel-blue-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: var(--radius-full);
+  margin-left: -6px;
+  transition: var(--transition);
+}
+
+.btn-back:hover {
+  background: var(--inatel-blue-50);
+}
+
+.app-header-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-title);
+  letter-spacing: -0.2px;
+}
+
+.app-header-action {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--inatel-blue-600);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   TELA 1: LOGIN
+   ========================================================================== */
+#screen-login {
+  background: linear-gradient(180deg, var(--inatel-blue-700) 0%, var(--inatel-blue-900) 100%);
+  color: #ffffff;
+  padding: 24px 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-brand-logo {
+  width: 150px;
+  margin-bottom: 24px;
+}
+
+.login-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.login-subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.input-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition);
+}
+
+.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.input-field:focus {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+}
+
+.login-forgot {
+  text-align: right;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  margin-top: -4px;
+}
+
+.btn-primary {
+  width: 100%;
+  background: #ffffff;
+  color: var(--inatel-blue-900);
+  border: none;
+  padding: 13px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  background: #f8fafc;
+  transform: translateY(-1px);
+}
+
+.btn-secondary-white {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-secondary-white:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ==========================================================================
+   TELA 2: INÍCIO (HOME)
+   ========================================================================== */
+.home-hero {
+  background: linear-gradient(135deg, var(--inatel-blue-700) 0%, var(--inatel-blue-800) 100%);
+  color: #ffffff;
+  padding: 16px 20px 24px 20px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+.home-user-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.home-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar-sm {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  background: #ffffff;
+  color: var(--inatel-blue-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.home-user-text h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.home-user-text p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.home-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-icon-header {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition);
+}
+
+.btn-icon-header:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.btn-icon-header .badge-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 2px solid var(--inatel-blue-800);
+}
+
+/* Barra de Pesquisa */
+.search-bar-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 13px;
+  color: var(--text-title);
+  box-shadow: var(--shadow-sm);
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+}
+
+/* Conteúdo da Home */
+.home-content {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-title);
+  letter-spacing: -0.2px;
+}
+
+.section-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--inatel-blue-600);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Grade de Serviços */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  text-align: left;
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--inatel-blue-400);
+}
+
+.service-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--inatel-blue-50);
+  color: var(--inatel-blue-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-title);
+}
+
+/* Card Especial da Nova Funcionalidade */
+.service-card.highlight-feature {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+  border: 2px solid var(--inatel-blue-600);
+  box-shadow: 0 4px 12px rgba(0, 86, 150, 0.12);
+}
+
+.service-card.highlight-feature .service-icon-wrap {
+  background: var(--inatel-blue-600);
+  color: #ffffff;
+}
+
+.feature-tag-novo {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--accent-orange);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Card Próximo Agendamento na Home */
+.next-booking-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--inatel-blue-600);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.next-booking-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.booking-card-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.booking-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.booking-time {
+  font-size: 12px;
+  color: var(--inatel-blue-600);
+  font-weight: 600;
+}
+
+.booking-location {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   TELA 3: ESCOLHER PROFESSOR / MONITOR
+   ========================================================================== */
+.filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  overflow-x: auto;
+}
+
+.filter-chip {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border-light);
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.filter-chip.active {
+  background: var(--inatel-blue-600);
+  border-color: var(--inatel-blue-600);
+  color: #ffffff;
+}
+
+.professor-list {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.professor-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.professor-card:hover {
+  border-color: var(--inatel-blue-400);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.professor-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.professor-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--inatel-blue-100);
+  color: var(--inatel-blue-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.professor-info h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-title);
+  margin-bottom: 2px;
+}
+
+.professor-info .depto {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.disciplinas-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.disc-tag {
+  background: var(--bg-subtle);
+  color: var(--text-body);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-light);
+}
+
+.status-badge {
+  padding: 4px 9px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.status-badge.livre {
+  background: var(--status-livre-bg);
+  color: var(--status-livre-text);
+}
+
+.status-badge.vagas {
+  background: var(--status-vagas-bg);
+  color: var(--status-vagas-text);
+}
+
+.status-badge.lotado {
+  background: var(--status-lotado-bg);
+  color: var(--status-lotado-text);
+}
+
+/* ==========================================================================
+   TELA 4: PERFIL DO PROFESSOR
+   ========================================================================== */
+.profile-hero {
+  background: #ffffff;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.profile-avatar-lg {
+  width: 76px;
+  height: 76px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--inatel-blue-600) 0%, var(--inatel-blue-800) 100%);
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.profile-hero h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-title);
+  margin-bottom: 4px;
+}
+
+.profile-hero .profile-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.profile-hero .profile-email {
+  font-size: 12px;
+  color: var(--inatel-blue-600);
+  font-weight: 500;
+}
+
+.profile-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.profile-card-block {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  padding: 16px;
+}
+
+.profile-card-block h5 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.service-option-radio {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.service-option-radio:last-child {
+  margin-bottom: 0;
+}
+
+.service-option-radio.selected {
+  border-color: var(--inatel-blue-600);
+  background: var(--inatel-blue-50);
+}
+
+.radio-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border-medium);
+  margin-top: 2px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.service-option-radio.selected .radio-circle {
+  border-color: var(--inatel-blue-600);
+}
+
+.service-option-radio.selected .radio-circle::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--inatel-blue-600);
+}
+
+.service-option-info h6 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.service-option-info p {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   TELA 5: ESCOLHER DATA E HORÁRIO
+   ========================================================================== */
+.calendar-section {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.calendar-month-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.cal-day-header {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  padding-bottom: 4px;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-body);
+}
+
+.cal-day:hover:not(.disabled) {
+  background: var(--inatel-blue-100);
+  color: var(--inatel-blue-800);
+}
+
+.cal-day.disabled {
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.cal-day.selected {
+  background: var(--inatel-blue-600) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0, 86, 150, 0.3);
+}
+
+.cal-day.today {
+  border: 1px solid var(--inatel-blue-400);
+}
+
+/* Grade de Horários */
+.time-slots-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.time-slot-btn {
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-title);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.time-slot-btn:hover:not(.disabled) {
+  border-color: var(--inatel-blue-400);
+  background: var(--inatel-blue-50);
+}
+
+.time-slot-btn.selected {
+  background: var(--inatel-blue-600);
+  border-color: var(--inatel-blue-600);
+  color: #ffffff;
+}
+
+.time-slot-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: line-through;
+  background: #f1f5f9;
+}
+
+.academic-grade-alert {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #166534;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   TELA 6: CONFIRMAR AGENDAMENTO
+   ========================================================================== */
+.summary-card {
+  background: linear-gradient(135deg, var(--inatel-blue-50) 0%, #ffffff 100%);
+  border: 1px solid var(--inatel-blue-100);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.summary-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.summary-row:last-child {
+  margin-bottom: 0;
+}
+
+.summary-row-icon {
+  color: var(--inatel-blue-600);
+  margin-top: 1px;
+}
+
+.summary-row-content h6 {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.summary-row-content p {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-title);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.form-select, .form-input, .form-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-medium);
+  font-size: 13px;
+  color: var(--text-title);
+  background: #ffffff;
+  outline: none;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+.form-select:focus, .form-input:focus, .form-textarea:focus {
+  border-color: var(--inatel-blue-600);
+  box-shadow: 0 0 0 3px rgba(0, 86, 150, 0.12);
+}
+
+.form-textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.quick-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.quick-topic-chip {
+  font-size: 11px;
+  padding: 4px 8px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.quick-topic-chip:hover {
+  border-color: var(--inatel-blue-400);
+  color: var(--inatel-blue-700);
+}
+
+.checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-title);
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   TELA 7: SUCESSO / CONFIRMAÇÃO
+   ========================================================================== */
+.success-screen-body {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: auto 0;
+}
+
+.success-icon-animated {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--status-livre-bg);
+  color: var(--status-livre-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  animation: scaleIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.success-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-title);
+  margin-bottom: 8px;
+}
+
+.success-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   TELA 8: MEUS AGENDAMENTOS
+   ========================================================================== */
+.appointments-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-light);
+  background: #ffffff;
+}
+
+.app-tab {
+  flex: 1;
+  text-align: center;
+  padding: 12px 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  transition: var(--transition);
+}
+
+.app-tab.active {
+  color: var(--inatel-blue-600);
+  border-bottom-color: var(--inatel-blue-600);
+  font-weight: 700;
+}
+
+.appointments-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.app-group-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.appointment-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.appointment-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--inatel-blue-400);
+}
+
+.appointment-card-info h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-title);
+  margin-bottom: 3px;
+}
+
+.appointment-card-info .app-datetime {
+  font-size: 12px;
+  color: var(--inatel-blue-700);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.appointment-card-info .app-prof {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   TELA 9: DETALHE DO AGENDAMENTO
+   ========================================================================== */
+.detail-content {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-header-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  padding: 16px;
+}
+
+.detail-status-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.detail-table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.detail-table tr {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.detail-table tr:last-child {
+  border-bottom: none;
+}
+
+.detail-table td {
+  padding: 8px 0;
+  font-size: 12px;
+}
+
+.detail-table td.label {
+  color: var(--text-muted);
+  width: 90px;
+  font-weight: 600;
+}
+
+.detail-table td.value {
+  color: var(--text-title);
+  font-weight: 700;
+}
+
+.map-schematic-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.map-schematic-view {
+  height: 110px;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--text-muted);
+  position: relative;
+}
+
+.map-pin-pulse {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--inatel-blue-600);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 6px rgba(0, 86, 150, 0.2);
+}
+
+/* ==========================================================================
+   TELA 11: AVISOS E NOTIFICAÇÕES
+   ========================================================================== */
+.notifications-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notif-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  padding: 12px 14px;
+  display: flex;
+  gap: 12px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.notif-card.unread {
+  background: #f8fafc;
+  border-left: 3px solid var(--inatel-blue-600);
+}
+
+.notif-icon-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notif-icon-circle.confirm { background: var(--status-livre-bg); color: var(--status-livre-text); }
+.notif-icon-circle.lembrete { background: var(--inatel-blue-100); color: var(--inatel-blue-800); }
+.notif-icon-circle.cancel { background: var(--status-lotado-bg); color: var(--status-lotado-text); }
+.notif-icon-circle.aviso { background: #fef3c7; color: #92400e; }
+
+.notif-content h5 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-title);
+  margin-bottom: 2px;
+}
+
+.notif-content p {
+  font-size: 12px;
+  color: var(--text-body);
+  margin-bottom: 4px;
+}
+
+.notif-time {
+  font-size: 10px;
+  color: var(--text-light);
+}
+
+/* ==========================================================================
+   TELA 12: PERFIL DO USUÁRIO
+   ========================================================================== */
+.profile-menu-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-menu-item {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-title);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.profile-menu-item:hover {
+  background: var(--bg-subtle);
+  border-color: var(--inatel-blue-400);
+}
+
+.profile-menu-item.logout {
+  color: var(--accent-red);
+  margin-top: 10px;
+}
+
+/* ==========================================================================
+   VISÃO DO PROFESSOR (TELAS 13 E 14)
+   ========================================================================== */
+.professor-mode-banner {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.request-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.request-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-accept {
+  flex: 1;
+  background: var(--accent-green);
+  color: #ffffff;
+  border: none;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-refuse {
+  flex: 1;
+  background: #f1f5f9;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   MODAL DE CANCELAMENTO
+   ========================================================================== */
+.modal-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(3px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 22px 18px;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-lg);
+  animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-card h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-title);
+  text-align: center;
+}
+
+.modal-card p {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-danger {
+  flex: 1;
+  background: var(--accent-red);
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  flex: 1;
+  background: #f1f5f9;
+  color: var(--text-body);
+  border: 1px solid var(--border-light);
+  padding: 10px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Toast de Notificação Instantânea */
+.toast-alert {
+  position: absolute;
+  top: 50px;
+  left: 16px;
+  right: 16px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  transform: translateY(-80px);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.toast-alert.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--accent-cyan);
+}
+
+/* Utilitários */
+.btn-action-primary {
+  width: 100%;
+  background: var(--inatel-blue-600);
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 10px rgba(0, 86, 150, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-action-primary:hover {
+  background: var(--inatel-blue-700);
+  transform: translateY(-1px);
+}
+
+.btn-action-secondary {
+  width: 100%;
+  background: #f1f5f9;
+  color: var(--text-body);
+  border: 1px solid var(--border-light);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.btn-action-secondary:hover {
+  background: #e2e8f0;
+}
