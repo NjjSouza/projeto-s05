@@ -89,12 +89,8 @@ projeto-s05/
 │   ├── js/app.js                        # Lógica interativa, dados mockados e reatividade
 │   └── img/Inatel.png                   # Logotipo do Inatel
 └── docs/
-    ├── entrega.html                     # Slides da entrega final
-    ├── proposta.txt                     # Proposta/enunciado da atividade
-    ├── Exemplo de Formato de Entrega.pdf    # Modelo oficial de entrega da disciplina
-    ├── S05-User-Story-e-Analise-da-Tarefa.pdf # Documento de User Story e HTA
-    ├── UML.pdf                          # Diagrama de Classes UML e fluxo de informação
-    └── wireframe_agendamento_professores.pdf # Wireframes de baixa/média fidelidade
+    ├── Entrega.pdf                      # Slide da entrega final
+    └── ExemploEntrega.pdf               # Modelo oficial de entrega da disciplina                       # Diagrama de Classes UML e fluxo de informação
 ```
 
 ---
