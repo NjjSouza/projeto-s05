@@ -5,7 +5,49 @@
  * Engenharia de Software - Inatel (Disciplina S05 - Interação Homem-Máquina)
  */
 
-const STORAGE_KEY = "inatel_s05_state_v3";
+// v5: mudou a estrutura de dados (locais, "Atendimento", sem tags, monitores). Trocar a chave
+// evita que dados antigos salvos no navegador sobrescrevam os novos.
+const STORAGE_KEY = "inatel_s05_state_v5";
+
+// ==========================================================================
+// LOCAIS DE ATENDIMENTO
+// - Sala do professor (Prédio 3, 2º piso): local padrão. Cada professor tem a
+//   sua, então nunca há conflito entre professores diferentes.
+// - Prédio 1: salas numeradas de 1 a 22 (compartilhadas, uso exclusivo por horário)
+// - Laboratórios: cada um tem as áreas de professores que podem reservá-lo e diz
+//   se é de uso exclusivo (um professor por horário) ou espaço de convivência.
+// Fonte dos laboratórios: Guia de Visita do Inatel (inatel.br).
+// ==========================================================================
+const PREDIO_1_TOTAL_SALAS = 22;
+const LOCAL_SALA_PROFESSOR = "Sala do professor - Prédio 3, 2º piso";
+const LOCAL_REMOTO = "Remoto (Microsoft Teams)";
+const DURACAO_PADRAO_MIN = 30;
+const PROFESSOR_DEMO_ID = 1; // professor usado no "Modo Professor" da demo
+const salaPredio1 = n => `Sala ${n} - Prédio 1`;
+
+const LOCAL_CDG_HUB = "CDG Hub - Prédio 4";
+const LOCAL_LTI_2 = "LTI-2 - Prédio 6, 1º piso";
+
+// areas: software, redes, ia, eletronica, fisica, quimica, matematica, inovacao
+const LABORATORIOS = [
+  // Software e programação
+  { local: LOCAL_CDG_HUB, rotulo: "CDG Hub (convivência)", areas: ["software"], exclusivo: false },
+  { local: LOCAL_LTI_2, rotulo: "LTI-2 (Tratamento da Informação)", areas: ["software"], exclusivo: true },
+  { local: "LTI-3 - Prédio 6, 1º piso", rotulo: "LTI-3 (Tratamento da Informação)", areas: ["software"], exclusivo: true },
+  { local: "LTI-4 - Prédio 6, 1º piso", rotulo: "LTI-4 (Tratamento da Informação)", areas: ["software"], exclusivo: true },
+  // Redes e IA
+  { local: "Lab de Redes - Prédio 2", rotulo: "Lab de Redes", areas: ["redes"], exclusivo: true },
+  { local: "Lab de Redes de Acesso e Transporte - Prédio 2", rotulo: "Lab de Redes de Acesso e Transporte", areas: ["redes"], exclusivo: true },
+  { local: "WAI Lab - Prédio 2", rotulo: "WAI Lab (Redes sem fio e IA)", areas: ["redes", "ia"], exclusivo: true },
+  { local: "Lab de Robótica e IA - Prédio 4", rotulo: "Lab de Robótica e IA", areas: ["ia"], exclusivo: true },
+  // Eletrônica, física e química
+  { local: "Lab de Eletrônica - Prédio 3", rotulo: "Lab de Eletrônica Digital, Analógica e Circuitos", areas: ["eletronica"], exclusivo: true },
+  { local: "Lab de Física I - Prédio 3", rotulo: "Lab de Física I", areas: ["fisica"], exclusivo: true },
+  { local: "Lab de Física II - Prédio 3", rotulo: "Lab de Física II", areas: ["fisica"], exclusivo: true },
+  { local: "Lab de Química e Materiais - Prédio 1", rotulo: "Lab de Química e Ciências dos Materiais", areas: ["quimica"], exclusivo: true },
+  // Gestão e inovação
+  { local: "Lab de Ideação - Prédio 4", rotulo: "Lab de Ideação (convivência)", areas: ["inovacao"], exclusivo: false }
+];
 
 const DEFAULT_DATA = {
   currentUser: {
@@ -26,32 +68,32 @@ const DEFAULT_DATA = {
       depto: "Engenharia de Software e Computação",
       email: "raphael.pereira@inatel.br",
       iniciais: "RP",
+      areas: ["software"],
       disciplinas: [
         "S05 - Interação Homem-Máquina",
         "Engenharia de Software",
         "Ergonomia e Usabilidade"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala 204 - Prédio Central",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
-          { hora: "14:30", status: "livre" },
+          { hora: "14:30", status: "lotado" },
           { hora: "15:00", status: "lotado" },
-          { hora: "15:30", status: "livre" },
-          { hora: "16:00", status: "livre" },
-          { hora: "16:30", status: "livre" }
+          { hora: "15:30", status: "livre", local: salaPredio1(7) },
+          { hora: "16:00", status: "livre", local: salaPredio1(7) },
+          { hora: "16:30", status: "livre", local: salaPredio1(7) }
         ],
         "2026-11-13": [
-          { hora: "10:00", status: "livre" },
-          { hora: "10:30", status: "livre" },
+          { hora: "10:00", status: "lotado" },
+          { hora: "10:30", status: "livre", local: LOCAL_CDG_HUB },
           { hora: "11:00", status: "lotado" }
         ],
         "2026-11-17": [
-          { hora: "14:00", status: "livre" },
-          { hora: "15:00", status: "livre" },
+          { hora: "14:00", status: "livre", local: salaPredio1(12) },
+          { hora: "15:00", status: "livre", local: salaPredio1(12) },
           { hora: "16:00", status: "livre" }
         ]
       }
@@ -62,20 +104,20 @@ const DEFAULT_DATA = {
       depto: "Engenharia de Software e Computação",
       email: "christopher@inatel.br",
       iniciais: "CF",
+      areas: ["software"],
       disciplinas: [
         "C06 - Programação Orientada a Objetos com Java",
         "C14 - Engenharia de Software",
         "S06 - Engenharia de Produto de Software",
         "S07 - Qualidade, Gerência de Config. e Evolução de Software"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-16 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
-          { hora: "15:00", status: "livre" },
+          { hora: "15:00", status: "livre", local: LOCAL_LTI_2 },
           { hora: "16:00", status: "livre" }
         ]
       }
@@ -86,20 +128,23 @@ const DEFAULT_DATA = {
       depto: "Coordenação de Engenharia de Software e Computação",
       email: "renzo@inatel.br",
       iniciais: "RM",
+      areas: ["software"],
       disciplinas: [
         "C11 - Ciência de Dados com Python",
         "Algoritmos e Programação Web",
         "Maratona de Programação"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-15 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
-          { hora: "14:30", status: "livre" },
+          { hora: "14:30", status: "livre", local: salaPredio1(3) },
           { hora: "16:00", status: "livre" }
+        ],
+        "2026-11-17": [
+          { hora: "16:00", status: "lotado" }
         ]
       }
     },
@@ -109,6 +154,7 @@ const DEFAULT_DATA = {
       depto: "Engenharia de Software e Computação",
       email: "jonas@inatel.br",
       iniciais: "JV",
+      areas: ["software"],
       disciplinas: [
         "C04 - Algoritmos e Estrutura de Dados III",
         "C07 - Bancos de Dados",
@@ -117,10 +163,9 @@ const DEFAULT_DATA = {
         "S02 - Bancos de Dados II (NoSQL)",
         "S03 - Arquiteturas de Software"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "vagas",
       statusTexto: "Poucas vagas",
-      localPadrao: "Sala I-20 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "15:30", status: "lotado" },
@@ -134,15 +179,15 @@ const DEFAULT_DATA = {
       depto: "Engenharia de Software e Computação",
       email: "marcelo.cysneiros@inatel.br",
       iniciais: "MC",
+      areas: ["software", "ia"],
       disciplinas: [
         "C14 - Engenharia de Software (Prática)",
         "C24 - Inteligência Artificial (Prática)",
         "S07 - Qualidade e Evolução de Software (Prática)"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Lab de Software - CDG Hub",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "15:00", status: "livre" },
@@ -156,16 +201,16 @@ const DEFAULT_DATA = {
       depto: "Engenharia de Software e Computação",
       email: "ruan@inatel.br",
       iniciais: "RS",
+      areas: ["software"],
       disciplinas: [
         "C01 - Introdução à Engenharia",
         "C02 - Algoritmos e Estrutura de Dados I",
         "C09 - Computação Gráfica e Multimídia",
         "S01 - Paradigmas de Programação"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-15 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -179,14 +224,14 @@ const DEFAULT_DATA = {
       depto: "Computação e Telecomunicações",
       email: "ynoguti@inatel.br",
       iniciais: "CY",
+      areas: ["software"],
       disciplinas: [
         "C02 - Algoritmos e Estrutura de Dados I",
         "C03 - Algoritmos e Estrutura de Dados II"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-15 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "10:00", status: "livre" },
@@ -200,15 +245,15 @@ const DEFAULT_DATA = {
       depto: "Computação e Sistemas Embarcados",
       email: "daniel.nunes@inatel.br",
       iniciais: "DN",
+      areas: ["software", "eletronica"],
       disciplinas: [
         "C02 - Algoritmos e Estrutura de Dados I",
         "C05 - Linguagens de Programação e Compiladores",
         "E09 - Sistemas Microcontrolados e Microprocessados"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-17 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:30", status: "livre" },
@@ -222,16 +267,16 @@ const DEFAULT_DATA = {
       depto: "Redes, Computação e Matemática",
       email: "edson@inatel.br",
       iniciais: "EG",
+      areas: ["software", "redes", "matematica"],
       disciplinas: [
         "C02 - Algoritmos e Estrutura de Dados I",
         "M02 - Álgebra e Geometria Analítica",
         "T02 - Redes de Dados I",
         "T03 - Redes de Dados II"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "vagas",
       statusTexto: "Poucas vagas",
-      localPadrao: "Sala I-20 / Lab II-2",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "16:00", status: "livre" }
@@ -244,11 +289,11 @@ const DEFAULT_DATA = {
       depto: "Redes de Computadores e IoT",
       email: "guilherme.aquino@inatel.br",
       iniciais: "GA",
+      areas: ["redes"],
       disciplinas: ["T03 - Redes de Dados II", "Sistemas Distribuídos e IoT"],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-18 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -262,11 +307,11 @@ const DEFAULT_DATA = {
       depto: "Inteligência Artificial e Telecomunicações",
       email: "felipe.figueiredo@inatel.br",
       iniciais: "FF",
+      areas: ["ia", "redes"],
       disciplinas: ["C24 - Inteligência Artificial", "Aprendizado de Máquina"],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-19 / WAI Lab",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -280,11 +325,11 @@ const DEFAULT_DATA = {
       depto: "Inteligência Artificial e Telecomunicações",
       email: "victoria.souto@inatel.br",
       iniciais: "VS",
+      areas: ["ia"],
       disciplinas: ["C24 - Inteligência Artificial", "Redes Neurais"],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-16 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "15:00", status: "livre" },
@@ -298,11 +343,11 @@ const DEFAULT_DATA = {
       depto: "Gestão e Empreendedorismo",
       email: "milena.arantes@inatel.br",
       iniciais: "MA",
+      areas: ["inovacao"],
       disciplinas: ["G04 - Fundamentos de Gestão de Projetos", "Gestão Ágil"],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-15 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -316,11 +361,11 @@ const DEFAULT_DATA = {
       depto: "Coordenação de Projetos e P&D",
       email: "marcondes@inatel.br",
       iniciais: "GM",
+      areas: ["inovacao"],
       disciplinas: ["Projetos Integradores e Fetin", "Inovação e Startups", "C15 - Sistemas Distribuídos"],
-      tags: ["Projetos"],
       status: "vagas",
       statusTexto: "Poucas vagas",
-      localPadrao: "Inatel Startups / CDG Hub",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "16:30", status: "livre" }
@@ -333,14 +378,14 @@ const DEFAULT_DATA = {
       depto: "Eletrônica Digital e Sistemas Embarcados",
       email: "bruno.monteiro@inatel.br",
       iniciais: "BM",
+      areas: ["eletronica"],
       disciplinas: [
         "E07 - Eletrônica Digital Básica",
         "E08 - Eletrônica Digital Aplicada a Contadores e Sequenciadores"
       ],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Lab III-4 / Prédio III",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -354,11 +399,11 @@ const DEFAULT_DATA = {
       depto: "Sistemas Microcontrolados e Hardware",
       email: "joaopedro@inatel.br",
       iniciais: "JP",
+      areas: ["eletronica"],
       disciplinas: ["E09 - Sistemas Microcontrolados e Microprocessados"],
-      tags: ["Monitoria", "Projetos"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Lab III-7 / Sala I-15",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:30", status: "livre" },
@@ -372,11 +417,11 @@ const DEFAULT_DATA = {
       depto: "Sistemas Microcontrolados e Hardware",
       email: "yvo@inatel.br",
       iniciais: "YM",
+      areas: ["eletronica"],
       disciplinas: ["E09 - Sistemas Microcontrolados e Microprocessados"],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-22 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "16:00", status: "livre" }
@@ -389,11 +434,11 @@ const DEFAULT_DATA = {
       depto: "Engenharia Elétrica e Circuitos",
       email: "antonio.alves@inatel.br",
       iniciais: "AA",
+      areas: ["eletronica"],
       disciplinas: ["E01 - Circuitos Elétricos em Corrente Contínua"],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-6 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -407,15 +452,15 @@ const DEFAULT_DATA = {
       depto: "Núcleo de Matemática",
       email: "luiz.godoy@inatel.br",
       iniciais: "LG",
+      areas: ["matematica"],
       disciplinas: [
         "M01 - Matemática Aplicada a Engenharia",
         "M03 - Cálculo Aplicado a Engenharia I",
         "M05 - Cálculo Aplicado a Séries e Equações Diferenciais"
       ],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-2 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -429,16 +474,16 @@ const DEFAULT_DATA = {
       depto: "Núcleo de Matemática e Física",
       email: "felipe.chaves@inatel.br",
       iniciais: "FC",
+      areas: ["matematica", "fisica"],
       disciplinas: [
         "M02 - Álgebra e Geometria Analítica",
         "M05 - Cálculo Aplicado a Séries e Equações Diferenciais",
         "F01 - Física Newtoniana Clássica",
         "F03 - Física Aplicada na Eletricidade e Eletromagnetismo"
       ],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-6 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -452,11 +497,11 @@ const DEFAULT_DATA = {
       depto: "Núcleo de Matemática",
       email: "estevan@inatel.br",
       iniciais: "EL",
+      areas: ["matematica"],
       disciplinas: ["M04 - Cálculo Aplicado a Engenharia II"],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-12 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -470,15 +515,15 @@ const DEFAULT_DATA = {
       depto: "Núcleo de Matemática e Estatística",
       email: "renan.duque@inatel.br",
       iniciais: "RD",
+      areas: ["matematica"],
       disciplinas: [
         "M01 - Matemática Aplicada a Engenharia",
         "M03 - Cálculo Aplicado a Engenharia I",
         "M11 - Probabilidade e Processos Estocásticos"
       ],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-9 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:30", status: "livre" },
@@ -492,14 +537,14 @@ const DEFAULT_DATA = {
       depto: "Núcleo de Matemática e Física",
       email: "karina@inatel.br",
       iniciais: "KC",
+      areas: ["matematica", "fisica"],
       disciplinas: [
         "M06 - Cálculo Numérico e Estatística",
         "F01 - Física Newtoniana Clássica"
       ],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-17 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -513,15 +558,15 @@ const DEFAULT_DATA = {
       depto: "Núcleo de Matemática e Física",
       email: "daniela.barude@inatel.br",
       iniciais: "DB",
+      areas: ["matematica", "fisica"],
       disciplinas: [
         "M01 - Matemática Aplicada a Engenharia",
         "M03 - Cálculo Aplicado a Engenharia I",
         "F01 - Física Newtoniana Clássica"
       ],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-15 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" }
@@ -534,14 +579,14 @@ const DEFAULT_DATA = {
       depto: "Núcleo de Física",
       email: "breno.monteiro@inatel.br",
       iniciais: "BS",
+      areas: ["fisica"],
       disciplinas: [
         "F02 - Física Ondulatória, Óptica e Termodinâmica",
         "F03 - Física Aplicada na Eletricidade e Eletromagnetismo"
       ],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Sala I-8 - Prédio I",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "14:00", status: "livre" },
@@ -555,14 +600,14 @@ const DEFAULT_DATA = {
       depto: "Núcleo de Desenho, Química e Materiais",
       email: "debora.justino@inatel.br",
       iniciais: "DM",
+      areas: ["quimica"],
       disciplinas: [
         "E10 - Desenho Técnico",
         "Q01 - Química e Ciências dos Materiais"
       ],
-      tags: ["Monitoria"],
       status: "livre",
       statusTexto: "Livre",
-      localPadrao: "Prédio VI (Sala 1.3) / Lab I-29",
+      localPadrao: LOCAL_SALA_PROFESSOR,
       horarios: {
         "2026-11-12": [
           { hora: "15:00", status: "livre" }
@@ -575,13 +620,13 @@ const DEFAULT_DATA = {
     {
       id: 101,
       professorId: 1,
-      titulo: "Monitoria - S05 Interação Homem-Máquina",
-      tipo: "Monitoria",
+      titulo: "Atendimento - S05 Interação Homem-Máquina",
+      tipo: "Atendimento",
       disciplina: "S05 - Interação Homem-Máquina",
       professor: "Prof. Raphael Cardoso Mota Pereira",
       data: "Qui, 12/11/2026",
       horario: "14:30 – 15:00",
-      local: "Sala 204 - Prédio Central",
+      local: LOCAL_SALA_PROFESSOR,
       status: "CONFIRMADO",
       assunto: "Ergonomia cognitiva e testes de usabilidade",
       lembrete: "30 min antes",
@@ -597,7 +642,7 @@ const DEFAULT_DATA = {
       professor: "Prof. Raphael Cardoso Mota Pereira",
       data: "Sex, 13/11/2026",
       horario: "10:00 – 10:45",
-      local: "Sala 204 - Prédio Central",
+      local: LOCAL_SALA_PROFESSOR,
       status: "PENDENTE",
       assunto: "Validação do protótipo funcional e avaliação heurística",
       lembrete: "1 hora antes",
@@ -607,13 +652,13 @@ const DEFAULT_DATA = {
     {
       id: 103,
       professorId: 3,
-      titulo: "Monitoria - C11 Ciência de Dados com Python",
-      tipo: "Monitoria",
+      titulo: "Atendimento - C11 Ciência de Dados com Python",
+      tipo: "Atendimento",
       disciplina: "C11 - Ciência de Dados com Python",
       professor: "Prof. Renzo Paranaiba Mesquita",
       data: "Ter, 17/11/2026",
       horario: "16:00 – 16:30",
-      local: "Sala I-15 - Prédio I",
+      local: salaPredio1(15),
       status: "CONFIRMADO",
       assunto: "Análise exploratória e visualização de dados",
       lembrete: "30 min antes",
@@ -623,13 +668,13 @@ const DEFAULT_DATA = {
     {
       id: 104,
       professorId: 21,
-      titulo: "Monitoria - M04 Cálculo Aplicado a Engenharia II",
-      tipo: "Monitoria",
+      titulo: "Atendimento - M04 Cálculo Aplicado a Engenharia II",
+      tipo: "Atendimento",
       disciplina: "M04 - Cálculo Aplicado a Engenharia II",
       professor: "Prof. Estevan Marcelo Lopes",
       data: "Qui, 22/10/2026",
       horario: "15:00 – 15:30",
-      local: "Sala I-12 - Prédio I",
+      local: salaPredio1(12),
       status: "REALIZADO",
       assunto: "Integrais múltiplas e funções de várias variáveis",
       lembrete: "Sem lembrete",
@@ -650,7 +695,7 @@ const DEFAULT_DATA = {
     {
       id: 2,
       titulo: "Lembrete de Atendimento",
-      mensagem: "Seu atendimento de S05 começa em 30 minutos na Sala 204 - Prédio Central.",
+      mensagem: `Seu atendimento de S05 começa em 30 minutos na ${LOCAL_SALA_PROFESSOR}.`,
       tempo: "há 2 h",
       tipo: "lembrete",
       lida: false
@@ -665,48 +710,24 @@ const DEFAULT_DATA = {
     }
   ],
 
+  // Monitores também são alunos: por privacidade, não há exemplos. Fica vazio.
+  monitores: [],
+
   listaEspera: []
 };
 
+const clonar = obj => JSON.parse(JSON.stringify(obj));
+
 function loadInitialState() {
+  let saved = {};
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      return {
-        currentUser: JSON.parse(JSON.stringify(DEFAULT_DATA.currentUser)),
-        currentScreen: "screen-home",
-        previousScreen: null,
-        activeFilter: "todos",
-        searchQuery: "",
-        rescheduleId: null,
-        profTab: "pedidos",
-        bookingDraft: {
-          professorId: 1,
-          tipo: "Monitoria",
-          modalidade: "Presencial",
-          data: "2026-11-12",
-          dataTexto: "Qui, 12/11/2026",
-          horario: "14:30 – 15:00",
-          horarioInicio: "14:30",
-          disciplina: "S05 - Interação Homem-Máquina",
-          assunto: "",
-          lembreteMin: 30,
-          local: "Sala 204 - Prédio Central"
-        },
-        selectedAppointment: null,
-        professores: parsed.professores || JSON.parse(JSON.stringify(DEFAULT_DATA.professores)),
-        agendamentos: parsed.agendamentos || JSON.parse(JSON.stringify(DEFAULT_DATA.agendamentos)),
-        notificacoes: parsed.notificacoes || JSON.parse(JSON.stringify(DEFAULT_DATA.notificacoes)),
-        listaEspera: parsed.listaEspera || []
-      };
-    }
+    saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
   } catch (e) {
     console.warn("Erro ao carregar estado:", e);
   }
 
   return {
-    currentUser: JSON.parse(JSON.stringify(DEFAULT_DATA.currentUser)),
+    currentUser: clonar(DEFAULT_DATA.currentUser),
     currentScreen: "screen-home",
     previousScreen: null,
     activeFilter: "todos",
@@ -715,7 +736,7 @@ function loadInitialState() {
     profTab: "pedidos",
     bookingDraft: {
       professorId: 1,
-      tipo: "Monitoria",
+      tipo: "Atendimento",
       modalidade: "Presencial",
       data: "2026-11-12",
       dataTexto: "Qui, 12/11/2026",
@@ -724,13 +745,14 @@ function loadInitialState() {
       disciplina: "S05 - Interação Homem-Máquina",
       assunto: "",
       lembreteMin: 30,
-      local: "Sala 204 - Prédio Central"
+      local: LOCAL_SALA_PROFESSOR
     },
     selectedAppointment: null,
-    professores: JSON.parse(JSON.stringify(DEFAULT_DATA.professores)),
-    agendamentos: JSON.parse(JSON.stringify(DEFAULT_DATA.agendamentos)),
-    notificacoes: JSON.parse(JSON.stringify(DEFAULT_DATA.notificacoes)),
-    listaEspera: []
+    professores: saved.professores || clonar(DEFAULT_DATA.professores),
+    monitores: saved.monitores || clonar(DEFAULT_DATA.monitores),
+    agendamentos: saved.agendamentos || clonar(DEFAULT_DATA.agendamentos),
+    notificacoes: saved.notificacoes || clonar(DEFAULT_DATA.notificacoes),
+    listaEspera: saved.listaEspera || []
   };
 }
 
@@ -742,6 +764,7 @@ function persistState() {
         STORAGE_KEY,
         JSON.stringify({
           professores: AppState.professores,
+          monitores: AppState.monitores,
           agendamentos: AppState.agendamentos,
           notificacoes: AppState.notificacoes,
           listaEspera: AppState.listaEspera
@@ -753,10 +776,85 @@ function persistState() {
 }
 
 // ==========================================================================
+// UTILITÁRIOS DE DADOS (horários e locais)
+// ==========================================================================
+function escapeHtml(texto) {
+  return String(texto ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+// "Qui, 12/11/2026" -> "2026-11-12"
+function dataTextoParaISO(texto) {
+  const m = /(\d{2})\/(\d{2})\/(\d{4})/.exec(texto || "");
+  return m ? `${m[3]}-${m[2]}-${m[1]}` : null;
+}
+
+function getSlot(prof, dia, hora) {
+  return (prof && prof.horarios && prof.horarios[dia] && prof.horarios[dia].find(s => s.hora === hora)) || null;
+}
+
+// Local onde o atendimento acontece: remoto, o local definido no horário
+// publicado pelo professor, ou o local padrão do professor.
+function getLocalAtendimento(prof, dia, hora, modalidade) {
+  if (modalidade === "Remoto") return LOCAL_REMOTO;
+  const slot = getSlot(prof, dia, hora);
+  return (slot && slot.local) || (prof ? prof.localPadrao : LOCAL_SALA_PROFESSOR);
+}
+
+// ---- Conflito de locais compartilhados -----------------------------------
+const hhmmParaMin = hhmm => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
+
+const getLaboratorio = local => LABORATORIOS.find(l => l.local === local) || null;
+
+// Uso exclusivo = só um professor por horário: salas do Prédio 1 e laboratórios
+// exclusivos. Não são exclusivos: a sala do professor, o remoto e os espaços de
+// convivência (ex.: CDG Hub).
+function ehLocalExclusivo(local) {
+  if (!local || local === LOCAL_SALA_PROFESSOR || local === LOCAL_REMOTO) return false;
+  const lab = getLaboratorio(local);
+  return lab ? lab.exclusivo : true;
+}
+
+// Laboratórios são restritos às áreas dos professores (ex.: CDG Hub só para software).
+function professorPodeUsarLocal(prof, local) {
+  const lab = getLaboratorio(local);
+  if (!lab) return true;
+  return !!prof && (prof.areas || []).some(a => lab.areas.includes(a));
+}
+
+// Devolve { professor, slot } se OUTRO professor já usa esse local em horário
+// que se sobrepõe; senão null. A duração padrão é 30 min.
+function encontrarConflitoDeLocal(professorId, dia, hora, duracaoMin, local) {
+  if (!ehLocalExclusivo(local)) return null;
+  const ini = hhmmParaMin(hora);
+  const fim = ini + (duracaoMin || DURACAO_PADRAO_MIN);
+
+  for (const outro of AppState.professores) {
+    if (outro.id === professorId) continue;
+    for (const slot of (outro.horarios && outro.horarios[dia]) || []) {
+      if ((slot.local || outro.localPadrao) !== local) continue;
+      const sIni = hhmmParaMin(slot.hora);
+      const sFim = sIni + (slot.duracao || DURACAO_PADRAO_MIN);
+      if (ini < sFim && sIni < fim) return { professor: outro, slot };
+    }
+  }
+  return null;
+}
+
+// Libera o horário que um agendamento ocupava (só na data certa).
+function liberarSlotDoAgendamento(ag) {
+  const prof = AppState.professores.find(p => p.id === ag.professorId);
+  const dia = ag.dataISO || dataTextoParaISO(ag.data);
+  const hora = (ag.horario || "").split("–")[0].trim();
+  const slot = getSlot(prof, dia, hora);
+  if (slot) slot.status = "livre";
+}
+
+// ==========================================================================
 // INICIALIZAÇÃO
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
   ensureGradeBanner();
+  populateLocaisSelect();
   renderHomeNextBooking();
   renderProfessores();
   renderAgendamentos("proximos");
@@ -800,6 +898,8 @@ function navigateTo(screenId, recordHistory = true) {
     renderTimeSlotsForSelectedDay();
   } else if (screenId === "screen-professor-agenda") {
     renderProfessorView();
+  } else if (screenId === "screen-professor-disponibilidade") {
+    populateLocaisSelect();
   }
 
   const viewport = document.getElementById("appViewport");
@@ -856,27 +956,58 @@ function handleSearch(query) {
   renderProfessores();
 }
 
+function matchBusca(pessoa) {
+  const q = AppState.searchQuery;
+  if (!q) return true;
+  return (
+    pessoa.nome.toLowerCase().includes(q) ||
+    pessoa.depto.toLowerCase().includes(q) ||
+    pessoa.disciplinas.some(d => d.toLowerCase().includes(q))
+  );
+}
+
+function updateFilterChipCounts() {
+  const total = AppState.professores.length + AppState.monitores.length;
+  const chips = {
+    chipTodos: `Todos (${total})`,
+    chipProfessores: `Professores (${AppState.professores.length})`,
+    chipMonitores: `Monitores (${AppState.monitores.length})`
+  };
+  Object.entries(chips).forEach(([id, texto]) => {
+    const el = document.getElementById(id);
+    if (el) el.innerText = texto;
+  });
+}
+
 function renderProfessores() {
   const listContainer = document.getElementById("professorListContainer");
   if (!listContainer) return;
 
-  const filtrados = AppState.professores.filter(prof => {
-    if (AppState.activeFilter === "monitoria" && !prof.tags.includes("Monitoria")) return false;
-    if (AppState.activeFilter === "projetos" && !prof.tags.includes("Projetos")) return false;
+  updateFilterChipCounts();
 
-    if (AppState.searchQuery) {
-      const matchNome = prof.nome.toLowerCase().includes(AppState.searchQuery);
-      const matchDepto = prof.depto.toLowerCase().includes(AppState.searchQuery);
-      const matchDisc = prof.disciplinas.some(d => d.toLowerCase().includes(AppState.searchQuery));
-      return matchNome || matchDepto || matchDisc;
-    }
-    return true;
-  });
+  const filtro = AppState.activeFilter;
+
+  // Aba de monitores sem ninguém cadastrado: mensagem fixa (sem exemplos, por privacidade).
+  if (filtro === "monitores" && AppState.monitores.length === 0) {
+    listContainer.innerHTML = `
+      <div style="text-align: center; padding: 48px 24px; color: var(--text-muted);">
+        <p style="font-weight: 600;">Horários de monitores aparecerão aqui.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const fonte =
+    filtro === "professores" ? AppState.professores :
+    filtro === "monitores"   ? AppState.monitores :
+    [...AppState.professores, ...AppState.monitores];
+
+  const filtrados = fonte.filter(matchBusca);
 
   if (filtrados.length === 0) {
     listContainer.innerHTML = `
       <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
-        <p style="font-weight: 600; margin-bottom: 6px;">Nenhum professor encontrado</p>
+        <p style="font-weight: 600; margin-bottom: 6px;">Nenhum resultado encontrado</p>
         <p style="font-size: 12px;">Tente pesquisar por outro nome, disciplina ou sigla (ex: S05, C06, Cálculo).</p>
       </div>
     `;
@@ -967,20 +1098,25 @@ function renderTimeSlotsForSelectedDay() {
   ensureGradeBanner();
 
   const dia = AppState.bookingDraft.data;
-  const horarios = (prof.horarios && prof.horarios[dia]) || [
-    { hora: "14:00", status: "livre" },
-    { hora: "14:30", status: "livre" },
-    { hora: "15:00", status: "lotado" },
-    { hora: "15:30", status: "livre" },
-    { hora: "16:00", status: "livre" }
-  ];
+  const horarios = (prof.horarios && prof.horarios[dia]) || [];
+  const livres = horarios.filter(s => s.status === "livre");
 
-  const primeiroLivre = horarios.find(s => s.status === "livre");
-  if (primeiroLivre && !horarios.some(s => s.hora === AppState.bookingDraft.horarioInicio && s.status === "livre")) {
-    updateTimeSlotSelection(primeiroLivre.hora);
+  if (livres.length === 0) {
+    // Sem horário livre neste dia: nada fica selecionado e o avanço é bloqueado.
+    AppState.bookingDraft.horarioInicio = null;
+    AppState.bookingDraft.horario = "";
+  } else if (!livres.some(s => s.hora === AppState.bookingDraft.horarioInicio)) {
+    updateTimeSlotSelection(livres[0].hora);
   }
 
-  slotsGrid.innerHTML = horarios
+  if (horarios.length === 0) {
+    slotsGrid.innerHTML = `
+      <p style="grid-column: 1 / -1; font-size: 12px; color: var(--text-muted); padding: 8px 0;">
+        Este professor não abriu horários neste dia. Escolha outra data.
+      </p>
+    `;
+  } else {
+    slotsGrid.innerHTML = horarios
       .map(slot => {
         const isLotado = slot.status === "lotado";
         const isSelected = slot.hora === AppState.bookingDraft.horarioInicio && !isLotado;
@@ -1008,13 +1144,17 @@ function renderTimeSlotsForSelectedDay() {
       `;
       })
       .join("");
+  }
 
   updateGradeCompatibilityBanner(AppState.bookingDraft.horarioInicio);
+  updateSlotLocalInfo();
 }
 
 function updateTimeSlotSelection(hora, btnElement) {
   AppState.bookingDraft.horarioInicio = hora;
-  const duracaoMin = AppState.bookingDraft.tipo === "Monitoria" ? 30 : 45;
+  const profAtual = AppState.professores.find(p => p.id === AppState.bookingDraft.professorId);
+  const slotAtual = getSlot(profAtual, AppState.bookingDraft.data, hora);
+  const duracaoMin = (slotAtual && slotAtual.duracao) || (AppState.bookingDraft.tipo === "Atendimento" ? 30 : 45);
   const [h, m] = hora.split(":").map(Number);
   const totalMin = h * 60 + m + duracaoMin;
   const endH = String(Math.floor(totalMin / 60)).padStart(2, "0");
@@ -1025,11 +1165,36 @@ function updateTimeSlotSelection(hora, btnElement) {
   if (btnElement) btnElement.classList.add("selected");
 
   updateGradeCompatibilityBanner(hora);
+  updateSlotLocalInfo();
+}
+
+// Mostra, abaixo dos horários, onde será o atendimento no horário selecionado.
+function updateSlotLocalInfo() {
+  const el = document.getElementById("slotLocalInfo");
+  if (!el) return;
+
+  const prof = AppState.professores.find(p => p.id === AppState.bookingDraft.professorId);
+  const { data, horarioInicio } = AppState.bookingDraft;
+
+  if (!prof || !horarioInicio) {
+    el.style.display = "none";
+    return;
+  }
+
+  const local = getLocalAtendimento(prof, data, horarioInicio, "Presencial");
+  AppState.bookingDraft.local = local;
+  el.style.display = "block";
+  el.innerHTML = `<strong>Local (${horarioInicio}):</strong> ${local}`;
 }
 
 function updateGradeCompatibilityBanner(hora) {
   const banner = document.getElementById("gradeCompatBanner");
-  if (!banner || !hora) return;
+  if (!banner) return;
+  if (!hora) {
+    banner.style.display = "none";
+    return;
+  }
+  banner.style.display = "block";
 
   const [h, m] = hora.split(":").map(Number);
   const minutos = h * 60 + m;
@@ -1078,6 +1243,11 @@ function prepareConfirmationScreen() {
   const prof = AppState.professores.find(p => p.id === AppState.bookingDraft.professorId);
   if (!prof) return;
 
+  if (!AppState.bookingDraft.horarioInicio) {
+    showToast("Escolha um horário disponível para continuar.");
+    return;
+  }
+
   const discSelect = document.getElementById("confirmInputDisciplina");
   if (discSelect) {
     discSelect.innerHTML = prof.disciplinas.map(d => `<option value="${d}">${d}</option>`).join("");
@@ -1098,10 +1268,12 @@ function prepareConfirmationScreen() {
   document.getElementById("confirmProfNome").innerText = prof.nome;
   document.getElementById("confirmTipoDisciplina").innerText = `${AppState.bookingDraft.tipo} - ${AppState.bookingDraft.disciplina}`;
   document.getElementById("confirmDataHorario").innerText = `${AppState.bookingDraft.dataTexto} - ${AppState.bookingDraft.horario}`;
-  document.getElementById("confirmLocal").innerText =
-      AppState.bookingDraft.modalidade === "Remoto"
-          ? "Remoto (Microsoft Teams)"
-          : prof.localPadrao;
+  document.getElementById("confirmLocal").innerText = getLocalAtendimento(
+      prof,
+      AppState.bookingDraft.data,
+      AppState.bookingDraft.horarioInicio,
+      AppState.bookingDraft.modalidade
+  );
 
   navigateTo("screen-confirmar-agendamento");
 }
@@ -1117,12 +1289,12 @@ function handleConfirmModalidadeChange(novaModalidade) {
   const prof = AppState.professores.find(p => p.id === AppState.bookingDraft.professorId);
   const el = document.getElementById("confirmLocal");
   if (el) {
-    el.innerText =
-        novaModalidade === "Remoto"
-            ? "Remoto (Microsoft Teams)"
-            : prof
-                ? prof.localPadrao
-                : "Sala 204 - Prédio Central";
+    el.innerText = getLocalAtendimento(
+        prof,
+        AppState.bookingDraft.data,
+        AppState.bookingDraft.horarioInicio,
+        novaModalidade
+    );
   }
 }
 
@@ -1142,23 +1314,21 @@ function submitBooking() {
   const assunto = document.getElementById("confirmInputAssunto")?.value.trim() || "Dúvidas gerais da disciplina";
   const lembreteMin = document.getElementById("confirmInputLembrete")?.value || "30";
 
-  const localFinal =
-      modInput === "Remoto"
-          ? "Remoto (Microsoft Teams)"
-          : prof
-              ? prof.localPadrao
-              : "Sala 204 - Prédio Central";
+  const localFinal = getLocalAtendimento(
+      prof,
+      AppState.bookingDraft.data,
+      AppState.bookingDraft.horarioInicio,
+      modInput
+  );
 
-  if (prof && prof.horarios && prof.horarios[AppState.bookingDraft.data]) {
-    const slotObj = prof.horarios[AppState.bookingDraft.data].find(
-        s => s.hora === AppState.bookingDraft.horarioInicio
-    );
-    if (slotObj) slotObj.status = "lotado";
-  }
+  const slotObj = getSlot(prof, AppState.bookingDraft.data, AppState.bookingDraft.horarioInicio);
+  if (slotObj) slotObj.status = "lotado";
 
   if (AppState.rescheduleId) {
     const antigo = AppState.agendamentos.find(a => a.id === AppState.rescheduleId);
     if (antigo) {
+      liberarSlotDoAgendamento(antigo);
+      antigo.dataISO = AppState.bookingDraft.data;
       antigo.titulo = `${tipoInput} - ${discInput}`;
       antigo.tipo = tipoInput;
       antigo.disciplina = discInput;
@@ -1203,6 +1373,7 @@ function submitBooking() {
     disciplina: discInput,
     professor: prof ? prof.nome : "Professor Inatel",
     data: AppState.bookingDraft.dataTexto,
+    dataISO: AppState.bookingDraft.data,
     horario: AppState.bookingDraft.horario,
     local: localFinal,
     status: "PENDENTE",
@@ -1357,9 +1528,10 @@ function startRescheduleAppointment() {
 
   AppState.rescheduleId = item.id;
   AppState.bookingDraft.professorId = prof.id;
-  AppState.bookingDraft.tipo = item.tipo || "Monitoria";
+  AppState.bookingDraft.tipo = item.tipo || "Atendimento";
   AppState.bookingDraft.disciplina = item.disciplina || prof.disciplinas[0];
   AppState.bookingDraft.local = prof.localPadrao;
+  AppState.bookingDraft.modalidade = "Presencial";
 
   showToast("Escolha a nova data e horário para reagendar.");
   navigateTo("screen-escolher-horarios");
@@ -1385,14 +1557,7 @@ function confirmCancellation() {
   item.status = "CANCELADO";
   item.periodoGrupo = "Cancelados";
 
-  const prof = AppState.professores.find(p => p.id === item.professorId || p.nome === item.professor);
-  const horaInicio = item.horario.split("–")[0].trim();
-  if (prof && prof.horarios) {
-    Object.values(prof.horarios).forEach(listaSlots => {
-      const slot = listaSlots.find(s => s.hora === horaInicio);
-      if (slot) slot.status = "livre";
-    });
-  }
+  liberarSlotDoAgendamento(item);
 
   AppState.notificacoes.unshift({
     id: Date.now(),
@@ -1566,7 +1731,7 @@ function renderProfessorView() {
             <div>
               <h4 style="font-size: 14px; font-weight: 700; color: var(--text-title);">Ana Julia de Souza (Mat. 1048) · ${req.tipo}</h4>
               <div style="font-size: 12px; color: var(--inatel-blue-700); font-weight: 600;">${req.data} - ${req.horario} · ${req.disciplina}</div>
-              <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Local: ${req.local} · Assunto: ${req.assunto}</div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Local: ${req.local} · Assunto: ${escapeHtml(req.assunto)}</div>
             </div>
             <div class="request-actions">
               <button type="button" class="btn-refuse" onclick="refuseStudentRequest(${req.id})">Recusar</button>
@@ -1617,7 +1782,7 @@ function renderProfessorView() {
               ${slots
                     .map(
                         s =>
-                            `<span class="status-badge ${s.status === "livre" ? "livre" : "lotado"}">${s.hora} (${s.status})</span>`
+                            `<span class="status-badge ${s.status === "livre" ? "livre" : "lotado"}" title="${escapeHtml(s.local || prof.localPadrao)}">${s.hora} (${s.status})</span>`
                     )
                     .join("")}
             </div>
@@ -1655,15 +1820,7 @@ function refuseStudentRequest(appointmentId) {
     ag.status = "CANCELADO";
     ag.periodoGrupo = "Cancelados";
 
-    // Liberar slot novamente
-    const prof = AppState.professores.find(p => p.id === ag.professorId);
-    const horaInicio = ag.horario.split("–")[0].trim();
-    if (prof && prof.horarios) {
-      Object.values(prof.horarios).forEach(listaSlots => {
-        const slot = listaSlots.find(s => s.hora === horaInicio);
-        if (slot) slot.status = "livre";
-      });
-    }
+    liberarSlotDoAgendamento(ag);
 
     AppState.notificacoes.unshift({
       id: Date.now(),
@@ -1682,24 +1839,39 @@ function refuseStudentRequest(appointmentId) {
 }
 
 function handleProfessorSaveSlot() {
-  const prof = AppState.professores.find(p => p.id === 1);
+  const prof = AppState.professores.find(p => p.id === PROFESSOR_DEMO_ID);
   const dataVal = document.getElementById("profNewData")?.value || "2026-11-12";
   const horaVal = document.getElementById("profNewHora")?.value || "17:00";
+  const duracaoVal = parseInt(document.getElementById("profNewDuracao")?.value, 10) || DURACAO_PADRAO_MIN;
   const discVal = document.getElementById("profNewDisciplina")?.value || "S05 - Interação Homem-Máquina";
+  const localVal = document.getElementById("profNewLocal")?.value || LOCAL_SALA_PROFESSOR;
 
-  if (prof) {
-    if (!prof.horarios[dataVal]) prof.horarios[dataVal] = [];
-    const existe = prof.horarios[dataVal].some(s => s.hora === horaVal);
-    if (!existe) {
-      prof.horarios[dataVal].push({ hora: horaVal, status: "livre" });
-      prof.horarios[dataVal].sort((a, b) => a.hora.localeCompare(b.hora));
-    }
+  if (!prof) return;
+
+  if (!professorPodeUsarLocal(prof, localVal)) {
+    showToast(`${localVal} é restrito a professores de outra área.`);
+    return;
   }
+
+  const conflito = encontrarConflitoDeLocal(prof.id, dataVal, horaVal, duracaoVal, localVal);
+  if (conflito) {
+    showToast(`${localVal} já está em uso nesse horário (${conflito.professor.nome.split(" ").slice(0, 2).join(" ")}, ${conflito.slot.hora}). Escolha outro local.`);
+    populateLocaisSelect();
+    return;
+  }
+
+  if (!prof.horarios[dataVal]) prof.horarios[dataVal] = [];
+  if (prof.horarios[dataVal].some(s => s.hora === horaVal)) {
+    showToast(`Você já abriu um horário às ${horaVal} neste dia.`);
+    return;
+  }
+  prof.horarios[dataVal].push({ hora: horaVal, status: "livre", local: localVal, duracao: duracaoVal });
+  prof.horarios[dataVal].sort((a, b) => a.hora.localeCompare(b.hora));
 
   AppState.notificacoes.unshift({
     id: Date.now(),
     titulo: "Novo horário aberto pelo docente",
-    mensagem: `Prof. Raphael disponibilizou o horário ${horaVal} (${dataVal.split("-").reverse().join("/")}) para ${discVal}.`,
+    mensagem: `Prof. Raphael disponibilizou o horário ${horaVal} (${dataVal.split("-").reverse().join("/")}) para ${discVal} (${localVal}).`,
     tempo: "Agora mesmo",
     tipo: "aviso",
     lida: false
@@ -1716,6 +1888,45 @@ function handleProfessorSaveSlot() {
 // ==========================================================================
 // UTILITÁRIOS E MENU LATERAL
 // ==========================================================================
+// Preenche o seletor de local do professor. Salas/laboratórios exclusivos já usados por
+// outro professor no mesmo dia e horário ficam desabilitados; laboratórios só aparecem
+// para professores das áreas autorizadas.
+function populateLocaisSelect() {
+  const select = document.getElementById("profNewLocal");
+  if (!select) return;
+
+  const prof = AppState.professores.find(p => p.id === PROFESSOR_DEMO_ID);
+  const dia = document.getElementById("profNewData")?.value || "2026-11-12";
+  const hora = document.getElementById("profNewHora")?.value || "17:00";
+  const duracao = parseInt(document.getElementById("profNewDuracao")?.value, 10) || DURACAO_PADRAO_MIN;
+  const anterior = select.value;
+
+  const opcao = (valor, rotulo) => {
+    const ocupado = !!encontrarConflitoDeLocal(PROFESSOR_DEMO_ID, dia, hora, duracao, valor);
+    return `<option value="${valor}" ${ocupado ? "disabled" : ""}>${rotulo}${ocupado ? " (ocupado neste horário)" : ""}</option>`;
+  };
+
+  const salas = Array.from({ length: PREDIO_1_TOTAL_SALAS }, (_, i) => i + 1)
+    .map(n => opcao(salaPredio1(n), `Sala ${n}`))
+    .join("");
+
+  const labs = LABORATORIOS
+    .filter(l => professorPodeUsarLocal(prof, l.local))
+    .map(l => opcao(l.local, l.rotulo))
+    .join("");
+
+  select.innerHTML = `
+    <optgroup label="Prédio 3">
+      <option value="${LOCAL_SALA_PROFESSOR}">Minha sala (2º piso)</option>
+    </optgroup>
+    ${labs ? `<optgroup label="Laboratórios da sua área">${labs}</optgroup>` : ""}
+    <optgroup label="Prédio 1 (salas 1 a ${PREDIO_1_TOTAL_SALAS})">${salas}</optgroup>
+  `;
+
+  const opAnterior = [...select.options].find(o => o.value === anterior && !o.disabled);
+  select.value = opAnterior ? anterior : LOCAL_SALA_PROFESSOR;
+}
+
 function showToast(message) {
   const toast = document.getElementById("toastAlert");
   const msgElement = document.getElementById("toastMsg");
@@ -1751,8 +1962,11 @@ function toggleDeviceMode() {
 }
 
 function resetDemo() {
-  localStorage.removeItem(STORAGE_KEY);
-  localStorage.clear();
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (e) {
+    console.warn("Erro ao limpar estado:", e);
+  }
   window.location.reload();
 }
 
